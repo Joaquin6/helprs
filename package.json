@@ -1,0 +1,23 @@
+{
+  "name": "helprs",
+  "version": "0.1.0",
+  "description": "Helprs help reduce some monotony particularly while writing automated tests or anywhere else you need anything in a Node environment.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joaquin6/helprs.git"
+  },
+  "keywords": [
+    "node-helpers",
+    "helprs"
+  ],
+  "author": "Joaquin Briceno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joaquin6/helprs/issues"
+  },
+  "homepage": "https://github.com/Joaquin6/helprs#readme"
+}
