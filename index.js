@@ -7,7 +7,7 @@ var _rdm = require("./util/rdm"),
 var slice = Array.prototype.slice;
 
 // Constructor
-var Helprs = function(seed) {
+function Helprs(seed) {
 	if (!(this instanceof Helprs)) {
 		return seed == null ? new Helprs() : new Helprs(seed);
 	}
@@ -45,8 +45,6 @@ var Helprs = function(seed) {
 	};
 	return this;
 };
-
-module.exports = Helprs;
 
 Helprs.prototype.VERSION = "0.1.0";
 
@@ -2747,7 +2745,7 @@ Helprs.prototype.spaceUppercases = function(strings) {
 	return strings;
 };
 /**
- * Utility that changes the content of a string by removing a range of
+ * Helprs that changes the content of a string by removing a range of
  * characters and/or adding new characters.
  *
  * @param {String}
@@ -3126,3 +3124,5 @@ Helprs.prototype.getContentType = function(filename) {
 
 	return ContentType;
 };
+
+module.exports = new Helprs();
