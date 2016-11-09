@@ -1,6 +1,6 @@
 {
   "name": "helprs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Helprs help reduce some monotony particularly while writing automated tests or anywhere else you need anything in a Node environment.",
   "main": "index.js",
   "scripts": {
