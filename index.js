@@ -2557,7 +2557,7 @@ var o_keys = (Object.keys || function(obj) {
 
 /** Get the _data based on key**/
 Helprs.prototype.get = function(name) {
-	return _rdm.copyObject(__data[name]);
+	return _rdm.copyObject(_data[name]);
 };
 
 // Mac Address
@@ -2814,9 +2814,10 @@ Helprs.prototype.dump = function(_data) {
  * @return  {String}          Return a built slug for the _database.
  */
 Helprs.prototype.generateSlug = function(string) {
-	if (typeof string === 'number')
-		string = string.toString();
-	return string.toLowerCase().trim().replace(/(\s+|\/)/g, "-");
+	var slug = string;
+	if (typeof slug === 'number')
+		slug = slug.toString();
+	return slug.toLowerCase().trim().replace(/(\s+|\/)/g, "-");
 };
 Helprs.prototype.Exception = function(message, code) {
 	var error = new Error(message);
@@ -3045,19 +3046,19 @@ Helprs.prototype.removeFromString = function(string, toRemove, replaceWith) {
 	return string;
 };
 Helprs.prototype.validateStateAbbr = function(stateAbbr) {
-	if (__data.usStates[stateAbbr] !== undefined)
+	if (_data.usStates[stateAbbr] !== undefined)
 		return true;
-	if (__data.CanadianProvinces[stateAbbr] !== undefined)
+	if (_data.CanadianProvinces[stateAbbr] !== undefined)
 		return true;
 	return false;
 };
 Helprs.prototype.validateCountry = function(value) {
-	if (__data.isoCountries[value] !== undefined)
+	if (_data.isoCountries[value] !== undefined)
 		return true;
 	value = this.capitalizeFirstLetter(value.toString());
-	for (var country in __data.isoCountries) {
-		if (__data.isoCountries.hasOwnProperty(country)) {
-			if (__data.isoCountries[country] === value)
+	for (var country in _data.isoCountries) {
+		if (_data.isoCountries.hasOwnProperty(country)) {
+			if (_data.isoCountries[country] === value)
 				return true;
 		}
 	}
@@ -3074,14 +3075,15 @@ Helprs.prototype.isValidZipcode = function(value, countryCode) {
 	return isValidZip;
 };
 Helprs.prototype.isNonUSCountry = function(value) {
-	if (value != "US" && __data.isoCountries[value] !== undefined)
-		return __data.isoCountries[value];
+	if (value != "US" && _data.isoCountries[value] !== undefined)
+		return _data.isoCountries[value];
 	return null;
 };
 Helprs.prototype.getContentType = function(filename) {
 	var ContentType = "application/octet-stream";
 	var splFile = filename.split(".");
-	var extension = "." + splFile[splFile.length - 1];
+	var extType = splFile[splFile.length - 1];
+	var extension = "." + extType.toLowerCase();
 
 	switch (extension) {
 		case ".css":
