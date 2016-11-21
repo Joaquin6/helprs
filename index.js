@@ -3045,6 +3045,12 @@ Helprs.prototype.removeFromString = function(string, toRemove, replaceWith) {
 		string = string.replace(toRemove, replaceWith);
 	return string;
 };
+Helprs.prototype.validateEmail = function(email) {
+	if (email.length == 0)
+		return false;
+	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	return re.test(email);
+};
 Helprs.prototype.validateStateAbbr = function(stateAbbr) {
 	if (_data.usStates[stateAbbr] !== undefined)
 		return true;
