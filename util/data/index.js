@@ -1,3 +1,4 @@
+var _continentCodes = require("./src/countries/continentcodes.json");
 var _toISO3Countries = require("./src/countries/toISO3.json");
 var _countryCapitals = require("./src/countries/capitals.json");
 var _phoneCodes = require("./src/phonecodes.json");
@@ -15,6 +16,7 @@ module.exports.CHARS_LOWER = CHARS_LOWER;
 module.exports.CHARS_UPPER = CHARS_LOWER.toUpperCase();
 module.exports.HEX_POOL = NUMBERS + "abcdef";
 
+module.exports.continentCodes = _continentCodes;
 module.exports.currencyCodes = _currencyCodes;
 module.exports.phoneCodes = _phoneCodes;
 module.exports.toISO3Countries = _toISO3Countries;
