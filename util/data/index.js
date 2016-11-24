@@ -1,4 +1,5 @@
 var _toISO3Countries = require("./src/countries/toISO3.json");
+var _countryCapitals = require("./src/countries/capitals.json");
 var _phoneCodes = require("./src/phonecodes.json");
 var _currencyCodes = require("./src/currencycodes.json");
 
@@ -17,6 +18,7 @@ module.exports.HEX_POOL = NUMBERS + "abcdef";
 module.exports.currencyCodes = _currencyCodes;
 module.exports.phoneCodes = _phoneCodes;
 module.exports.toISO3Countries = _toISO3Countries;
+module.exports.countryCapitals = _countryCapitals;
 
 module.exports.usStates = {
 	"AL": "Alabama",
