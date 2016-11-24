@@ -1747,6 +1747,7 @@ Helprs.prototype.street_suffixes = function(options) {
 };
 
 Helprs.prototype.countryToISO3 = function(iso2Country, options) {
+	iso2Country = iso2Country.toUpperCase();
 	if (!this._isISO2Country(iso2Country))
 		return iso2Country;
 	var responseCountry = {
