@@ -2576,6 +2576,14 @@ Helprs.prototype.get = function(name) {
 	return _rdm.copyObject(_data[name]);
 };
 
+Helprs.prototype.getPhoneCodes = function(options) {
+	return _data.phoneCodes;
+};
+
+Helprs.prototype.getCurrencyCodes = function(options) {
+	return _data.currencyCodes;
+};
+
 // Mac Address
 Helprs.prototype.mac_address = function(options) {
 	// typically mac addresses are separated by ":"
