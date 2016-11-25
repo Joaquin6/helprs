@@ -14,9 +14,10 @@ var _basics = require("./src/basics"),
 	_territories = require("./src/territories"),
 	_provinces = require("./src/provinces"),
 	_canadianProvinces = require("./src/canadianProvinces"),
+	_canadianPostalCodes = require("./src/canadianPostalCodes"),
 	_armedForces = require("./src/armedForces"),
 	_streetSuffixes = require("./src/streetSuffixes"),
-	_zipcodes = require("./src/zipcodes"),
+	_usZipCodes = require("./src/usZipCodes"),
 	_lastNames = require("./src/person/lastNames"),
 	_firstNames = require("./src/person/firstNames"),
 	_countries = require("./src/countries/country"),
@@ -36,6 +37,7 @@ module.exports = {
 	HEX_POOL: _basics.NUMBERS + "abcdef",
 	// all required data
 	armed_forces: _armedForces,
+	canadianPostalCodes: _canadianPostalCodes,
 	canadianProvinces: _canadianProvinces,
 	cc_types: _ccTypes,
 	colorNames: _colorNames,
@@ -60,5 +62,5 @@ module.exports = {
 	toISO3Countries: _toISO3Countries,
 	usStates: _usStates,
 	usStatesAndDC: _usStatesAndDC,
-	zipcodes: _zipcodes
+	usZipCodes: _usZipCodes
 };
