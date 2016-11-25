@@ -1,7 +1,7 @@
 var _rdm = require("./util/rdm"),
-	_data = require("./util/data"),
-    _blueImpMD5 = require("./util/blueimp"),
-    _mersenneTwister = require("./util/mtwist");
+_data = require("./util/data"),
+_blueImpMD5 = require("./util/blueimp"),
+_mersenneTwister = require("./util/mtwist");
 
 // Cached array helpers
 var slice = Array.prototype.slice;
@@ -46,8 +46,6 @@ function Helprs(seed) {
 	return this;
 };
 
-Helprs.prototype.VERSION = "0.1.0";
-
 Helprs.prototype.bool = function(options) {
 	// likelihood of success (true)
 	options = _rdm.initOptions(options, {
@@ -64,7 +62,7 @@ Helprs.prototype.bool = function(options) {
 	_rdm.testRange(
 		options.likelihood < 0 || options.likelihood > 100,
 		"Helprs: Likelihood accepts values from 0 to 100."
-	);
+		);
 
 	return this.random() * 100 < options.likelihood;
 };
@@ -77,38 +75,38 @@ Helprs.prototype.bool = function(options) {
  *  @returns {String} a single random character
  *  @throws {RangeError} Can only specify alpha or symbols, not both
  */
-Helprs.prototype.character = function(options) {
-	options = _rdm.initOptions(options);
-	_rdm.testRange(
-		options.alpha && options.symbols,
-		"Helprs: Cannot specify both alpha and symbols."
-	);
+ Helprs.prototype.character = function(options) {
+ 	options = _rdm.initOptions(options);
+ 	_rdm.testRange(
+ 		options.alpha && options.symbols,
+ 		"Helprs: Cannot specify both alpha and symbols."
+ 		);
 
-	var symbols = "!@#$%^&*()[]",
-		letters, pool;
+ 	var symbols = "!@#$%^&*()[]",
+ 	letters, pool;
 
-	if (options.casing === 'lower') {
-		letters = _data.CHARS_LOWER;
-	} else if (options.casing === 'upper') {
-		letters = _data.CHARS_UPPER;
-	} else {
-		letters = _data.CHARS_LOWER + _data.CHARS_UPPER;
-	}
+ 	if (options.casing === 'lower') {
+ 		letters = _data.CHARS_LOWER;
+ 	} else if (options.casing === 'upper') {
+ 		letters = _data.CHARS_UPPER;
+ 	} else {
+ 		letters = _data.CHARS_LOWER + _data.CHARS_UPPER;
+ 	}
 
-	if (options.pool) {
-		pool = options.pool;
-	} else if (options.alpha) {
-		pool = letters;
-	} else if (options.symbols) {
-		pool = symbols;
-	} else {
-		pool = letters + _data.NUMBERS + symbols;
-	}
+ 	if (options.pool) {
+ 		pool = options.pool;
+ 	} else if (options.alpha) {
+ 		pool = letters;
+ 	} else if (options.symbols) {
+ 		pool = symbols;
+ 	} else {
+ 		pool = letters + _data.NUMBERS + symbols;
+ 	}
 
-	return pool.charAt(this.natural({
-		max: (pool.length - 1)
-	}));
-};
+ 	return pool.charAt(this.natural({
+ 		max: (pool.length - 1)
+ 	}));
+ };
 
 // Note, wanted to use "float" or "double" but those are both JS reserved words.
 
@@ -124,34 +122,34 @@ Helprs.prototype.character = function(options) {
  *  @throws {RangeError} Can only specify fixed or precision, not both. Also
  *    min cannot be greater than max
  */
-Helprs.prototype.floating = function(options) {
-	options = _rdm.initOptions(options, {
-		fixed: 4
-	});
-	_rdm.testRange(
-		options.fixed && options.precision,
-		"Helprs: Cannot specify both fixed and precision."
-	);
+ Helprs.prototype.floating = function(options) {
+ 	options = _rdm.initOptions(options, {
+ 		fixed: 4
+ 	});
+ 	_rdm.testRange(
+ 		options.fixed && options.precision,
+ 		"Helprs: Cannot specify both fixed and precision."
+ 		);
 
-	var num;
-	var fixed = Math.pow(10, options.fixed);
+ 	var num;
+ 	var fixed = Math.pow(10, options.fixed);
 
-	var max = _data.MAX_INT / fixed;
-	var min = -max;
+ 	var max = _data.MAX_INT / fixed;
+ 	var min = -max;
 
-	_rdm.testRange(
-		options.min && options.fixed && options.min < min,
-		"Helprs: Min specified is out of range with fixed. Min should be, at least, " + min
-	);
-	_rdm.testRange(
-		options.max && options.fixed && options.max > max,
-		"Helprs: Max specified is out of range with fixed. Max should be, at most, " + max
-	);
+ 	_rdm.testRange(
+ 		options.min && options.fixed && options.min < min,
+ 		"Helprs: Min specified is out of range with fixed. Min should be, at least, " + min
+ 		);
+ 	_rdm.testRange(
+ 		options.max && options.fixed && options.max > max,
+ 		"Helprs: Max specified is out of range with fixed. Max should be, at most, " + max
+ 		);
 
-	options = _rdm.initOptions(options, {
-		min: min,
-		max: max
-	});
+ 	options = _rdm.initOptions(options, {
+ 		min: min,
+ 		max: max
+ 	});
 
 	// Todo - Make this work!
 	// options.precision = (typeof options.precision !== "undefined") ? options.precision : false;
@@ -176,7 +174,7 @@ Helprs.prototype.floating = function(options) {
  *  @returns {Number} a single random integer number
  *  @throws {RangeError} min cannot be greater than max
  */
-Helprs.prototype.integer = function(options) {
+ Helprs.prototype.integer = function(options) {
 	// 9007199254740992 (2^53) is the max integer number in JavaScript
 	// See: http://vq.io/132sa2j
 	options = _rdm.initOptions(options, {
@@ -199,14 +197,14 @@ Helprs.prototype.integer = function(options) {
  *  @returns {Number} a single random integer number
  *  @throws {RangeError} min cannot be greater than max
  */
-Helprs.prototype.natural = function(options) {
-	options = _rdm.initOptions(options, {
-		min: 0,
-		max: _data.MAX_INT
-	});
-	_rdm.testRange(options.min < 0, "Helprs: Min cannot be less than zero.");
-	return this.integer(options);
-};
+ Helprs.prototype.natural = function(options) {
+ 	options = _rdm.initOptions(options, {
+ 		min: 0,
+ 		max: _data.MAX_INT
+ 	});
+ 	_rdm.testRange(options.min < 0, "Helprs: Min cannot be less than zero.");
+ 	return this.integer(options);
+ };
 
 /**
  *  Return a random string
@@ -215,19 +213,19 @@ Helprs.prototype.natural = function(options) {
  *  @returns {String} a string of random length
  *  @throws {RangeError} length cannot be less than zero
  */
-Helprs.prototype.string = function(options) {
-	options = _rdm.initOptions(options, {
-		length: this.natural({
-			min: 5,
-			max: 20
-		})
-	});
-	_rdm.testRange(options.length < 0, "Helprs: Length cannot be less than zero.");
-	var length = options.length,
-		text = this.n(this.character, length, options);
+ Helprs.prototype.string = function(options) {
+ 	options = _rdm.initOptions(options, {
+ 		length: this.natural({
+ 			min: 5,
+ 			max: 20
+ 		})
+ 	});
+ 	_rdm.testRange(options.length < 0, "Helprs: Length cannot be less than zero.");
+ 	var length = options.length,
+ 	text = this.n(this.character, length, options);
 
-	return text.join("");
-};
+ 	return text.join("");
+ };
 
 // -- End Basics --
 
@@ -255,30 +253,30 @@ Helprs.prototype.mixin = function(obj) {
  *
  *  There can be more parameters after these. All additional parameters are provided to the given function
  */
-Helprs.prototype.unique = function(fn, num, options) {
-	_rdm.testRange(
-		typeof fn !== "function",
-		"Helprs: The first argument must be a function."
-	);
+ Helprs.prototype.unique = function(fn, num, options) {
+ 	_rdm.testRange(
+ 		typeof fn !== "function",
+ 		"Helprs: The first argument must be a function."
+ 		);
 
-	var comparator = function(arr, val) {
-		return arr.indexOf(val) !== -1;
-	};
+ 	var comparator = function(arr, val) {
+ 		return arr.indexOf(val) !== -1;
+ 	};
 
-	if (options) {
-		comparator = options.comparator || comparator;
-	}
+ 	if (options) {
+ 		comparator = options.comparator || comparator;
+ 	}
 
-	var arr = [],
-		count = 0,
-		result, MAX_DUPLICATES = num * 50,
-		params = slice.call(arguments, 2);
+ 	var arr = [],
+ 	count = 0,
+ 	result, MAX_DUPLICATES = num * 50,
+ 	params = slice.call(arguments, 2);
 
-	while (arr.length < num) {
-		var clonedParams = JSON.parse(JSON.stringify(params));
-		result = fn.apply(this, clonedParams);
-		if (!comparator(arr, result)) {
-			arr.push(result);
+ 	while (arr.length < num) {
+ 		var clonedParams = JSON.parse(JSON.stringify(params));
+ 		result = fn.apply(this, clonedParams);
+ 		if (!comparator(arr, result)) {
+ 			arr.push(result);
 			// reset count when unique found
 			count = 0;
 		}
@@ -299,18 +297,18 @@ Helprs.prototype.unique = function(fn, num, options) {
  *
  *  There can be more parameters after these. All additional parameters are provided to the given function
  */
-Helprs.prototype.n = function(fn, n) {
-	_rdm.testRange(
-		typeof fn !== "function",
-		"Helprs: The first argument must be a function."
-	);
+ Helprs.prototype.n = function(fn, n) {
+ 	_rdm.testRange(
+ 		typeof fn !== "function",
+ 		"Helprs: The first argument must be a function."
+ 		);
 
-	if (typeof n === 'undefined') {
-		n = 1;
-	}
-	var i = n,
-		arr = [],
-		params = slice.call(arguments, 2);
+ 	if (typeof n === 'undefined') {
+ 		n = 1;
+ 	}
+ 	var i = n,
+ 	arr = [],
+ 	params = slice.call(arguments, 2);
 
 	// Providing a negative count should result in a noop.
 	i = Math.max(0, i);
@@ -375,9 +373,9 @@ Helprs.prototype.pickset = function(arr, count) {
 
 Helprs.prototype.shuffle = function(arr) {
 	var old_array = arr.slice(0),
-		new_array = [],
-		j = 0,
-		length = Number(old_array.length);
+	new_array = [],
+	j = 0,
+	length = Number(old_array.length);
 
 	for (var i = 0; i < length; i++) {
 		// Pick a random index from the array
@@ -455,10 +453,10 @@ Helprs.prototype.paragraph = function(options) {
 	options = _rdm.initOptions(options);
 
 	var sentences = options.sentences || this.natural({
-			min: 3,
-			max: 7
-		}),
-		sentence_array = this.n(this.sentence, sentences);
+		min: 3,
+		max: 7
+	}),
+	sentence_array = this.n(this.sentence, sentences);
 
 	return sentence_array.join(' ');
 };
@@ -469,11 +467,11 @@ Helprs.prototype.sentence = function(options) {
 	options = _rdm.initOptions(options);
 
 	var words = options.words || this.natural({
-			min: 12,
-			max: 18
-		}),
-		punctuation = options.punctuation,
-		text, word_array = this.n(this.word, words);
+		min: 12,
+		max: 18
+	}),
+	punctuation = options.punctuation,
+	text, word_array = this.n(this.word, words);
 
 	text = word_array.join(' ');
 
@@ -497,9 +495,9 @@ Helprs.prototype.syllable = function(options) {
 	options = _rdm.initOptions(options);
 
 	var length = options.length || this.natural({
-			min: 2,
-			max: 3
-		}),
+		min: 2,
+		max: 3
+	}),
 		consonants = 'bcdfghjklmnprstvwz', // consonants except hard to speak ones
 		vowels = 'aeiou', // vowels
 		all = consonants + vowels, // all
@@ -542,13 +540,13 @@ Helprs.prototype.word = function(options) {
 	_rdm.testRange(
 		options.syllables && options.length,
 		"Helprs: Cannot specify both syllables AND length."
-	);
+		);
 
 	var syllables = options.syllables || this.natural({
-			min: 1,
-			max: 3
-		}),
-		text = '';
+		min: 1,
+		max: 3
+	}),
+	text = '';
 
 	if (options.length) {
 		// Either bound word by length
@@ -580,41 +578,41 @@ Helprs.prototype.age = function(options) {
 
 	switch (options.type) {
 		case 'child':
-			ageRange = {
-				min: 0,
-				max: 12
-			};
-			break;
+		ageRange = {
+			min: 0,
+			max: 12
+		};
+		break;
 		case 'teen':
-			ageRange = {
-				min: 13,
-				max: 19
-			};
-			break;
+		ageRange = {
+			min: 13,
+			max: 19
+		};
+		break;
 		case 'adult':
-			ageRange = {
-				min: 18,
-				max: 65
-			};
-			break;
+		ageRange = {
+			min: 18,
+			max: 65
+		};
+		break;
 		case 'senior':
-			ageRange = {
-				min: 65,
-				max: 100
-			};
-			break;
+		ageRange = {
+			min: 65,
+			max: 100
+		};
+		break;
 		case 'all':
-			ageRange = {
-				min: 0,
-				max: 100
-			};
-			break;
+		ageRange = {
+			min: 0,
+			max: 100
+		};
+		break;
 		default:
-			ageRange = {
-				min: 18,
-				max: 65
-			};
-			break;
+		ageRange = {
+			min: 18,
+			max: 65
+		};
+		break;
 	}
 
 	return this.natural(ageRange);
@@ -730,8 +728,8 @@ Helprs.prototype.israelId = function() {
 Helprs.prototype.mrz = function(options) {
 	var checkDigit = function(input) {
 		var alpha = "<ABCDEFGHIJKLMNOPQRSTUVWXYXZ".split(''),
-			multipliers = [7, 3, 1],
-			runningTotal = 0;
+		multipliers = [7, 3, 1],
+		runningTotal = 0;
 
 		if (typeof input !== 'string') {
 			input = input.toString();
@@ -755,27 +753,27 @@ Helprs.prototype.mrz = function(options) {
 			return new Array(length + 1).join('<');
 		};
 		var number = ['P<',
-			opts.issuer,
-			opts.last.toUpperCase(),
-			'<<',
-			opts.first.toUpperCase(),
-			pad(39 - (opts.last.length + opts.first.length + 2)),
-			opts.passportNumber,
-			checkDigit(opts.passportNumber),
-			opts.nationality,
-			opts.dob,
-			checkDigit(opts.dob),
-			opts.gender,
-			opts.expiry,
-			checkDigit(opts.expiry),
-			pad(14),
-			checkDigit(pad(14))
+		opts.issuer,
+		opts.last.toUpperCase(),
+		'<<',
+		opts.first.toUpperCase(),
+		pad(39 - (opts.last.length + opts.first.length + 2)),
+		opts.passportNumber,
+		checkDigit(opts.passportNumber),
+		opts.nationality,
+		opts.dob,
+		checkDigit(opts.dob),
+		opts.gender,
+		opts.expiry,
+		checkDigit(opts.expiry),
+		pad(14),
+		checkDigit(pad(14))
 		].join('');
 
 		return number +
-			(checkDigit(number.substr(44, 10) +
-				number.substr(57, 7) +
-				number.substr(65, 7)));
+		(checkDigit(number.substr(44, 10) +
+			number.substr(57, 7) +
+			number.substr(65, 7)));
 	};
 
 	var that = this;
@@ -792,15 +790,15 @@ Helprs.prototype.mrz = function(options) {
 				type: 'adult'
 			});
 			return [date.getFullYear().toString().substr(2),
-				that.pad(date.getMonth() + 1, 2),
-				that.pad(date.getDate(), 2)
+			that.pad(date.getMonth() + 1, 2),
+			that.pad(date.getDate(), 2)
 			].join('');
 		}()),
 		expiry: (function() {
 			var date = new Date();
 			return [(date.getFullYear() + 5).toString().substr(2),
-				that.pad(date.getMonth() + 1, 2),
-				that.pad(date.getDate(), 2)
+			that.pad(date.getMonth() + 1, 2),
+			that.pad(date.getDate(), 2)
 			].join('');
 		}()),
 		gender: this.gender() === 'Female' ? 'F' : 'M',
@@ -814,8 +812,8 @@ Helprs.prototype.name = function(options) {
 	options = _rdm.initOptions(options);
 
 	var first = this.first(options),
-		last = this.last(options),
-		name;
+	last = this.last(options),
+	name;
 
 	if (options.middle) {
 		name = first + ' ' + this.first(options) + ' ' + last;
@@ -881,8 +879,8 @@ Helprs.prototype.name_prefix = function(options) {
 		gender: "all"
 	});
 	return options.full ?
-		this.pick(this.name_prefixes(options.gender)).name :
-		this.pick(this.name_prefixes(options.gender)).abbreviation;
+	this.pick(this.name_prefixes(options.gender)).name :
+	this.pick(this.name_prefixes(options.gender)).abbreviation;
 };
 //Hungarian ID number
 Helprs.prototype.HIDN = function() {
@@ -908,22 +906,22 @@ Helprs.prototype.ssn = function(options) {
 		dashes: true
 	});
 	var ssn_pool = "1234567890",
-		ssn,
-		dash = options.dashes ? '-' : '';
+	ssn,
+	dash = options.dashes ? '-' : '';
 
 	if (!options.ssnFour) {
 		ssn = this.string({
-				pool: ssn_pool,
-				length: 3
-			}) + dash +
-			this.string({
-				pool: ssn_pool,
-				length: 2
-			}) + dash +
-			this.string({
-				pool: ssn_pool,
-				length: 4
-			});
+			pool: ssn_pool,
+			length: 3
+		}) + dash +
+		this.string({
+			pool: ssn_pool,
+			length: 2
+		}) + dash +
+		this.string({
+			pool: ssn_pool,
+			length: 4
+		});
 	} else {
 		ssn = this.string({
 			pool: ssn_pool,
@@ -990,8 +988,8 @@ Helprs.prototype.suffix = function(options) {
 Helprs.prototype.name_suffix = function(options) {
 	options = _rdm.initOptions(options);
 	return options.full ?
-		this.pick(this.name_suffixes()).name :
-		this.pick(this.name_suffixes()).abbreviation;
+	this.pick(this.name_suffixes()).name :
+	this.pick(this.name_suffixes()).abbreviation;
 };
 
 Helprs.prototype.nationalities = function() {
@@ -1115,14 +1113,14 @@ Helprs.prototype.avatar = function(options) {
 	opts.fileExtension = FILE_TYPES[opts.fileExtension] ? opts.fileExtension : '';
 
 	url =
-		opts.protocol +
-		URL_BASE +
-		this.bimd5.md5(opts.email) +
-		(opts.fileExtension ? '.' + opts.fileExtension : '') +
-		(opts.size || opts.rating || opts.fallback ? '?' : '') +
-		(opts.size ? '&s=' + opts.size.toString() : '') +
-		(opts.rating ? '&r=' + opts.rating : '') +
-		(opts.fallback ? '&d=' + opts.fallback : '');
+	opts.protocol +
+	URL_BASE +
+	this.bimd5.md5(opts.email) +
+	(opts.fileExtension ? '.' + opts.fileExtension : '') +
+	(opts.size || opts.rating || opts.fallback ? '?' : '') +
+	(opts.size ? '&s=' + opts.size.toString() : '') +
+	(opts.rating ? '&r=' + opts.rating : '') +
+	(opts.fallback ? '&d=' + opts.fallback : '');
 
 	return url;
 };
@@ -1163,125 +1161,125 @@ Helprs.prototype.avatar = function(options) {
  * @param  [object] options
  * @return [string] color value
  */
-Helprs.prototype.color = function(options) {
+ Helprs.prototype.color = function(options) {
 
-	function gray(value, delimiter) {
-		return [value, value, value].join(delimiter || '');
-	}
+ 	function gray(value, delimiter) {
+ 		return [value, value, value].join(delimiter || '');
+ 	}
 
-	function rgb(hasAlpha) {
+ 	function rgb(hasAlpha) {
 
-		var rgbValue = (hasAlpha) ? 'rgba' : 'rgb';
-		var alphaChanal = (hasAlpha) ? (',' + this.floating({
-			min: 0,
-			max: 1
-		})) : "";
-		var colorValue = (isGrayscale) ? (gray(this.natural({
-			max: 255
-		}), ',')) : (this.natural({
-			max: 255
-		}) + ',' + this.natural({
-			max: 255
-		}) + ',' + this.natural({
-			max: 255
-		}));
+ 		var rgbValue = (hasAlpha) ? 'rgba' : 'rgb';
+ 		var alphaChanal = (hasAlpha) ? (',' + this.floating({
+ 			min: 0,
+ 			max: 1
+ 		})) : "";
+ 		var colorValue = (isGrayscale) ? (gray(this.natural({
+ 			max: 255
+ 		}), ',')) : (this.natural({
+ 			max: 255
+ 		}) + ',' + this.natural({
+ 			max: 255
+ 		}) + ',' + this.natural({
+ 			max: 255
+ 		}));
 
-		return rgbValue + '(' + colorValue + alphaChanal + ')';
-	}
+ 		return rgbValue + '(' + colorValue + alphaChanal + ')';
+ 	}
 
-	function hex(start, end, withHash) {
+ 	function hex(start, end, withHash) {
 
-		var simbol = (withHash) ? "#" : "";
-		var expression = (isGrayscale ? gray(this.hash({
-			length: start
-		})) : this.hash({
-			length: end
-		}));
-		return simbol + expression;
-	}
+ 		var simbol = (withHash) ? "#" : "";
+ 		var expression = (isGrayscale ? gray(this.hash({
+ 			length: start
+ 		})) : this.hash({
+ 			length: end
+ 		}));
+ 		return simbol + expression;
+ 	}
 
-	options = _rdm.initOptions(options, {
-		format: this.pick(['hex', 'shorthex', 'rgb', 'rgba', '0x', 'name']),
-		grayscale: false,
-		casing: 'lower'
-	});
+ 	options = _rdm.initOptions(options, {
+ 		format: this.pick(['hex', 'shorthex', 'rgb', 'rgba', '0x', 'name']),
+ 		grayscale: false,
+ 		casing: 'lower'
+ 	});
 
-	var isGrayscale = options.grayscale;
-	var colorValue;
+ 	var isGrayscale = options.grayscale;
+ 	var colorValue;
 
-	if (options.format === 'hex') {
-		colorValue = hex.call(this, 2, 6, true);
-	} else if (options.format === 'shorthex') {
-		colorValue = hex.call(this, 1, 3, true);
-	} else if (options.format === 'rgb') {
-		colorValue = rgb.call(this, false);
-	} else if (options.format === 'rgba') {
-		colorValue = rgb.call(this, true);
-	} else if (options.format === '0x') {
-		colorValue = '0x' + hex.call(this, 2, 6);
-	} else if (options.format === 'name') {
-		return this.pick(this.get("colorNames"));
-	} else {
-		throw new RangeError('Invalid format provided. Please provide one of "hex", "shorthex", "rgb", "rgba", "0x" or "name".');
-	}
+ 	if (options.format === 'hex') {
+ 		colorValue = hex.call(this, 2, 6, true);
+ 	} else if (options.format === 'shorthex') {
+ 		colorValue = hex.call(this, 1, 3, true);
+ 	} else if (options.format === 'rgb') {
+ 		colorValue = rgb.call(this, false);
+ 	} else if (options.format === 'rgba') {
+ 		colorValue = rgb.call(this, true);
+ 	} else if (options.format === '0x') {
+ 		colorValue = '0x' + hex.call(this, 2, 6);
+ 	} else if (options.format === 'name') {
+ 		return this.pick(this.get("colorNames"));
+ 	} else {
+ 		throw new RangeError('Invalid format provided. Please provide one of "hex", "shorthex", "rgb", "rgba", "0x" or "name".');
+ 	}
 
-	if (options.casing === 'upper') {
-		colorValue = colorValue.toUpperCase();
-	}
+ 	if (options.casing === 'upper') {
+ 		colorValue = colorValue.toUpperCase();
+ 	}
 
-	return colorValue;
-};
+ 	return colorValue;
+ };
 
-Helprs.prototype.domain = function(options) {
-	options = _rdm.initOptions(options);
-	return this.word() + '.' + (options.tld || this.tld());
-};
+ Helprs.prototype.domain = function(options) {
+ 	options = _rdm.initOptions(options);
+ 	return this.word() + '.' + (options.tld || this.tld());
+ };
 
-Helprs.prototype.email = function(options) {
-	options = _rdm.initOptions(options);
-	return this.word({
-		length: options.length
-	}) + '@' + (options.domain || this.domain());
-};
+ Helprs.prototype.email = function(options) {
+ 	options = _rdm.initOptions(options);
+ 	return this.word({
+ 		length: options.length
+ 	}) + '@' + (options.domain || this.domain());
+ };
 
-Helprs.prototype.fbid = function() {
-	return parseInt('10000' + this.natural({
-		max: 100000000000
-	}), 10);
-};
+ Helprs.prototype.fbid = function() {
+ 	return parseInt('10000' + this.natural({
+ 		max: 100000000000
+ 	}), 10);
+ };
 
-Helprs.prototype.google_analytics = function() {
-	var account = this.pad(this.natural({
-		max: 999999
-	}), 6);
-	var property = this.pad(this.natural({
-		max: 99
-	}), 2);
+ Helprs.prototype.google_analytics = function() {
+ 	var account = this.pad(this.natural({
+ 		max: 999999
+ 	}), 6);
+ 	var property = this.pad(this.natural({
+ 		max: 99
+ 	}), 2);
 
-	return 'UA-' + account + '-' + property;
-};
+ 	return 'UA-' + account + '-' + property;
+ };
 
-Helprs.prototype.hashtag = function() {
-	return '#' + this.word();
-};
+ Helprs.prototype.hashtag = function() {
+ 	return '#' + this.word();
+ };
 
-Helprs.prototype.ip = function() {
+ Helprs.prototype.ip = function() {
 	// Todo: This could return some reserved IPs. See http://vq.io/137dgYy
 	// this should probably be updated to account for that rare as it may be
 	return this.natural({
-			min: 1,
-			max: 254
-		}) + '.' +
-		this.natural({
-			max: 255
-		}) + '.' +
-		this.natural({
-			max: 255
-		}) + '.' +
-		this.natural({
-			min: 1,
-			max: 254
-		});
+		min: 1,
+		max: 254
+	}) + '.' +
+	this.natural({
+		max: 255
+	}) + '.' +
+	this.natural({
+		max: 255
+	}) + '.' +
+	this.natural({
+		min: 1,
+		max: 254
+	});
 };
 
 Helprs.prototype.ipv6 = function() {
@@ -1374,17 +1372,17 @@ Helprs.prototype.areacode = function(options) {
 	});
 	// Don't want area codes to start with 1, or have a 9 as the second digit
 	var areacode = this.natural({
-			min: 2,
-			max: 9
-		}).toString() +
-		this.natural({
-			min: 0,
-			max: 8
-		}).toString() +
-		this.natural({
-			min: 0,
-			max: 9
-		}).toString();
+		min: 2,
+		max: 9
+	}).toString() +
+	this.natural({
+		min: 0,
+		max: 8
+	}).toString() +
+	this.natural({
+		min: 0,
+		max: 9
+	}).toString();
 
 	return options.parens ? '(' + areacode + ')' : areacode;
 };
@@ -1464,9 +1462,9 @@ Helprs.prototype.longitude = function(options) {
 
 Helprs.prototype.phone = function(options) {
 	var self = this,
-		numPick,
-		ukNum = function(parts) {
-			var section = [];
+	numPick,
+	ukNum = function(parts) {
+		var section = [];
 			//fills the section part of the phone number with random numbers.
 			parts.sections.forEach(function(n) {
 				section.push(self.string({
@@ -1476,17 +1474,17 @@ Helprs.prototype.phone = function(options) {
 			});
 			return parts.area + section.join(' ');
 		};
-	options = _rdm.initOptions(options, {
-		formatted: true,
-		country: 'us',
-		mobile: false
-	});
-	if (!options.formatted) {
-		options.parens = false;
-	}
-	var phone;
-	switch (options.country) {
-		case 'fr':
+		options = _rdm.initOptions(options, {
+			formatted: true,
+			country: 'us',
+			mobile: false
+		});
+		if (!options.formatted) {
+			options.parens = false;
+		}
+		var phone;
+		switch (options.country) {
+			case 'fr':
 			if (!options.mobile) {
 				numPick = this.pick([
 					// Valid zone and département codes.
@@ -1514,7 +1512,7 @@ Helprs.prototype.phone = function(options) {
 						pool: '0123456789',
 						length: 8
 					}),
-				]);
+					]);
 				phone = options.formatted ? numPick.match(/../g).join(' ') : numPick;
 			} else {
 				numPick = this.pick(['06', '07']) + self.string({
@@ -1524,7 +1522,7 @@ Helprs.prototype.phone = function(options) {
 				phone = options.formatted ? numPick.match(/../g).join(' ') : numPick;
 			}
 			break;
-		case 'uk':
+			case 'uk':
 			if (!options.mobile) {
 				numPick = this.pick([
 					//valid area codes of major cities/counties followed by random numbers in required format.
@@ -1574,7 +1572,7 @@ Helprs.prototype.phone = function(options) {
 						area: '019' + this.pick(['00', '05', '35', '46', '49', '63', '95']) + ' ',
 						sections: [6]
 					}
-				]);
+					]);
 				phone = options.formatted ? ukNum(numPick) : ukNum(numPick).replace(' ', '', 'g');
 			} else {
 				numPick = this.pick([{
@@ -1587,30 +1585,30 @@ Helprs.prototype.phone = function(options) {
 				phone = options.formatted ? ukNum(numPick) : ukNum(numPick).replace(' ', '');
 			}
 			break;
-		case 'us':
+			case 'us':
 			var areacode = this.areacode(options).toString();
 			var exchange = this.natural({
-					min: 2,
-					max: 9
-				}).toString() +
-				this.natural({
-					min: 0,
-					max: 9
-				}).toString() +
-				this.natural({
-					min: 0,
-					max: 9
-				}).toString();
+				min: 2,
+				max: 9
+			}).toString() +
+			this.natural({
+				min: 0,
+				max: 9
+			}).toString() +
+			this.natural({
+				min: 0,
+				max: 9
+			}).toString();
 			var subscriber = this.natural({
 				min: 1000,
 				max: 9999
 			}).toString(); // this could be random [0-9]{4}
 			phone = options.formatted ? areacode + ' ' + exchange + '-' + subscriber : areacode + exchange + subscriber;
-	}
-	return phone;
-};
+		}
+		return phone;
+	};
 
-Helprs.prototype.postal = function() {
+	Helprs.prototype.postal = function() {
 	// Postal District
 	var pd = this.character({
 		pool: "XVTSRPNKLMHJGECBA"
@@ -1655,14 +1653,14 @@ Helprs.prototype.provinces = function(options) {
 
 Helprs.prototype.province = function(options) {
 	return (options && options.full) ?
-		this.pick(this.provinces(options)).name :
-		this.pick(this.provinces(options)).abbreviation;
+	this.pick(this.provinces(options)).name :
+	this.pick(this.provinces(options)).abbreviation;
 };
 
 Helprs.prototype.state = function(options) {
 	return (options && options.full) ?
-		this.pick(this.states(options)).name :
-		this.pick(this.states(options)).abbreviation;
+	this.pick(this.states(options)).name :
+	this.pick(this.states(options)).abbreviation;
 };
 
 Helprs.prototype.states = function(options) {
@@ -1675,28 +1673,28 @@ Helprs.prototype.states = function(options) {
 
 	switch (options.country.toLowerCase()) {
 		case 'us':
-			var us_states_and_dc = this.get("us_states_and_dc"),
-				territories = this.get("territories"),
-				armed_forces = this.get("armed_forces");
+		var us_states_and_dc = this.get("us_states_and_dc"),
+		territories = this.get("territories"),
+		armed_forces = this.get("armed_forces");
 
-			states = [];
+		states = [];
 
-			if (options.us_states_and_dc) {
-				states = states.concat(us_states_and_dc);
-			}
-			if (options.territories) {
-				states = states.concat(territories);
-			}
-			if (options.armed_forces) {
-				states = states.concat(armed_forces);
-			}
-			break;
+		if (options.us_states_and_dc) {
+			states = states.concat(us_states_and_dc);
+		}
+		if (options.territories) {
+			states = states.concat(territories);
+		}
+		if (options.armed_forces) {
+			states = states.concat(armed_forces);
+		}
+		break;
 		case 'it':
-			states = this.get("country_regions")[options.country.toLowerCase()];
-			break;
+		states = this.get("country_regions")[options.country.toLowerCase()];
+		break;
 		case 'uk':
-			states = this.get("counties")[options.country.toLowerCase()];
-			break;
+		states = this.get("counties")[options.country.toLowerCase()];
+		break;
 	}
 
 	return states;
@@ -1711,24 +1709,24 @@ Helprs.prototype.street = function(options) {
 
 	switch (options.country.toLowerCase()) {
 		case 'us':
-			street = this.word({
-				syllables: options.syllables
-			});
-			street = this.capitalize(street);
-			street += ' ';
-			street += options.short_suffix ?
-				this.street_suffix(options).abbreviation :
-				this.street_suffix(options).name;
-			break;
+		street = this.word({
+			syllables: options.syllables
+		});
+		street = this.capitalize(street);
+		street += ' ';
+		street += options.short_suffix ?
+		this.street_suffix(options).abbreviation :
+		this.street_suffix(options).name;
+		break;
 		case 'it':
-			street = this.word({
-				syllables: options.syllables
-			});
-			street = this.capitalize(street);
-			street = (options.short_suffix ?
-				this.street_suffix(options).abbreviation :
-				this.street_suffix(options).name) + " " + street;
-			break;
+		street = this.word({
+			syllables: options.syllables
+		});
+		street = this.capitalize(street);
+		street = (options.short_suffix ?
+			this.street_suffix(options).abbreviation :
+			this.street_suffix(options).name) + " " + street;
+		break;
 	}
 	return street;
 };
@@ -1746,6 +1744,24 @@ Helprs.prototype.street_suffixes = function(options) {
 	});
 	// These are the most common suffixes.
 	return this.get("street_suffixes")[options.country.toLowerCase()];
+};
+
+Helprs.prototype.countryToISO3 = function(iso2Country, options) {
+	iso2Country = iso2Country.toUpperCase();
+	if (!this._isISO2Country(iso2Country))
+		return iso2Country;
+	var responseCountry = {
+		iso2: iso2Country,
+		iso3: null
+	};
+	var toISO3Countries = _data.toISO3Countries;
+	for (country in toISO3Countries) {
+		if (isoCountries.hasOwnProperty(country)) {
+			responseCountry.iso3 = toISO3Countries[country];
+			break;
+		}
+	}
+	return responseCountry;
 };
 
 // Note: only returning US zip codes, internationalization will be a whole
@@ -1942,13 +1958,13 @@ Helprs.prototype.cc = function(options) {
 	var type, number, to_generate;
 
 	type = (options.type) ?
-		this.cc_type({
-			name: options.type,
-			raw: true
-		}) :
-		this.cc_type({
-			raw: true
-		});
+	this.cc_type({
+		name: options.type,
+		raw: true
+	}) :
+	this.cc_type({
+		raw: true
+	});
 
 	number = type.prefix.split("");
 	to_generate = type.length - type.prefix.length - 1;
@@ -1973,7 +1989,7 @@ Helprs.prototype.cc_types = function() {
 Helprs.prototype.cc_type = function(options) {
 	options = _rdm.initOptions(options);
 	var types = this.cc_types(),
-		type = null;
+	type = null;
 
 	if (options.name) {
 		for (var i = 0; i < types.length; i++) {
@@ -2040,11 +2056,11 @@ Helprs.prototype.dollar = function(options) {
 	});
 
 	var dollar = this.floating({
-			min: options.min,
-			max: options.max,
-			fixed: 2
-		}).toString(),
-		cents = dollar.split('.')[1];
+		min: options.min,
+		max: options.max,
+		fixed: 2
+	}).toString(),
+	cents = dollar.split('.')[1];
 
 	if (cents === undefined) {
 		dollar += '.00';
@@ -2088,41 +2104,41 @@ Helprs.prototype.exp_month = function(options) {
 		// Date object months are 0 indexed
 		curMonth = new Date().getMonth() + 1;
 
-	if (options.future && (curMonth !== 12)) {
-		do {
+		if (options.future && (curMonth !== 12)) {
+			do {
+				month = this.month({
+					raw: true
+				}).numeric;
+				month_int = parseInt(month, 10);
+			} while (month_int <= curMonth);
+		} else {
 			month = this.month({
 				raw: true
 			}).numeric;
-			month_int = parseInt(month, 10);
-		} while (month_int <= curMonth);
-	} else {
-		month = this.month({
-			raw: true
-		}).numeric;
-	}
+		}
 
-	return month;
-};
+		return month;
+	};
 
-Helprs.prototype.exp_year = function() {
-	var curMonth = new Date().getMonth() + 1,
+	Helprs.prototype.exp_year = function() {
+		var curMonth = new Date().getMonth() + 1,
 		curYear = new Date().getFullYear();
 
-	return this.year({
-		min: ((curMonth === 12) ? (curYear + 1) : curYear),
-		max: (curYear + 10)
-	});
-};
+		return this.year({
+			min: ((curMonth === 12) ? (curYear + 1) : curYear),
+			max: (curYear + 10)
+		});
+	};
 
-Helprs.prototype.vat = function(options) {
-	options = _rdm.initOptions(options, {
-		country: 'it'
-	});
-	switch (options.country.toLowerCase()) {
-		case 'it':
+	Helprs.prototype.vat = function(options) {
+		options = _rdm.initOptions(options, {
+			country: 'it'
+		});
+		switch (options.country.toLowerCase()) {
+			case 'it':
 			return this.it_vat();
-	}
-};
+		}
+	};
 
 // -- End Finance
 
@@ -2153,134 +2169,134 @@ Helprs.prototype.it_vat = function() {
                                }
  * @return [string] codice fiscale
  *
-*/
-Helprs.prototype.cf = function(options) {
-	options = options || {};
-	var gender = !!options.gender ? options.gender : this.gender(),
-		first = !!options.first ? options.first : this.first({
-			gender: gender,
-			nationality: 'it'
-		}),
-		last = !!options.last ? options.last : this.last({
-			nationality: 'it'
-		}),
-		birthday = !!options.birthday ? options.birthday : this.birthday(),
-		city = !!options.city ? options.city : this.pickone(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'Z']) + this.pad(this.natural({
-			max: 999
-		}), 3),
-		cf = [],
-		name_generator = function(name, isLast) {
-			var temp,
-				return_value = [];
+ */
+ Helprs.prototype.cf = function(options) {
+ 	options = options || {};
+ 	var gender = !!options.gender ? options.gender : this.gender(),
+ 	first = !!options.first ? options.first : this.first({
+ 		gender: gender,
+ 		nationality: 'it'
+ 	}),
+ 	last = !!options.last ? options.last : this.last({
+ 		nationality: 'it'
+ 	}),
+ 	birthday = !!options.birthday ? options.birthday : this.birthday(),
+ 	city = !!options.city ? options.city : this.pickone(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'Z']) + this.pad(this.natural({
+ 		max: 999
+ 	}), 3),
+ 	cf = [],
+ 	name_generator = function(name, isLast) {
+ 		var temp,
+ 		return_value = [];
 
-			if (name.length < 3) {
-				return_value = name.split("").concat("XXX".split("")).splice(0, 3);
-			} else {
-				temp = name.toUpperCase().split('').map(function(c) {
-					return ("BCDFGHJKLMNPRSTVWZ".indexOf(c) !== -1) ? c : undefined;
-				}).join('');
-				if (temp.length > 3) {
-					if (isLast) {
-						temp = temp.substr(0, 3);
-					} else {
-						temp = temp[0] + temp.substr(2, 2);
-					}
-				}
-				if (temp.length < 3) {
-					return_value = temp;
-					temp = name.toUpperCase().split('').map(function(c) {
-						return ("AEIOU".indexOf(c) !== -1) ? c : undefined;
-					}).join('').substr(0, 3 - return_value.length);
-				}
-				return_value = return_value + temp;
-			}
+ 		if (name.length < 3) {
+ 			return_value = name.split("").concat("XXX".split("")).splice(0, 3);
+ 		} else {
+ 			temp = name.toUpperCase().split('').map(function(c) {
+ 				return ("BCDFGHJKLMNPRSTVWZ".indexOf(c) !== -1) ? c : undefined;
+ 			}).join('');
+ 			if (temp.length > 3) {
+ 				if (isLast) {
+ 					temp = temp.substr(0, 3);
+ 				} else {
+ 					temp = temp[0] + temp.substr(2, 2);
+ 				}
+ 			}
+ 			if (temp.length < 3) {
+ 				return_value = temp;
+ 				temp = name.toUpperCase().split('').map(function(c) {
+ 					return ("AEIOU".indexOf(c) !== -1) ? c : undefined;
+ 				}).join('').substr(0, 3 - return_value.length);
+ 			}
+ 			return_value = return_value + temp;
+ 		}
 
-			return return_value;
-		},
-		date_generator = function(birthday, gender, that) {
-			var lettermonths = ['A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T'];
+ 		return return_value;
+ 	},
+ 	date_generator = function(birthday, gender, that) {
+ 		var lettermonths = ['A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T'];
 
-			return birthday.getFullYear().toString().substr(2) +
-				lettermonths[birthday.getMonth()] +
-				that.pad(birthday.getDate() + ((gender.toLowerCase() === "female") ? 40 : 0), 2);
-		},
-		checkdigit_generator = function(cf) {
-			var range1 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-				range2 = "ABCDEFGHIJABCDEFGHIJKLMNOPQRSTUVWXYZ",
-				evens = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-				odds = "BAKPLCQDREVOSFTGUHMINJWZYX",
-				digit = 0;
+ 		return birthday.getFullYear().toString().substr(2) +
+ 		lettermonths[birthday.getMonth()] +
+ 		that.pad(birthday.getDate() + ((gender.toLowerCase() === "female") ? 40 : 0), 2);
+ 	},
+ 	checkdigit_generator = function(cf) {
+ 		var range1 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+ 		range2 = "ABCDEFGHIJABCDEFGHIJKLMNOPQRSTUVWXYZ",
+ 		evens = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+ 		odds = "BAKPLCQDREVOSFTGUHMINJWZYX",
+ 		digit = 0;
 
 
-			for (var i = 0; i < 15; i++) {
-				if (i % 2 !== 0) {
-					digit += evens.indexOf(range2[range1.indexOf(cf[i])]);
-				} else {
-					digit += odds.indexOf(range2[range1.indexOf(cf[i])]);
-				}
-			}
-			return evens[digit % 26];
-		};
+ 		for (var i = 0; i < 15; i++) {
+ 			if (i % 2 !== 0) {
+ 				digit += evens.indexOf(range2[range1.indexOf(cf[i])]);
+ 			} else {
+ 				digit += odds.indexOf(range2[range1.indexOf(cf[i])]);
+ 			}
+ 		}
+ 		return evens[digit % 26];
+ 	};
 
-	cf = cf.concat(name_generator(last, true), name_generator(first), date_generator(birthday, gender, this), city.toUpperCase().split("")).join("");
-	cf += checkdigit_generator(cf.toUpperCase(), this);
+ 	cf = cf.concat(name_generator(last, true), name_generator(first), date_generator(birthday, gender, this), city.toUpperCase().split("")).join("");
+ 	cf += checkdigit_generator(cf.toUpperCase(), this);
 
-	return cf.toUpperCase();
-};
+ 	return cf.toUpperCase();
+ };
 
-Helprs.prototype.pl_pesel = function() {
-	var number = this.natural({
-		min: 1,
-		max: 9999999999
-	});
-	var arr = this.pad(number, 10).split('');
-	for (var i = 0; i < arr.length; i++) {
-		arr[i] = parseInt(arr[i]);
-	}
+ Helprs.prototype.pl_pesel = function() {
+ 	var number = this.natural({
+ 		min: 1,
+ 		max: 9999999999
+ 	});
+ 	var arr = this.pad(number, 10).split('');
+ 	for (var i = 0; i < arr.length; i++) {
+ 		arr[i] = parseInt(arr[i]);
+ 	}
 
-	var controlNumber = (1 * arr[0] + 3 * arr[1] + 7 * arr[2] + 9 * arr[3] + 1 * arr[4] + 3 * arr[5] + 7 * arr[6] + 9 * arr[7] + 1 * arr[8] + 3 * arr[9]) % 10;
-	if (controlNumber !== 0) {
-		controlNumber = 10 - controlNumber;
-	}
+ 	var controlNumber = (1 * arr[0] + 3 * arr[1] + 7 * arr[2] + 9 * arr[3] + 1 * arr[4] + 3 * arr[5] + 7 * arr[6] + 9 * arr[7] + 1 * arr[8] + 3 * arr[9]) % 10;
+ 	if (controlNumber !== 0) {
+ 		controlNumber = 10 - controlNumber;
+ 	}
 
-	return arr.join('') + controlNumber;
-};
+ 	return arr.join('') + controlNumber;
+ };
 
-Helprs.prototype.pl_nip = function() {
-	var number = this.natural({
-		min: 1,
-		max: 999999999
-	});
-	var arr = this.pad(number, 9).split('');
-	for (var i = 0; i < arr.length; i++) {
-		arr[i] = parseInt(arr[i]);
-	}
+ Helprs.prototype.pl_nip = function() {
+ 	var number = this.natural({
+ 		min: 1,
+ 		max: 999999999
+ 	});
+ 	var arr = this.pad(number, 9).split('');
+ 	for (var i = 0; i < arr.length; i++) {
+ 		arr[i] = parseInt(arr[i]);
+ 	}
 
-	var controlNumber = (6 * arr[0] + 5 * arr[1] + 7 * arr[2] + 2 * arr[3] + 3 * arr[4] + 4 * arr[5] + 5 * arr[6] + 6 * arr[7] + 7 * arr[8]) % 11;
-	if (controlNumber === 10) {
-		return this.pl_nip();
-	}
+ 	var controlNumber = (6 * arr[0] + 5 * arr[1] + 7 * arr[2] + 2 * arr[3] + 3 * arr[4] + 4 * arr[5] + 5 * arr[6] + 6 * arr[7] + 7 * arr[8]) % 11;
+ 	if (controlNumber === 10) {
+ 		return this.pl_nip();
+ 	}
 
-	return arr.join('') + controlNumber;
-};
+ 	return arr.join('') + controlNumber;
+ };
 
-Helprs.prototype.pl_regon = function() {
-	var number = this.natural({
-		min: 1,
-		max: 99999999
-	});
-	var arr = this.pad(number, 8).split('');
-	for (var i = 0; i < arr.length; i++) {
-		arr[i] = parseInt(arr[i]);
-	}
+ Helprs.prototype.pl_regon = function() {
+ 	var number = this.natural({
+ 		min: 1,
+ 		max: 99999999
+ 	});
+ 	var arr = this.pad(number, 8).split('');
+ 	for (var i = 0; i < arr.length; i++) {
+ 		arr[i] = parseInt(arr[i]);
+ 	}
 
-	var controlNumber = (8 * arr[0] + 9 * arr[1] + 2 * arr[2] + 3 * arr[3] + 4 * arr[4] + 5 * arr[5] + 6 * arr[6] + 7 * arr[7]) % 11;
-	if (controlNumber === 10) {
-		controlNumber = 0;
-	}
+ 	var controlNumber = (8 * arr[0] + 9 * arr[1] + 2 * arr[2] + 3 * arr[3] + 4 * arr[4] + 5 * arr[5] + 6 * arr[6] + 7 * arr[7]) % 11;
+ 	if (controlNumber === 10) {
+ 		controlNumber = 0;
+ 	}
 
-	return arr.join('') + controlNumber;
-};
+ 	return arr.join('') + controlNumber;
+ };
 
 // -- End Regional
 
@@ -2331,7 +2347,7 @@ Helprs.prototype.rpg = function(thrown, options) {
 		throw new RangeError("A type of die roll must be included");
 	} else {
 		var bits = thrown.toLowerCase().split("d"),
-			rolls = [];
+		rolls = [];
 
 		if (bits.length !== 2 || !parseInt(bits[0], 10) || !parseInt(bits[1], 10)) {
 			throw new Error("Invalid format provided. Please provide #d# where the first # is the number of dice to roll, the second # is the max of each die");
@@ -2352,11 +2368,11 @@ Helprs.prototype.rpg = function(thrown, options) {
 Helprs.prototype.guid = function(options) {
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000)
-			.toString(16)
-			.substring(1);
+		.toString(16)
+		.substring(1);
 	}
 	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-		s4() + '-' + s4() + s4() + s4();
+	s4() + '-' + s4() + s4() + s4();
 };
 
 // Hash
@@ -2486,10 +2502,10 @@ Helprs.prototype.md5 = function(options) {
  * @return [string]
  *
  */
-Helprs.prototype.file = function(options) {
+ Helprs.prototype.file = function(options) {
 
-	var fileOptions = options || {};
-	var poolCollectionKey = "fileExtension";
+ 	var fileOptions = options || {};
+ 	var poolCollectionKey = "fileExtension";
 	var typeRange = Object.keys(this.get("fileExtension")); //['raster', 'vector', '3d', 'document'];
 	var fileName;
 	var fileExtention;
@@ -2572,7 +2588,7 @@ Helprs.prototype.mac_address = function(options) {
 	}
 
 	var mac_pool = "ABCDEF1234567890",
-		mac = "";
+	mac = "";
 	if (!options.networkVersion) {
 		mac = this.n(this.string, 6, {
 			pool: mac_pool,
@@ -2598,7 +2614,7 @@ Helprs.prototype.normal = function(options) {
 	_rdm.testRange(
 		options.pool.constructor !== Array,
 		"Helprs: The pool option must be a valid array."
-	);
+		);
 
 	// If a pool has been passed, then we are returning an item from that pool,
 	// using the normal distribution settings that were passed in
@@ -2608,8 +2624,8 @@ Helprs.prototype.normal = function(options) {
 
 	// The Marsaglia Polar method
 	var s, u, v, norm,
-		mean = options.mean,
-		dev = options.dev;
+	mean = options.mean,
+	dev = options.dev;
 
 	do {
 		// U and V are from the uniform distribution on (-1, 1)
@@ -2652,31 +2668,31 @@ Helprs.prototype.radio = function(options) {
 	switch (options.side.toLowerCase()) {
 		case "east":
 		case "e":
-			fl = "W";
-			break;
+		fl = "W";
+		break;
 		case "west":
 		case "w":
-			fl = "K";
-			break;
+		fl = "K";
+		break;
 		default:
-			fl = this.character({
-				pool: "KW"
-			});
-			break;
+		fl = this.character({
+			pool: "KW"
+		});
+		break;
 	}
 
 	return fl + this.character({
-			alpha: true,
-			casing: "upper"
-		}) +
-		this.character({
-			alpha: true,
-			casing: "upper"
-		}) +
-		this.character({
-			alpha: true,
-			casing: "upper"
-		});
+		alpha: true,
+		casing: "upper"
+	}) +
+	this.character({
+		alpha: true,
+		casing: "upper"
+	}) +
+	this.character({
+		alpha: true,
+		casing: "upper"
+	});
 };
 
 // Set the _data as key and _data or the _data map
@@ -2754,16 +2770,16 @@ Helprs.prototype.spaceUppercases = function(strings) {
  * @param {String} newSubStr The String that is spliced in.
  * @return {String} A new string with the spliced substring.
  */
-Helprs.prototype.spliceString = function(string, start, delCount, newSubStr) {
-	return string.slice(0, start) + newSubStr + string.slice(start + Math.abs(delCount));
-};
-Helprs.prototype.sortData = function(series, options) {
-	var ascending = true;
-	if (options.ascending === false)
-		ascending = false;
-	var level = null;
-	if (options.level !== undefined)
-		level = options.level;
+ Helprs.prototype.spliceString = function(string, start, delCount, newSubStr) {
+ 	return string.slice(0, start) + newSubStr + string.slice(start + Math.abs(delCount));
+ };
+ Helprs.prototype.sortData = function(series, options) {
+ 	var ascending = true;
+ 	if (options.ascending === false)
+ 		ascending = false;
+ 	var level = null;
+ 	if (options.level !== undefined)
+ 		level = options.level;
 	// Series should be descending
 	series.sort(function(seriesA, seriesB) {
 		// seriesA = current item in array
@@ -2785,13 +2801,13 @@ Helprs.prototype.capitalizeFirstLetter = function(string) {
 };
 Helprs.prototype.daysHoursMinsFormat = function(t) {
 	var cd = 24 * 60 * 60 * 1000,
-		ch = 60 * 60 * 1000,
-		d = Math.floor(t / cd),
-		h = Math.floor((t - d * cd) / ch),
-		m = Math.round((t - d * cd - h * ch) / 60000),
-		pad = function(n) {
-			return n < 10 ? '0' + n : n;
-		};
+	ch = 60 * 60 * 1000,
+	d = Math.floor(t / cd),
+	h = Math.floor((t - d * cd) / ch),
+	m = Math.round((t - d * cd - h * ch) / 60000),
+	pad = function(n) {
+		return n < 10 ? '0' + n : n;
+	};
 	if (m === 60) {
 		h++;
 		m = 0;
@@ -2813,37 +2829,37 @@ Helprs.prototype.dump = function(_data) {
  *
  * @return  {String}          Return a built slug for the _database.
  */
-Helprs.prototype.generateSlug = function(string) {
-	var slug = string;
-	if (typeof slug === 'number')
-		slug = slug.toString();
-	return slug.toLowerCase().trim().replace(/(\s+|\/)/g, "-");
-};
-Helprs.prototype.Exception = function(message, code) {
-	var error = new Error(message);
-	error.code = code;
-	return error;
-};
-Helprs.prototype.formatComma = function(val) {
-	if (typeof val == "number")
-		val = val.toString();
-	return val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-};
-Helprs.prototype.formatCurrency = function(val) {
-	if (val >= 0)
-		return '$' + this.formatComma(val);
-	val = -val;
-	return '-$' + this.formatComma(val);
-};
-Helprs.prototype.formattedCurrentDate = function() {
+ Helprs.prototype.generateSlug = function(string) {
+ 	var slug = string;
+ 	if (typeof slug === 'number')
+ 		slug = slug.toString();
+ 	return slug.toLowerCase().trim().replace(/(\s+|\/)/g, "-");
+ };
+ Helprs.prototype.Exception = function(message, code) {
+ 	var error = new Error(message);
+ 	error.code = code;
+ 	return error;
+ };
+ Helprs.prototype.formatComma = function(val) {
+ 	if (typeof val == "number")
+ 		val = val.toString();
+ 	return val.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+ };
+ Helprs.prototype.formatCurrency = function(val) {
+ 	if (val >= 0)
+ 		return '$' + this.formatComma(val);
+ 	val = -val;
+ 	return '-$' + this.formatComma(val);
+ };
+ Helprs.prototype.formattedCurrentDate = function() {
 	// The date format: %YYYY-%MM-%DDT%H:%M:%SZ
 	var dateObj = new Date(),
-		month = (dateObj.getMonth() < 10) ? "0" + dateObj.getMonth().toString() : dateObj.getMonth(),
-		day = (dateObj.getDate() < 10) ? "0" + dateObj.getDate().toString() : dateObj.getDate(),
-		hours = (dateObj.getHours() < 10) ? "0" + dateObj.getHours() : dateObj.getHours(),
-		minutes = (dateObj.getMinutes() < 10) ? "0" + dateObj.getMinutes() : dateObj.getMinutes(),
-		seconds = (dateObj.getSeconds() < 10) ? "0" + dateObj.getSeconds() : dateObj.getSeconds(),
-		formattedDate = dateObj.getFullYear() + "-" + month + "-" + day + "T";
+	month = (dateObj.getMonth() < 10) ? "0" + dateObj.getMonth().toString() : dateObj.getMonth(),
+	day = (dateObj.getDate() < 10) ? "0" + dateObj.getDate().toString() : dateObj.getDate(),
+	hours = (dateObj.getHours() < 10) ? "0" + dateObj.getHours() : dateObj.getHours(),
+	minutes = (dateObj.getMinutes() < 10) ? "0" + dateObj.getMinutes() : dateObj.getMinutes(),
+	seconds = (dateObj.getSeconds() < 10) ? "0" + dateObj.getSeconds() : dateObj.getSeconds(),
+	formattedDate = dateObj.getFullYear() + "-" + month + "-" + day + "T";
 	formattedDate += +hours + ":" + minutes + ":" + seconds + "Z";
 	return formattedDate;
 };
@@ -2877,25 +2893,25 @@ Helprs.prototype.memorySizeOf = function(obj) {
 		if (obj !== null && obj !== undefined) {
 			switch (typeof obj) {
 				case 'number':
-					bytes += 8;
-					break;
+				bytes += 8;
+				break;
 				case 'string':
-					bytes += obj.length * 2;
-					break;
+				bytes += obj.length * 2;
+				break;
 				case 'boolean':
-					bytes += 4;
-					break;
+				bytes += 4;
+				break;
 				case 'object':
-					var objClass = Object.prototype.toString.call(obj).slice(8, -1);
-					if (objClass === 'Object' || objClass === 'Array') {
-						for (var key in obj) {
-							if (!obj.hasOwnProperty(key))
-								continue;
-							sizeOf(obj[key]);
-						}
-					} else
-						bytes += obj.toString().length * 2;
-					break;
+				var objClass = Object.prototype.toString.call(obj).slice(8, -1);
+				if (objClass === 'Object' || objClass === 'Array') {
+					for (var key in obj) {
+						if (!obj.hasOwnProperty(key))
+							continue;
+						sizeOf(obj[key]);
+					}
+				} else
+				bytes += obj.toString().length * 2;
+				break;
 			}
 		}
 		return bytes;
@@ -2915,8 +2931,8 @@ Helprs.prototype.memorySizeOf = function(obj) {
 };
 Helprs.prototype.shuffle = function(array) {
 	var currentIndex = array.length,
-		temporaryValue,
-		randomIndex;
+	temporaryValue,
+	randomIndex;
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
 		// Pick a remaining element...
@@ -2954,10 +2970,10 @@ Helprs.prototype.shuffle = function(array) {
  * _.isObject(null);
  * // => false
  */
-Helprs.prototype.isObject = function(value) {
-	var type = typeof value;
-	return !!value && (type == 'object' || type == 'function');
-};
+ Helprs.prototype.isObject = function(value) {
+ 	var type = typeof value;
+ 	return !!value && (type == 'object' || type == 'function');
+ };
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
  * and has a `typeof` result of "object".
@@ -2982,155 +2998,165 @@ Helprs.prototype.isObject = function(value) {
  * _.isObjectLike(null);
  * // => false
  */
-Helprs.prototype.isObjectLike = function(value) {
-	return !!value && typeof value == 'object';
-};
-Helprs.prototype.trimLeft = function(str, char) {
-	var multi = false;
+ Helprs.prototype.isObjectLike = function(value) {
+ 	return !!value && typeof value == 'object';
+ };
+ Helprs.prototype.trimLeft = function(str, char) {
+ 	var multi = false;
 
-	if (!char)
-		char = '\\s';
-	else if (typeof char === 'string')
-		char = '\\' + (char === ' ' ? 's' : char);
-	else
-		multi = true;
+ 	if (!char)
+ 		char = '\\s';
+ 	else if (typeof char === 'string')
+ 		char = '\\' + (char === ' ' ? 's' : char);
+ 	else
+ 		multi = true;
 
-	if (!multi) {
-		var rgx = new RegExp("^" + char + "+", "g");
-		str = str.replace(rgx, '');
-	} else {
-		char.forEach(function(element, index) {
-			element = '\\' + (element === ' ' ? 's' : element);
-			var rgx = new RegExp("^" + element + "+", "g");
-			str = str.replace(rgx, '');
-		});
+ 	if (!multi) {
+ 		var rgx = new RegExp("^" + char + "+", "g");
+ 		str = str.replace(rgx, '');
+ 	} else {
+ 		char.forEach(function(element, index) {
+ 			element = '\\' + (element === ' ' ? 's' : element);
+ 			var rgx = new RegExp("^" + element + "+", "g");
+ 			str = str.replace(rgx, '');
+ 		});
+ 	}
+ 	return str;
+ };
+ Helprs.prototype.trimRight = function(str, char) {
+ 	var multi = false;
+
+ 	if (!char)
+ 		char = '\\s';
+ 	else if (typeof char === 'string')
+ 		char = '\\' + (char === ' ' ? 's' : char);
+ 	else
+ 		multi = true;
+
+ 	if (!multi) {
+ 		var rgx = new RegExp(char + "+$", "g");
+ 		str = str.replace(rgx, '');
+ 	} else {
+ 		char.forEach(function(element, index) {
+ 			element = '\\' + (element === ' ' ? 's' : element);
+ 			var rgx = new RegExp(element + "+$", "g");
+ 			str = str.replace(rgx, '');
+ 		});
+ 	}
+ 	return str;
+ };
+ Helprs.prototype.trimEdges = function(str, char) {
+ 	str = this.trimLeft(str, char);
+ 	str = this.trimRight(str, char);
+ 	return str;
+ };
+ Helprs.prototype.isMongoObjId = function(objectIdString) {
+ 	var checkForHexRegExp = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i;
+ 	return checkForHexRegExp.test(objectIdString);
+ };
+ Helprs.prototype.removeFromString = function(string, toRemove, replaceWith) {
+ 	toRemove = (toRemove !== undefined && typeof toRemove === "string" && toRemove.length > 0) ? toRemove : null;
+ 	replaceWith = (replaceWith !== undefined && typeof replaceWith === "string" && replaceWith.length > 0) ? replaceWith : " ";
+ 	if (string.indexOf(toRemove) > -1)
+ 		string = string.replace(toRemove, replaceWith);
+ 	return string;
+ };
+ Helprs.prototype.validateEmail = function(email) {
+ 	if (email.length == 0)
+ 		return false;
+ 	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+ 	return re.test(email);
+ };
+ Helprs.prototype.validateStateAbbr = function(stateAbbr) {
+ 	if (_data.usStates[stateAbbr] !== undefined)
+ 		return true;
+ 	if (_data.CanadianProvinces[stateAbbr] !== undefined)
+ 		return true;
+ 	return false;
+ };
+ Helprs.prototype.validateCountry = function(value) {
+ 	if (_data.isoCountries[value] !== undefined)
+ 		return true;
+ 	value = this.capitalizeFirstLetter(value.toString());
+ 	for (var country in _data.isoCountries) {
+ 		if (_data.isoCountries.hasOwnProperty(country)) {
+ 			if (_data.isoCountries[country] === value)
+ 				return true;
+ 		}
+ 	}
+ 	return false;
+ };
+ Helprs.prototype.isValidZipcode = function(value, countryCode) {
+ 	countryCode = countryCode || "US";
+ 	var regex = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+
+ 	if (countryCode === "CA")
+ 		regex = /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i;
+
+ 	var isValidZip = regex.test(value);
+ 	return isValidZip;
+ };
+ Helprs.prototype.isNonUSCountry = function(value) {
+ 	if (value != "US" && _data.isoCountries[value] !== undefined)
+ 		return _data.isoCountries[value];
+ 	return null;
+ };
+ Helprs.prototype.getContentType = function(filename) {
+ 	var ContentType = "application/octet-stream";
+ 	var splFile = filename.split(".");
+ 	var extType = splFile[splFile.length - 1];
+ 	var extension = "." + extType.toLowerCase();
+
+ 	switch (extension) {
+ 		case ".css":
+ 		ContentType = "text/css";
+ 		break;
+ 		case ".gif":
+ 		ContentType = "image/gif";
+ 		break;
+ 		case ".html":
+ 		ContentType = "text/html";
+ 		break;
+ 		case ".jpg":
+ 		case ".jpeg":
+ 		ContentType = "image/jpeg";
+ 		break;
+ 		case ".js":
+ 		ContentType = "application/javascript";
+ 		break;
+ 		case ".mp3":
+ 		ContentType = "audio/mpeg";
+ 		break;
+ 		case ".mp4":
+ 		ContentType = "video/mp4";
+ 		break;
+ 		case ".pdf":
+ 		ContentType = "application/pdf";
+ 		break;
+ 		case ".png":
+ 		ContentType = "image/png";
+ 		break;
+ 		case ".svg":
+ 		ContentType = "image/svg+xml";
+ 		break;
+ 		case ".webm":
+ 		ContentType = "video/webm";
+ 		break;
+ 		default:
+ 		console.log("UTILITY ERROR: Unhandled Extension " + extension);
+ 	}
+
+ 	return ContentType;
+ };
+
+// Start of private methods
+Helprs.prototype._isISO2Country = function(country) {
+	var isoCountries = _data.isoCountries;
+	for (country in isoCountries) {
+		if (isoCountries.hasOwnProperty(country))
+			return true;
 	}
-	return str;
-};
-Helprs.prototype.trimRight = function(str, char) {
-	var multi = false;
-
-	if (!char)
-		char = '\\s';
-	else if (typeof char === 'string')
-		char = '\\' + (char === ' ' ? 's' : char);
-	else
-		multi = true;
-
-	if (!multi) {
-		var rgx = new RegExp(char + "+$", "g");
-		str = str.replace(rgx, '');
-	} else {
-		char.forEach(function(element, index) {
-			element = '\\' + (element === ' ' ? 's' : element);
-			var rgx = new RegExp(element + "+$", "g");
-			str = str.replace(rgx, '');
-		});
-	}
-	return str;
-};
-Helprs.prototype.trimEdges = function(str, char) {
-	str = this.trimLeft(str, char);
-	str = this.trimRight(str, char);
-	return str;
-};
-Helprs.prototype.isMongoObjId = function(objectIdString) {
-	var checkForHexRegExp = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i;
-	return checkForHexRegExp.test(objectIdString);
-};
-Helprs.prototype.removeFromString = function(string, toRemove, replaceWith) {
-	toRemove = (toRemove !== undefined && typeof toRemove === "string" && toRemove.length > 0) ? toRemove : null;
-	replaceWith = (replaceWith !== undefined && typeof replaceWith === "string" && replaceWith.length > 0) ? replaceWith : " ";
-	if (string.indexOf(toRemove) > -1)
-		string = string.replace(toRemove, replaceWith);
-	return string;
-};
-Helprs.prototype.validateEmail = function(email) {
-	if (email.length == 0)
-		return false;
-	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-	return re.test(email);
-};
-Helprs.prototype.validateStateAbbr = function(stateAbbr) {
-	if (_data.usStates[stateAbbr] !== undefined)
-		return true;
-	if (_data.CanadianProvinces[stateAbbr] !== undefined)
-		return true;
 	return false;
-};
-Helprs.prototype.validateCountry = function(value) {
-	if (_data.isoCountries[value] !== undefined)
-		return true;
-	value = this.capitalizeFirstLetter(value.toString());
-	for (var country in _data.isoCountries) {
-		if (_data.isoCountries.hasOwnProperty(country)) {
-			if (_data.isoCountries[country] === value)
-				return true;
-		}
-	}
-	return false;
-};
-Helprs.prototype.isValidZipcode = function(value, countryCode) {
-	countryCode = countryCode || "US";
-	var regex = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
-
-	if (countryCode === "CA")
-		regex = /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i;
-
-	var isValidZip = regex.test(value);
-	return isValidZip;
-};
-Helprs.prototype.isNonUSCountry = function(value) {
-	if (value != "US" && _data.isoCountries[value] !== undefined)
-		return _data.isoCountries[value];
-	return null;
-};
-Helprs.prototype.getContentType = function(filename) {
-	var ContentType = "application/octet-stream";
-	var splFile = filename.split(".");
-	var extType = splFile[splFile.length - 1];
-	var extension = "." + extType.toLowerCase();
-
-	switch (extension) {
-		case ".css":
-			ContentType = "text/css";
-			break;
-		case ".gif":
-			ContentType = "image/gif";
-			break;
-		case ".html":
-			ContentType = "text/html";
-			break;
-		case ".jpg":
-		case ".jpeg":
-			ContentType = "image/jpeg";
-			break;
-		case ".js":
-			ContentType = "application/javascript";
-			break;
-		case ".mp3":
-			ContentType = "audio/mpeg";
-			break;
-		case ".mp4":
-			ContentType = "video/mp4";
-			break;
-		case ".pdf":
-			ContentType = "application/pdf";
-			break;
-		case ".png":
-			ContentType = "image/png";
-			break;
-		case ".svg":
-			ContentType = "image/svg+xml";
-			break;
-		case ".webm":
-			ContentType = "video/webm";
-			break;
-		default:
-			console.log("UTILITY ERROR: Unhandled Extension " + extension);
-	}
-
-	return ContentType;
 };
 
 module.exports = new Helprs();

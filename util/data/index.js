@@ -1,3 +1,5 @@
+var _toISO3Countries = require("./src/countries/toISO3.json");
+
 var NUMBERS = '0123456789';
 var CHARS_LOWER = 'abcdefghijklmnopqrstuvwxyz';
 var MAX_INT = 9007199254740992;
@@ -10,6 +12,7 @@ module.exports.CHARS_LOWER = CHARS_LOWER;
 module.exports.CHARS_UPPER = CHARS_LOWER.toUpperCase();
 module.exports.HEX_POOL = NUMBERS + "abcdef";
 
+module.exports.toISO3Countries = _toISO3Countries;
 module.exports.usStates = {
 	"AL": "Alabama",
 	"AK": "Alaska",
@@ -1304,36 +1307,36 @@ module.exports.counties = {
 
 module.exports.provinces = {
 	"ca": [{
-			name: 'Alberta',
-			abbreviation: 'AB'
-		}, {
-			name: 'British Columbia',
-			abbreviation: 'BC'
-		}, {
-			name: 'Manitoba',
-			abbreviation: 'MB'
-		}, {
-			name: 'New Brunswick',
-			abbreviation: 'NB'
-		}, {
-			name: 'Newfoundland and Labrador',
-			abbreviation: 'NL'
-		}, {
-			name: 'Nova Scotia',
-			abbreviation: 'NS'
-		}, {
-			name: 'Ontario',
-			abbreviation: 'ON'
-		}, {
-			name: 'Prince Edward Island',
-			abbreviation: 'PE'
-		}, {
-			name: 'Quebec',
-			abbreviation: 'QC'
-		}, {
-			name: 'Saskatchewan',
-			abbreviation: 'SK'
-		},
+		name: 'Alberta',
+		abbreviation: 'AB'
+	}, {
+		name: 'British Columbia',
+		abbreviation: 'BC'
+	}, {
+		name: 'Manitoba',
+		abbreviation: 'MB'
+	}, {
+		name: 'New Brunswick',
+		abbreviation: 'NB'
+	}, {
+		name: 'Newfoundland and Labrador',
+		abbreviation: 'NL'
+	}, {
+		name: 'Nova Scotia',
+		abbreviation: 'NS'
+	}, {
+		name: 'Ontario',
+		abbreviation: 'ON'
+	}, {
+		name: 'Prince Edward Island',
+		abbreviation: 'PE'
+	}, {
+		name: 'Quebec',
+		abbreviation: 'QC'
+	}, {
+		name: 'Saskatchewan',
+		abbreviation: 'SK'
+	},
 
 		// The case could be made that the following are not actually provinces
 		// since they are technically considered "territories" however they all
@@ -1348,449 +1351,449 @@ module.exports.provinces = {
 			name: 'Yukon',
 			abbreviation: 'YT'
 		}
-	],
-	"it": [{
-		name: "Agrigento",
-		abbreviation: "AG",
-		code: 84
-	}, {
-		name: "Alessandria",
-		abbreviation: "AL",
-		code: 6
-	}, {
-		name: "Ancona",
-		abbreviation: "AN",
-		code: 42
-	}, {
-		name: "Aosta",
-		abbreviation: "AO",
-		code: 7
-	}, {
-		name: "L'Aquila",
-		abbreviation: "AQ",
-		code: 66
-	}, {
-		name: "Arezzo",
-		abbreviation: "AR",
-		code: 51
-	}, {
-		name: "Ascoli-Piceno",
-		abbreviation: "AP",
-		code: 44
-	}, {
-		name: "Asti",
-		abbreviation: "AT",
-		code: 5
-	}, {
-		name: "Avellino",
-		abbreviation: "AV",
-		code: 64
-	}, {
-		name: "Bari",
-		abbreviation: "BA",
-		code: 72
-	}, {
-		name: "Barletta-Andria-Trani",
-		abbreviation: "BT",
-		code: 72
-	}, {
-		name: "Belluno",
-		abbreviation: "BL",
-		code: 25
-	}, {
-		name: "Benevento",
-		abbreviation: "BN",
-		code: 62
-	}, {
-		name: "Bergamo",
-		abbreviation: "BG",
-		code: 16
-	}, {
-		name: "Biella",
-		abbreviation: "BI",
-		code: 96
-	}, {
-		name: "Bologna",
-		abbreviation: "BO",
-		code: 37
-	}, {
-		name: "Bolzano",
-		abbreviation: "BZ",
-		code: 21
-	}, {
-		name: "Brescia",
-		abbreviation: "BS",
-		code: 17
-	}, {
-		name: "Brindisi",
-		abbreviation: "BR",
-		code: 74
-	}, {
-		name: "Cagliari",
-		abbreviation: "CA",
-		code: 92
-	}, {
-		name: "Caltanissetta",
-		abbreviation: "CL",
-		code: 85
-	}, {
-		name: "Campobasso",
-		abbreviation: "CB",
-		code: 70
-	}, {
-		name: "Carbonia Iglesias",
-		abbreviation: "CI",
-		code: 70
-	}, {
-		name: "Caserta",
-		abbreviation: "CE",
-		code: 61
-	}, {
-		name: "Catania",
-		abbreviation: "CT",
-		code: 87
-	}, {
-		name: "Catanzaro",
-		abbreviation: "CZ",
-		code: 79
-	}, {
-		name: "Chieti",
-		abbreviation: "CH",
-		code: 69
-	}, {
-		name: "Como",
-		abbreviation: "CO",
-		code: 13
-	}, {
-		name: "Cosenza",
-		abbreviation: "CS",
-		code: 78
-	}, {
-		name: "Cremona",
-		abbreviation: "CR",
-		code: 19
-	}, {
-		name: "Crotone",
-		abbreviation: "KR",
-		code: 101
-	}, {
-		name: "Cuneo",
-		abbreviation: "CN",
-		code: 4
-	}, {
-		name: "Enna",
-		abbreviation: "EN",
-		code: 86
-	}, {
-		name: "Fermo",
-		abbreviation: "FM",
-		code: 86
-	}, {
-		name: "Ferrara",
-		abbreviation: "FE",
-		code: 38
-	}, {
-		name: "Firenze",
-		abbreviation: "FI",
-		code: 48
-	}, {
-		name: "Foggia",
-		abbreviation: "FG",
-		code: 71
-	}, {
-		name: "Forli-Cesena",
-		abbreviation: "FC",
-		code: 71
-	}, {
-		name: "Frosinone",
-		abbreviation: "FR",
-		code: 60
-	}, {
-		name: "Genova",
-		abbreviation: "GE",
-		code: 10
-	}, {
-		name: "Gorizia",
-		abbreviation: "GO",
-		code: 31
-	}, {
-		name: "Grosseto",
-		abbreviation: "GR",
-		code: 53
-	}, {
-		name: "Imperia",
-		abbreviation: "IM",
-		code: 8
-	}, {
-		name: "Isernia",
-		abbreviation: "IS",
-		code: 94
-	}, {
-		name: "La-Spezia",
-		abbreviation: "SP",
-		code: 66
-	}, {
-		name: "Latina",
-		abbreviation: "LT",
-		code: 59
-	}, {
-		name: "Lecce",
-		abbreviation: "LE",
-		code: 75
-	}, {
-		name: "Lecco",
-		abbreviation: "LC",
-		code: 97
-	}, {
-		name: "Livorno",
-		abbreviation: "LI",
-		code: 49
-	}, {
-		name: "Lodi",
-		abbreviation: "LO",
-		code: 98
-	}, {
-		name: "Lucca",
-		abbreviation: "LU",
-		code: 46
-	}, {
-		name: "Macerata",
-		abbreviation: "MC",
-		code: 43
-	}, {
-		name: "Mantova",
-		abbreviation: "MN",
-		code: 20
-	}, {
-		name: "Massa-Carrara",
-		abbreviation: "MS",
-		code: 45
-	}, {
-		name: "Matera",
-		abbreviation: "MT",
-		code: 77
-	}, {
-		name: "Medio Campidano",
-		abbreviation: "VS",
-		code: 77
-	}, {
-		name: "Messina",
-		abbreviation: "ME",
-		code: 83
-	}, {
-		name: "Milano",
-		abbreviation: "MI",
-		code: 15
-	}, {
-		name: "Modena",
-		abbreviation: "MO",
-		code: 36
-	}, {
-		name: "Monza-Brianza",
-		abbreviation: "MB",
-		code: 36
-	}, {
-		name: "Napoli",
-		abbreviation: "NA",
-		code: 63
-	}, {
-		name: "Novara",
-		abbreviation: "NO",
-		code: 3
-	}, {
-		name: "Nuoro",
-		abbreviation: "NU",
-		code: 91
-	}, {
-		name: "Ogliastra",
-		abbreviation: "OG",
-		code: 91
-	}, {
-		name: "Olbia Tempio",
-		abbreviation: "OT",
-		code: 91
-	}, {
-		name: "Oristano",
-		abbreviation: "OR",
-		code: 95
-	}, {
-		name: "Padova",
-		abbreviation: "PD",
-		code: 28
-	}, {
-		name: "Palermo",
-		abbreviation: "PA",
-		code: 82
-	}, {
-		name: "Parma",
-		abbreviation: "PR",
-		code: 34
-	}, {
-		name: "Pavia",
-		abbreviation: "PV",
-		code: 18
-	}, {
-		name: "Perugia",
-		abbreviation: "PG",
-		code: 54
-	}, {
-		name: "Pesaro-Urbino",
-		abbreviation: "PU",
-		code: 41
-	}, {
-		name: "Pescara",
-		abbreviation: "PE",
-		code: 68
-	}, {
-		name: "Piacenza",
-		abbreviation: "PC",
-		code: 33
-	}, {
-		name: "Pisa",
-		abbreviation: "PI",
-		code: 50
-	}, {
-		name: "Pistoia",
-		abbreviation: "PT",
-		code: 47
-	}, {
-		name: "Pordenone",
-		abbreviation: "PN",
-		code: 93
-	}, {
-		name: "Potenza",
-		abbreviation: "PZ",
-		code: 76
-	}, {
-		name: "Prato",
-		abbreviation: "PO",
-		code: 100
-	}, {
-		name: "Ragusa",
-		abbreviation: "RG",
-		code: 88
-	}, {
-		name: "Ravenna",
-		abbreviation: "RA",
-		code: 39
-	}, {
-		name: "Reggio-Calabria",
-		abbreviation: "RC",
-		code: 35
-	}, {
-		name: "Reggio-Emilia",
-		abbreviation: "RE",
-		code: 35
-	}, {
-		name: "Rieti",
-		abbreviation: "RI",
-		code: 57
-	}, {
-		name: "Rimini",
-		abbreviation: "RN",
-		code: 99
-	}, {
-		name: "Roma",
-		abbreviation: "Roma",
-		code: 58
-	}, {
-		name: "Rovigo",
-		abbreviation: "RO",
-		code: 29
-	}, {
-		name: "Salerno",
-		abbreviation: "SA",
-		code: 65
-	}, {
-		name: "Sassari",
-		abbreviation: "SS",
-		code: 90
-	}, {
-		name: "Savona",
-		abbreviation: "SV",
-		code: 9
-	}, {
-		name: "Siena",
-		abbreviation: "SI",
-		code: 52
-	}, {
-		name: "Siracusa",
-		abbreviation: "SR",
-		code: 89
-	}, {
-		name: "Sondrio",
-		abbreviation: "SO",
-		code: 14
-	}, {
-		name: "Taranto",
-		abbreviation: "TA",
-		code: 73
-	}, {
-		name: "Teramo",
-		abbreviation: "TE",
-		code: 67
-	}, {
-		name: "Terni",
-		abbreviation: "TR",
-		code: 55
-	}, {
-		name: "Torino",
-		abbreviation: "TO",
-		code: 1
-	}, {
-		name: "Trapani",
-		abbreviation: "TP",
-		code: 81
-	}, {
-		name: "Trento",
-		abbreviation: "TN",
-		code: 22
-	}, {
-		name: "Treviso",
-		abbreviation: "TV",
-		code: 26
-	}, {
-		name: "Trieste",
-		abbreviation: "TS",
-		code: 32
-	}, {
-		name: "Udine",
-		abbreviation: "UD",
-		code: 30
-	}, {
-		name: "Varese",
-		abbreviation: "VA",
-		code: 12
-	}, {
-		name: "Venezia",
-		abbreviation: "VE",
-		code: 27
-	}, {
-		name: "Verbania",
-		abbreviation: "VB",
-		code: 27
-	}, {
-		name: "Vercelli",
-		abbreviation: "VC",
-		code: 2
-	}, {
-		name: "Verona",
-		abbreviation: "VR",
-		code: 23
-	}, {
-		name: "Vibo-Valentia",
-		abbreviation: "VV",
-		code: 102
-	}, {
-		name: "Vicenza",
-		abbreviation: "VI",
-		code: 24
-	}, {
-		name: "Viterbo",
-		abbreviation: "VT",
-		code: 56
-	}]
-};
+		],
+		"it": [{
+			name: "Agrigento",
+			abbreviation: "AG",
+			code: 84
+		}, {
+			name: "Alessandria",
+			abbreviation: "AL",
+			code: 6
+		}, {
+			name: "Ancona",
+			abbreviation: "AN",
+			code: 42
+		}, {
+			name: "Aosta",
+			abbreviation: "AO",
+			code: 7
+		}, {
+			name: "L'Aquila",
+			abbreviation: "AQ",
+			code: 66
+		}, {
+			name: "Arezzo",
+			abbreviation: "AR",
+			code: 51
+		}, {
+			name: "Ascoli-Piceno",
+			abbreviation: "AP",
+			code: 44
+		}, {
+			name: "Asti",
+			abbreviation: "AT",
+			code: 5
+		}, {
+			name: "Avellino",
+			abbreviation: "AV",
+			code: 64
+		}, {
+			name: "Bari",
+			abbreviation: "BA",
+			code: 72
+		}, {
+			name: "Barletta-Andria-Trani",
+			abbreviation: "BT",
+			code: 72
+		}, {
+			name: "Belluno",
+			abbreviation: "BL",
+			code: 25
+		}, {
+			name: "Benevento",
+			abbreviation: "BN",
+			code: 62
+		}, {
+			name: "Bergamo",
+			abbreviation: "BG",
+			code: 16
+		}, {
+			name: "Biella",
+			abbreviation: "BI",
+			code: 96
+		}, {
+			name: "Bologna",
+			abbreviation: "BO",
+			code: 37
+		}, {
+			name: "Bolzano",
+			abbreviation: "BZ",
+			code: 21
+		}, {
+			name: "Brescia",
+			abbreviation: "BS",
+			code: 17
+		}, {
+			name: "Brindisi",
+			abbreviation: "BR",
+			code: 74
+		}, {
+			name: "Cagliari",
+			abbreviation: "CA",
+			code: 92
+		}, {
+			name: "Caltanissetta",
+			abbreviation: "CL",
+			code: 85
+		}, {
+			name: "Campobasso",
+			abbreviation: "CB",
+			code: 70
+		}, {
+			name: "Carbonia Iglesias",
+			abbreviation: "CI",
+			code: 70
+		}, {
+			name: "Caserta",
+			abbreviation: "CE",
+			code: 61
+		}, {
+			name: "Catania",
+			abbreviation: "CT",
+			code: 87
+		}, {
+			name: "Catanzaro",
+			abbreviation: "CZ",
+			code: 79
+		}, {
+			name: "Chieti",
+			abbreviation: "CH",
+			code: 69
+		}, {
+			name: "Como",
+			abbreviation: "CO",
+			code: 13
+		}, {
+			name: "Cosenza",
+			abbreviation: "CS",
+			code: 78
+		}, {
+			name: "Cremona",
+			abbreviation: "CR",
+			code: 19
+		}, {
+			name: "Crotone",
+			abbreviation: "KR",
+			code: 101
+		}, {
+			name: "Cuneo",
+			abbreviation: "CN",
+			code: 4
+		}, {
+			name: "Enna",
+			abbreviation: "EN",
+			code: 86
+		}, {
+			name: "Fermo",
+			abbreviation: "FM",
+			code: 86
+		}, {
+			name: "Ferrara",
+			abbreviation: "FE",
+			code: 38
+		}, {
+			name: "Firenze",
+			abbreviation: "FI",
+			code: 48
+		}, {
+			name: "Foggia",
+			abbreviation: "FG",
+			code: 71
+		}, {
+			name: "Forli-Cesena",
+			abbreviation: "FC",
+			code: 71
+		}, {
+			name: "Frosinone",
+			abbreviation: "FR",
+			code: 60
+		}, {
+			name: "Genova",
+			abbreviation: "GE",
+			code: 10
+		}, {
+			name: "Gorizia",
+			abbreviation: "GO",
+			code: 31
+		}, {
+			name: "Grosseto",
+			abbreviation: "GR",
+			code: 53
+		}, {
+			name: "Imperia",
+			abbreviation: "IM",
+			code: 8
+		}, {
+			name: "Isernia",
+			abbreviation: "IS",
+			code: 94
+		}, {
+			name: "La-Spezia",
+			abbreviation: "SP",
+			code: 66
+		}, {
+			name: "Latina",
+			abbreviation: "LT",
+			code: 59
+		}, {
+			name: "Lecce",
+			abbreviation: "LE",
+			code: 75
+		}, {
+			name: "Lecco",
+			abbreviation: "LC",
+			code: 97
+		}, {
+			name: "Livorno",
+			abbreviation: "LI",
+			code: 49
+		}, {
+			name: "Lodi",
+			abbreviation: "LO",
+			code: 98
+		}, {
+			name: "Lucca",
+			abbreviation: "LU",
+			code: 46
+		}, {
+			name: "Macerata",
+			abbreviation: "MC",
+			code: 43
+		}, {
+			name: "Mantova",
+			abbreviation: "MN",
+			code: 20
+		}, {
+			name: "Massa-Carrara",
+			abbreviation: "MS",
+			code: 45
+		}, {
+			name: "Matera",
+			abbreviation: "MT",
+			code: 77
+		}, {
+			name: "Medio Campidano",
+			abbreviation: "VS",
+			code: 77
+		}, {
+			name: "Messina",
+			abbreviation: "ME",
+			code: 83
+		}, {
+			name: "Milano",
+			abbreviation: "MI",
+			code: 15
+		}, {
+			name: "Modena",
+			abbreviation: "MO",
+			code: 36
+		}, {
+			name: "Monza-Brianza",
+			abbreviation: "MB",
+			code: 36
+		}, {
+			name: "Napoli",
+			abbreviation: "NA",
+			code: 63
+		}, {
+			name: "Novara",
+			abbreviation: "NO",
+			code: 3
+		}, {
+			name: "Nuoro",
+			abbreviation: "NU",
+			code: 91
+		}, {
+			name: "Ogliastra",
+			abbreviation: "OG",
+			code: 91
+		}, {
+			name: "Olbia Tempio",
+			abbreviation: "OT",
+			code: 91
+		}, {
+			name: "Oristano",
+			abbreviation: "OR",
+			code: 95
+		}, {
+			name: "Padova",
+			abbreviation: "PD",
+			code: 28
+		}, {
+			name: "Palermo",
+			abbreviation: "PA",
+			code: 82
+		}, {
+			name: "Parma",
+			abbreviation: "PR",
+			code: 34
+		}, {
+			name: "Pavia",
+			abbreviation: "PV",
+			code: 18
+		}, {
+			name: "Perugia",
+			abbreviation: "PG",
+			code: 54
+		}, {
+			name: "Pesaro-Urbino",
+			abbreviation: "PU",
+			code: 41
+		}, {
+			name: "Pescara",
+			abbreviation: "PE",
+			code: 68
+		}, {
+			name: "Piacenza",
+			abbreviation: "PC",
+			code: 33
+		}, {
+			name: "Pisa",
+			abbreviation: "PI",
+			code: 50
+		}, {
+			name: "Pistoia",
+			abbreviation: "PT",
+			code: 47
+		}, {
+			name: "Pordenone",
+			abbreviation: "PN",
+			code: 93
+		}, {
+			name: "Potenza",
+			abbreviation: "PZ",
+			code: 76
+		}, {
+			name: "Prato",
+			abbreviation: "PO",
+			code: 100
+		}, {
+			name: "Ragusa",
+			abbreviation: "RG",
+			code: 88
+		}, {
+			name: "Ravenna",
+			abbreviation: "RA",
+			code: 39
+		}, {
+			name: "Reggio-Calabria",
+			abbreviation: "RC",
+			code: 35
+		}, {
+			name: "Reggio-Emilia",
+			abbreviation: "RE",
+			code: 35
+		}, {
+			name: "Rieti",
+			abbreviation: "RI",
+			code: 57
+		}, {
+			name: "Rimini",
+			abbreviation: "RN",
+			code: 99
+		}, {
+			name: "Roma",
+			abbreviation: "Roma",
+			code: 58
+		}, {
+			name: "Rovigo",
+			abbreviation: "RO",
+			code: 29
+		}, {
+			name: "Salerno",
+			abbreviation: "SA",
+			code: 65
+		}, {
+			name: "Sassari",
+			abbreviation: "SS",
+			code: 90
+		}, {
+			name: "Savona",
+			abbreviation: "SV",
+			code: 9
+		}, {
+			name: "Siena",
+			abbreviation: "SI",
+			code: 52
+		}, {
+			name: "Siracusa",
+			abbreviation: "SR",
+			code: 89
+		}, {
+			name: "Sondrio",
+			abbreviation: "SO",
+			code: 14
+		}, {
+			name: "Taranto",
+			abbreviation: "TA",
+			code: 73
+		}, {
+			name: "Teramo",
+			abbreviation: "TE",
+			code: 67
+		}, {
+			name: "Terni",
+			abbreviation: "TR",
+			code: 55
+		}, {
+			name: "Torino",
+			abbreviation: "TO",
+			code: 1
+		}, {
+			name: "Trapani",
+			abbreviation: "TP",
+			code: 81
+		}, {
+			name: "Trento",
+			abbreviation: "TN",
+			code: 22
+		}, {
+			name: "Treviso",
+			abbreviation: "TV",
+			code: 26
+		}, {
+			name: "Trieste",
+			abbreviation: "TS",
+			code: 32
+		}, {
+			name: "Udine",
+			abbreviation: "UD",
+			code: 30
+		}, {
+			name: "Varese",
+			abbreviation: "VA",
+			code: 12
+		}, {
+			name: "Venezia",
+			abbreviation: "VE",
+			code: 27
+		}, {
+			name: "Verbania",
+			abbreviation: "VB",
+			code: 27
+		}, {
+			name: "Vercelli",
+			abbreviation: "VC",
+			code: 2
+		}, {
+			name: "Verona",
+			abbreviation: "VR",
+			code: 23
+		}, {
+			name: "Vibo-Valentia",
+			abbreviation: "VV",
+			code: 102
+		}, {
+			name: "Vicenza",
+			abbreviation: "VI",
+			code: 24
+		}, {
+			name: "Viterbo",
+			abbreviation: "VT",
+			code: 56
+		}]
+	};
 
 // from: https://github.com/samsargent/Useful-Autocomplete-Data/blob/master/data/nationalities.json
 module.exports.nationalities = [{
@@ -2749,11 +2752,11 @@ module.exports.street_suffixes = {
 };
 
 module.exports.months = [{
-		name: 'January',
-		short_name: 'Jan',
-		numeric: '01',
-		days: 31
-	},
+	name: 'January',
+	short_name: 'Jan',
+	numeric: '01',
+	days: 31
+},
 	// Not messing with leap years...
 	{
 		name: 'February',
@@ -2811,7 +2814,7 @@ module.exports.months = [{
 		numeric: '12',
 		days: 31
 	}
-];
+	];
 
 // http://en.wikipedia.org/wiki/Bank_card_number#Issuer_identification_number_.28IIN.29
 module.exports.cc_types = [{
@@ -3395,14 +3398,14 @@ module.exports.currency_types = [{
 
 // return the names of all valide colors
 module.exports.colorNames = ["AliceBlue", "Black", "Navy", "DarkBlue", "MediumBlue", "Blue", "DarkGreen", "Green", "Teal", "DarkCyan", "DeepSkyBlue", "DarkTurquoise", "MediumSpringGreen", "Lime", "SpringGreen",
-	"Aqua", "Cyan", "MidnightBlue", "DodgerBlue", "LightSeaGreen", "ForestGreen", "SeaGreen", "DarkSlateGray", "LimeGreen", "MediumSeaGreen", "Turquoise", "RoyalBlue", "SteelBlue", "DarkSlateBlue", "MediumTurquoise",
-	"Indigo", "DarkOliveGreen", "CadetBlue", "CornflowerBlue", "RebeccaPurple", "MediumAquaMarine", "DimGray", "SlateBlue", "OliveDrab", "SlateGray", "LightSlateGray", "MediumSlateBlue", "LawnGreen", "Chartreuse",
-	"Aquamarine", "Maroon", "Purple", "Olive", "Gray", "SkyBlue", "LightSkyBlue", "BlueViolet", "DarkRed", "DarkMagenta", "SaddleBrown", "Ivory", "White",
-	"DarkSeaGreen", "LightGreen", "MediumPurple", "DarkViolet", "PaleGreen", "DarkOrchid", "YellowGreen", "Sienna", "Brown", "DarkGray", "LightBlue", "GreenYellow", "PaleTurquoise", "LightSteelBlue", "PowderBlue",
-	"FireBrick", "DarkGoldenRod", "MediumOrchid", "RosyBrown", "DarkKhaki", "Silver", "MediumVioletRed", "IndianRed", "Peru", "Chocolate", "Tan", "LightGray", "Thistle", "Orchid", "GoldenRod", "PaleVioletRed",
-	"Crimson", "Gainsboro", "Plum", "BurlyWood", "LightCyan", "Lavender", "DarkSalmon", "Violet", "PaleGoldenRod", "LightCoral", "Khaki", "AliceBlue", "HoneyDew", "Azure", "SandyBrown", "Wheat", "Beige", "WhiteSmoke",
-	"MintCream", "GhostWhite", "Salmon", "AntiqueWhite", "Linen", "LightGoldenRodYellow", "OldLace", "Red", "Fuchsia", "Magenta", "DeepPink", "OrangeRed", "Tomato", "HotPink", "Coral", "DarkOrange", "LightSalmon", "Orange",
-	"LightPink", "Pink", "Gold", "PeachPuff", "NavajoWhite", "Moccasin", "Bisque", "MistyRose", "BlanchedAlmond", "PapayaWhip", "LavenderBlush", "SeaShell", "Cornsilk", "LemonChiffon", "FloralWhite", "Snow", "Yellow", "LightYellow"
+"Aqua", "Cyan", "MidnightBlue", "DodgerBlue", "LightSeaGreen", "ForestGreen", "SeaGreen", "DarkSlateGray", "LimeGreen", "MediumSeaGreen", "Turquoise", "RoyalBlue", "SteelBlue", "DarkSlateBlue", "MediumTurquoise",
+"Indigo", "DarkOliveGreen", "CadetBlue", "CornflowerBlue", "RebeccaPurple", "MediumAquaMarine", "DimGray", "SlateBlue", "OliveDrab", "SlateGray", "LightSlateGray", "MediumSlateBlue", "LawnGreen", "Chartreuse",
+"Aquamarine", "Maroon", "Purple", "Olive", "Gray", "SkyBlue", "LightSkyBlue", "BlueViolet", "DarkRed", "DarkMagenta", "SaddleBrown", "Ivory", "White",
+"DarkSeaGreen", "LightGreen", "MediumPurple", "DarkViolet", "PaleGreen", "DarkOrchid", "YellowGreen", "Sienna", "Brown", "DarkGray", "LightBlue", "GreenYellow", "PaleTurquoise", "LightSteelBlue", "PowderBlue",
+"FireBrick", "DarkGoldenRod", "MediumOrchid", "RosyBrown", "DarkKhaki", "Silver", "MediumVioletRed", "IndianRed", "Peru", "Chocolate", "Tan", "LightGray", "Thistle", "Orchid", "GoldenRod", "PaleVioletRed",
+"Crimson", "Gainsboro", "Plum", "BurlyWood", "LightCyan", "Lavender", "DarkSalmon", "Violet", "PaleGoldenRod", "LightCoral", "Khaki", "AliceBlue", "HoneyDew", "Azure", "SandyBrown", "Wheat", "Beige", "WhiteSmoke",
+"MintCream", "GhostWhite", "Salmon", "AntiqueWhite", "Linen", "LightGoldenRodYellow", "OldLace", "Red", "Fuchsia", "Magenta", "DeepPink", "OrangeRed", "Tomato", "HotPink", "Coral", "DarkOrange", "LightSalmon", "Orange",
+"LightPink", "Pink", "Gold", "PeachPuff", "NavajoWhite", "Moccasin", "Bisque", "MistyRose", "BlanchedAlmond", "PapayaWhip", "LavenderBlush", "SeaShell", "Cornsilk", "LemonChiffon", "FloralWhite", "Snow", "Yellow", "LightYellow"
 ];
 
 module.exports.fileExtension = {
@@ -3420,7 +3423,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-12:00) International Date Line West",
 	"utc": [
-		"Etc/GMT+12"
+	"Etc/GMT+12"
 	]
 }, {
 	"name": "UTC-11",
@@ -3429,10 +3432,10 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-11:00) Coordinated Universal Time-11",
 	"utc": [
-		"Etc/GMT+11",
-		"Pacific/Midway",
-		"Pacific/Niue",
-		"Pacific/Pago_Pago"
+	"Etc/GMT+11",
+	"Pacific/Midway",
+	"Pacific/Niue",
+	"Pacific/Pago_Pago"
 	]
 }, {
 	"name": "Hawaiian Standard Time",
@@ -3441,11 +3444,11 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-10:00) Hawaii",
 	"utc": [
-		"Etc/GMT+10",
-		"Pacific/Honolulu",
-		"Pacific/Johnston",
-		"Pacific/Rarotonga",
-		"Pacific/Tahiti"
+	"Etc/GMT+10",
+	"Pacific/Honolulu",
+	"Pacific/Johnston",
+	"Pacific/Rarotonga",
+	"Pacific/Tahiti"
 	]
 }, {
 	"name": "Alaskan Standard Time",
@@ -3454,11 +3457,11 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-09:00) Alaska",
 	"utc": [
-		"America/Anchorage",
-		"America/Juneau",
-		"America/Nome",
-		"America/Sitka",
-		"America/Yakutat"
+	"America/Anchorage",
+	"America/Juneau",
+	"America/Nome",
+	"America/Sitka",
+	"America/Yakutat"
 	]
 }, {
 	"name": "Pacific Standard Time (Mexico)",
@@ -3467,7 +3470,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-08:00) Baja California",
 	"utc": [
-		"America/Santa_Isabel"
+	"America/Santa_Isabel"
 	]
 }, {
 	"name": "Pacific Standard Time",
@@ -3476,12 +3479,12 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-08:00) Pacific Time (US & Canada)",
 	"utc": [
-		"America/Dawson",
-		"America/Los_Angeles",
-		"America/Tijuana",
-		"America/Vancouver",
-		"America/Whitehorse",
-		"PST8PDT"
+	"America/Dawson",
+	"America/Los_Angeles",
+	"America/Tijuana",
+	"America/Vancouver",
+	"America/Whitehorse",
+	"PST8PDT"
 	]
 }, {
 	"name": "US Mountain Standard Time",
@@ -3490,11 +3493,11 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-07:00) Arizona",
 	"utc": [
-		"America/Creston",
-		"America/Dawson_Creek",
-		"America/Hermosillo",
-		"America/Phoenix",
-		"Etc/GMT+7"
+	"America/Creston",
+	"America/Dawson_Creek",
+	"America/Hermosillo",
+	"America/Phoenix",
+	"Etc/GMT+7"
 	]
 }, {
 	"name": "Mountain Standard Time (Mexico)",
@@ -3503,8 +3506,8 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-07:00) Chihuahua, La Paz, Mazatlan",
 	"utc": [
-		"America/Chihuahua",
-		"America/Mazatlan"
+	"America/Chihuahua",
+	"America/Mazatlan"
 	]
 }, {
 	"name": "Mountain Standard Time",
@@ -3513,14 +3516,14 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-07:00) Mountain Time (US & Canada)",
 	"utc": [
-		"America/Boise",
-		"America/Cambridge_Bay",
-		"America/Denver",
-		"America/Edmonton",
-		"America/Inuvik",
-		"America/Ojinaga",
-		"America/Yellowknife",
-		"MST7MDT"
+	"America/Boise",
+	"America/Cambridge_Bay",
+	"America/Denver",
+	"America/Edmonton",
+	"America/Inuvik",
+	"America/Ojinaga",
+	"America/Yellowknife",
+	"MST7MDT"
 	]
 }, {
 	"name": "Central America Standard Time",
@@ -3529,14 +3532,14 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-06:00) Central America",
 	"utc": [
-		"America/Belize",
-		"America/Costa_Rica",
-		"America/El_Salvador",
-		"America/Guatemala",
-		"America/Managua",
-		"America/Tegucigalpa",
-		"Etc/GMT+6",
-		"Pacific/Galapagos"
+	"America/Belize",
+	"America/Costa_Rica",
+	"America/El_Salvador",
+	"America/Guatemala",
+	"America/Managua",
+	"America/Tegucigalpa",
+	"Etc/GMT+6",
+	"Pacific/Galapagos"
 	]
 }, {
 	"name": "Central Standard Time",
@@ -3545,19 +3548,19 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-06:00) Central Time (US & Canada)",
 	"utc": [
-		"America/Chicago",
-		"America/Indiana/Knox",
-		"America/Indiana/Tell_City",
-		"America/Matamoros",
-		"America/Menominee",
-		"America/North_Dakota/Beulah",
-		"America/North_Dakota/Center",
-		"America/North_Dakota/New_Salem",
-		"America/Rainy_River",
-		"America/Rankin_Inlet",
-		"America/Resolute",
-		"America/Winnipeg",
-		"CST6CDT"
+	"America/Chicago",
+	"America/Indiana/Knox",
+	"America/Indiana/Tell_City",
+	"America/Matamoros",
+	"America/Menominee",
+	"America/North_Dakota/Beulah",
+	"America/North_Dakota/Center",
+	"America/North_Dakota/New_Salem",
+	"America/Rainy_River",
+	"America/Rankin_Inlet",
+	"America/Resolute",
+	"America/Winnipeg",
+	"CST6CDT"
 	]
 }, {
 	"name": "Central Standard Time (Mexico)",
@@ -3566,11 +3569,11 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-06:00) Guadalajara, Mexico City, Monterrey",
 	"utc": [
-		"America/Bahia_Banderas",
-		"America/Cancun",
-		"America/Merida",
-		"America/Mexico_City",
-		"America/Monterrey"
+	"America/Bahia_Banderas",
+	"America/Cancun",
+	"America/Merida",
+	"America/Mexico_City",
+	"America/Monterrey"
 	]
 }, {
 	"name": "Canada Central Standard Time",
@@ -3579,8 +3582,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-06:00) Saskatchewan",
 	"utc": [
-		"America/Regina",
-		"America/Swift_Current"
+	"America/Regina",
+	"America/Swift_Current"
 	]
 }, {
 	"name": "SA Pacific Standard Time",
@@ -3589,16 +3592,16 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-05:00) Bogota, Lima, Quito",
 	"utc": [
-		"America/Bogota",
-		"America/Cayman",
-		"America/Coral_Harbour",
-		"America/Eirunepe",
-		"America/Guayaquil",
-		"America/Jamaica",
-		"America/Lima",
-		"America/Panama",
-		"America/Rio_Branco",
-		"Etc/GMT+5"
+	"America/Bogota",
+	"America/Cayman",
+	"America/Coral_Harbour",
+	"America/Eirunepe",
+	"America/Guayaquil",
+	"America/Jamaica",
+	"America/Lima",
+	"America/Panama",
+	"America/Rio_Branco",
+	"Etc/GMT+5"
 	]
 }, {
 	"name": "Eastern Standard Time",
@@ -3607,23 +3610,23 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-05:00) Eastern Time (US & Canada)",
 	"utc": [
-		"America/Detroit",
-		"America/Havana",
-		"America/Indiana/Petersburg",
-		"America/Indiana/Vincennes",
-		"America/Indiana/Winamac",
-		"America/Iqaluit",
-		"America/Kentucky/Monticello",
-		"America/Louisville",
-		"America/Montreal",
-		"America/Nassau",
-		"America/New_York",
-		"America/Nipigon",
-		"America/Pangnirtung",
-		"America/Port-au-Prince",
-		"America/Thunder_Bay",
-		"America/Toronto",
-		"EST5EDT"
+	"America/Detroit",
+	"America/Havana",
+	"America/Indiana/Petersburg",
+	"America/Indiana/Vincennes",
+	"America/Indiana/Winamac",
+	"America/Iqaluit",
+	"America/Kentucky/Monticello",
+	"America/Louisville",
+	"America/Montreal",
+	"America/Nassau",
+	"America/New_York",
+	"America/Nipigon",
+	"America/Pangnirtung",
+	"America/Port-au-Prince",
+	"America/Thunder_Bay",
+	"America/Toronto",
+	"EST5EDT"
 	]
 }, {
 	"name": "US Eastern Standard Time",
@@ -3632,9 +3635,9 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-05:00) Indiana (East)",
 	"utc": [
-		"America/Indiana/Marengo",
-		"America/Indiana/Vevay",
-		"America/Indianapolis"
+	"America/Indiana/Marengo",
+	"America/Indiana/Vevay",
+	"America/Indianapolis"
 	]
 }, {
 	"name": "Venezuela Standard Time",
@@ -3643,7 +3646,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-04:30) Caracas",
 	"utc": [
-		"America/Caracas"
+	"America/Caracas"
 	]
 }, {
 	"name": "Paraguay Standard Time",
@@ -3652,7 +3655,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-04:00) Asuncion",
 	"utc": [
-		"America/Asuncion"
+	"America/Asuncion"
 	]
 }, {
 	"name": "Atlantic Standard Time",
@@ -3661,12 +3664,12 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-04:00) Atlantic Time (Canada)",
 	"utc": [
-		"America/Glace_Bay",
-		"America/Goose_Bay",
-		"America/Halifax",
-		"America/Moncton",
-		"America/Thule",
-		"Atlantic/Bermuda"
+	"America/Glace_Bay",
+	"America/Goose_Bay",
+	"America/Halifax",
+	"America/Moncton",
+	"America/Thule",
+	"Atlantic/Bermuda"
 	]
 }, {
 	"name": "Central Brazilian Standard Time",
@@ -3675,8 +3678,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-04:00) Cuiaba",
 	"utc": [
-		"America/Campo_Grande",
-		"America/Cuiaba"
+	"America/Campo_Grande",
+	"America/Cuiaba"
 	]
 }, {
 	"name": "SA Western Standard Time",
@@ -3685,36 +3688,36 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-04:00) Georgetown, La Paz, Manaus, San Juan",
 	"utc": [
-		"America/Anguilla",
-		"America/Antigua",
-		"America/Aruba",
-		"America/Barbados",
-		"America/Blanc-Sablon",
-		"America/Boa_Vista",
-		"America/Curacao",
-		"America/Dominica",
-		"America/Grand_Turk",
-		"America/Grenada",
-		"America/Guadeloupe",
-		"America/Guyana",
-		"America/Kralendijk",
-		"America/La_Paz",
-		"America/Lower_Princes",
-		"America/Manaus",
-		"America/Marigot",
-		"America/Martinique",
-		"America/Montserrat",
-		"America/Port_of_Spain",
-		"America/Porto_Velho",
-		"America/Puerto_Rico",
-		"America/Santo_Domingo",
-		"America/St_Barthelemy",
-		"America/St_Kitts",
-		"America/St_Lucia",
-		"America/St_Thomas",
-		"America/St_Vincent",
-		"America/Tortola",
-		"Etc/GMT+4"
+	"America/Anguilla",
+	"America/Antigua",
+	"America/Aruba",
+	"America/Barbados",
+	"America/Blanc-Sablon",
+	"America/Boa_Vista",
+	"America/Curacao",
+	"America/Dominica",
+	"America/Grand_Turk",
+	"America/Grenada",
+	"America/Guadeloupe",
+	"America/Guyana",
+	"America/Kralendijk",
+	"America/La_Paz",
+	"America/Lower_Princes",
+	"America/Manaus",
+	"America/Marigot",
+	"America/Martinique",
+	"America/Montserrat",
+	"America/Port_of_Spain",
+	"America/Porto_Velho",
+	"America/Puerto_Rico",
+	"America/Santo_Domingo",
+	"America/St_Barthelemy",
+	"America/St_Kitts",
+	"America/St_Lucia",
+	"America/St_Thomas",
+	"America/St_Vincent",
+	"America/Tortola",
+	"Etc/GMT+4"
 	]
 }, {
 	"name": "Pacific SA Standard Time",
@@ -3723,8 +3726,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-04:00) Santiago",
 	"utc": [
-		"America/Santiago",
-		"Antarctica/Palmer"
+	"America/Santiago",
+	"Antarctica/Palmer"
 	]
 }, {
 	"name": "Newfoundland Standard Time",
@@ -3733,7 +3736,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-03:30) Newfoundland",
 	"utc": [
-		"America/St_Johns"
+	"America/St_Johns"
 	]
 }, {
 	"name": "E. South America Standard Time",
@@ -3742,7 +3745,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-03:00) Brasilia",
 	"utc": [
-		"America/Sao_Paulo"
+	"America/Sao_Paulo"
 	]
 }, {
 	"name": "Argentina Standard Time",
@@ -3751,18 +3754,18 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-03:00) Buenos Aires",
 	"utc": [
-		"America/Argentina/La_Rioja",
-		"America/Argentina/Rio_Gallegos",
-		"America/Argentina/Salta",
-		"America/Argentina/San_Juan",
-		"America/Argentina/San_Luis",
-		"America/Argentina/Tucuman",
-		"America/Argentina/Ushuaia",
-		"America/Buenos_Aires",
-		"America/Catamarca",
-		"America/Cordoba",
-		"America/Jujuy",
-		"America/Mendoza"
+	"America/Argentina/La_Rioja",
+	"America/Argentina/Rio_Gallegos",
+	"America/Argentina/Salta",
+	"America/Argentina/San_Juan",
+	"America/Argentina/San_Luis",
+	"America/Argentina/Tucuman",
+	"America/Argentina/Ushuaia",
+	"America/Buenos_Aires",
+	"America/Catamarca",
+	"America/Cordoba",
+	"America/Jujuy",
+	"America/Mendoza"
 	]
 }, {
 	"name": "SA Eastern Standard Time",
@@ -3771,17 +3774,17 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-03:00) Cayenne, Fortaleza",
 	"utc": [
-		"America/Araguaina",
-		"America/Belem",
-		"America/Cayenne",
-		"America/Fortaleza",
-		"America/Maceio",
-		"America/Paramaribo",
-		"America/Recife",
-		"America/Santarem",
-		"Antarctica/Rothera",
-		"Atlantic/Stanley",
-		"Etc/GMT+3"
+	"America/Araguaina",
+	"America/Belem",
+	"America/Cayenne",
+	"America/Fortaleza",
+	"America/Maceio",
+	"America/Paramaribo",
+	"America/Recife",
+	"America/Santarem",
+	"Antarctica/Rothera",
+	"Atlantic/Stanley",
+	"Etc/GMT+3"
 	]
 }, {
 	"name": "Greenland Standard Time",
@@ -3790,7 +3793,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-03:00) Greenland",
 	"utc": [
-		"America/Godthab"
+	"America/Godthab"
 	]
 }, {
 	"name": "Montevideo Standard Time",
@@ -3799,7 +3802,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-03:00) Montevideo",
 	"utc": [
-		"America/Montevideo"
+	"America/Montevideo"
 	]
 }, {
 	"name": "Bahia Standard Time",
@@ -3808,7 +3811,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-03:00) Salvador",
 	"utc": [
-		"America/Bahia"
+	"America/Bahia"
 	]
 }, {
 	"name": "UTC-02",
@@ -3817,9 +3820,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-02:00) Coordinated Universal Time-02",
 	"utc": [
-		"America/Noronha",
-		"Atlantic/South_Georgia",
-		"Etc/GMT+2"
+	"America/Noronha",
+	"Atlantic/South_Georgia",
+	"Etc/GMT+2"
 	]
 }, {
 	"name": "Mid-Atlantic Standard Time",
@@ -3834,8 +3837,8 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC-01:00) Azores",
 	"utc": [
-		"America/Scoresbysund",
-		"Atlantic/Azores"
+	"America/Scoresbysund",
+	"Atlantic/Azores"
 	]
 }, {
 	"name": "Cape Verde Standard Time",
@@ -3844,8 +3847,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC-01:00) Cape Verde Is.",
 	"utc": [
-		"Atlantic/Cape_Verde",
-		"Etc/GMT+1"
+	"Atlantic/Cape_Verde",
+	"Etc/GMT+1"
 	]
 }, {
 	"name": "Morocco Standard Time",
@@ -3854,8 +3857,8 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC) Casablanca",
 	"utc": [
-		"Africa/Casablanca",
-		"Africa/El_Aaiun"
+	"Africa/Casablanca",
+	"Africa/El_Aaiun"
 	]
 }, {
 	"name": "UTC",
@@ -3864,8 +3867,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC) Coordinated Universal Time",
 	"utc": [
-		"America/Danmarkshavn",
-		"Etc/GMT"
+	"America/Danmarkshavn",
+	"Etc/GMT"
 	]
 }, {
 	"name": "GMT Standard Time",
@@ -3874,15 +3877,15 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC) Dublin, Edinburgh, Lisbon, London",
 	"utc": [
-		"Atlantic/Canary",
-		"Atlantic/Faeroe",
-		"Atlantic/Madeira",
-		"Europe/Dublin",
-		"Europe/Guernsey",
-		"Europe/Isle_of_Man",
-		"Europe/Jersey",
-		"Europe/Lisbon",
-		"Europe/London"
+	"Atlantic/Canary",
+	"Atlantic/Faeroe",
+	"Atlantic/Madeira",
+	"Europe/Dublin",
+	"Europe/Guernsey",
+	"Europe/Isle_of_Man",
+	"Europe/Jersey",
+	"Europe/Lisbon",
+	"Europe/London"
 	]
 }, {
 	"name": "Greenwich Standard Time",
@@ -3891,21 +3894,21 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC) Monrovia, Reykjavik",
 	"utc": [
-		"Africa/Abidjan",
-		"Africa/Accra",
-		"Africa/Bamako",
-		"Africa/Banjul",
-		"Africa/Bissau",
-		"Africa/Conakry",
-		"Africa/Dakar",
-		"Africa/Freetown",
-		"Africa/Lome",
-		"Africa/Monrovia",
-		"Africa/Nouakchott",
-		"Africa/Ouagadougou",
-		"Africa/Sao_Tome",
-		"Atlantic/Reykjavik",
-		"Atlantic/St_Helena"
+	"Africa/Abidjan",
+	"Africa/Accra",
+	"Africa/Bamako",
+	"Africa/Banjul",
+	"Africa/Bissau",
+	"Africa/Conakry",
+	"Africa/Dakar",
+	"Africa/Freetown",
+	"Africa/Lome",
+	"Africa/Monrovia",
+	"Africa/Nouakchott",
+	"Africa/Ouagadougou",
+	"Africa/Sao_Tome",
+	"Atlantic/Reykjavik",
+	"Atlantic/St_Helena"
 	]
 }, {
 	"name": "W. Europe Standard Time",
@@ -3914,23 +3917,23 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna",
 	"utc": [
-		"Arctic/Longyearbyen",
-		"Europe/Amsterdam",
-		"Europe/Andorra",
-		"Europe/Berlin",
-		"Europe/Busingen",
-		"Europe/Gibraltar",
-		"Europe/Luxembourg",
-		"Europe/Malta",
-		"Europe/Monaco",
-		"Europe/Oslo",
-		"Europe/Rome",
-		"Europe/San_Marino",
-		"Europe/Stockholm",
-		"Europe/Vaduz",
-		"Europe/Vatican",
-		"Europe/Vienna",
-		"Europe/Zurich"
+	"Arctic/Longyearbyen",
+	"Europe/Amsterdam",
+	"Europe/Andorra",
+	"Europe/Berlin",
+	"Europe/Busingen",
+	"Europe/Gibraltar",
+	"Europe/Luxembourg",
+	"Europe/Malta",
+	"Europe/Monaco",
+	"Europe/Oslo",
+	"Europe/Rome",
+	"Europe/San_Marino",
+	"Europe/Stockholm",
+	"Europe/Vaduz",
+	"Europe/Vatican",
+	"Europe/Vienna",
+	"Europe/Zurich"
 	]
 }, {
 	"name": "Central Europe Standard Time",
@@ -3939,13 +3942,13 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague",
 	"utc": [
-		"Europe/Belgrade",
-		"Europe/Bratislava",
-		"Europe/Budapest",
-		"Europe/Ljubljana",
-		"Europe/Podgorica",
-		"Europe/Prague",
-		"Europe/Tirane"
+	"Europe/Belgrade",
+	"Europe/Bratislava",
+	"Europe/Budapest",
+	"Europe/Ljubljana",
+	"Europe/Podgorica",
+	"Europe/Prague",
+	"Europe/Tirane"
 	]
 }, {
 	"name": "Romance Standard Time",
@@ -3954,11 +3957,11 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+01:00) Brussels, Copenhagen, Madrid, Paris",
 	"utc": [
-		"Africa/Ceuta",
-		"Europe/Brussels",
-		"Europe/Copenhagen",
-		"Europe/Madrid",
-		"Europe/Paris"
+	"Africa/Ceuta",
+	"Europe/Brussels",
+	"Europe/Copenhagen",
+	"Europe/Madrid",
+	"Europe/Paris"
 	]
 }, {
 	"name": "Central European Standard Time",
@@ -3967,10 +3970,10 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb",
 	"utc": [
-		"Europe/Sarajevo",
-		"Europe/Skopje",
-		"Europe/Warsaw",
-		"Europe/Zagreb"
+	"Europe/Sarajevo",
+	"Europe/Skopje",
+	"Europe/Warsaw",
+	"Europe/Zagreb"
 	]
 }, {
 	"name": "W. Central Africa Standard Time",
@@ -3979,20 +3982,20 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+01:00) West Central Africa",
 	"utc": [
-		"Africa/Algiers",
-		"Africa/Bangui",
-		"Africa/Brazzaville",
-		"Africa/Douala",
-		"Africa/Kinshasa",
-		"Africa/Lagos",
-		"Africa/Libreville",
-		"Africa/Luanda",
-		"Africa/Malabo",
-		"Africa/Ndjamena",
-		"Africa/Niamey",
-		"Africa/Porto-Novo",
-		"Africa/Tunis",
-		"Etc/GMT-1"
+	"Africa/Algiers",
+	"Africa/Bangui",
+	"Africa/Brazzaville",
+	"Africa/Douala",
+	"Africa/Kinshasa",
+	"Africa/Lagos",
+	"Africa/Libreville",
+	"Africa/Luanda",
+	"Africa/Malabo",
+	"Africa/Ndjamena",
+	"Africa/Niamey",
+	"Africa/Porto-Novo",
+	"Africa/Tunis",
+	"Etc/GMT-1"
 	]
 }, {
 	"name": "Namibia Standard Time",
@@ -4001,7 +4004,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+01:00) Windhoek",
 	"utc": [
-		"Africa/Windhoek"
+	"Africa/Windhoek"
 	]
 }, {
 	"name": "GTB Standard Time",
@@ -4010,10 +4013,10 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+02:00) Athens, Bucharest",
 	"utc": [
-		"Asia/Nicosia",
-		"Europe/Athens",
-		"Europe/Bucharest",
-		"Europe/Chisinau"
+	"Asia/Nicosia",
+	"Europe/Athens",
+	"Europe/Bucharest",
+	"Europe/Chisinau"
 	]
 }, {
 	"name": "Middle East Standard Time",
@@ -4022,7 +4025,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+02:00) Beirut",
 	"utc": [
-		"Asia/Beirut"
+	"Asia/Beirut"
 	]
 }, {
 	"name": "Egypt Standard Time",
@@ -4031,7 +4034,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+02:00) Cairo",
 	"utc": [
-		"Africa/Cairo"
+	"Africa/Cairo"
 	]
 }, {
 	"name": "Syria Standard Time",
@@ -4040,7 +4043,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+02:00) Damascus",
 	"utc": [
-		"Asia/Damascus"
+	"Asia/Damascus"
 	]
 }, {
 	"name": "E. Europe Standard Time",
@@ -4055,18 +4058,18 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+02:00) Harare, Pretoria",
 	"utc": [
-		"Africa/Blantyre",
-		"Africa/Bujumbura",
-		"Africa/Gaborone",
-		"Africa/Harare",
-		"Africa/Johannesburg",
-		"Africa/Kigali",
-		"Africa/Lubumbashi",
-		"Africa/Lusaka",
-		"Africa/Maputo",
-		"Africa/Maseru",
-		"Africa/Mbabane",
-		"Etc/GMT-2"
+	"Africa/Blantyre",
+	"Africa/Bujumbura",
+	"Africa/Gaborone",
+	"Africa/Harare",
+	"Africa/Johannesburg",
+	"Africa/Kigali",
+	"Africa/Lubumbashi",
+	"Africa/Lusaka",
+	"Africa/Maputo",
+	"Africa/Maseru",
+	"Africa/Mbabane",
+	"Etc/GMT-2"
 	]
 }, {
 	"name": "FLE Standard Time",
@@ -4075,15 +4078,15 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius",
 	"utc": [
-		"Europe/Helsinki",
-		"Europe/Kiev",
-		"Europe/Mariehamn",
-		"Europe/Riga",
-		"Europe/Sofia",
-		"Europe/Tallinn",
-		"Europe/Uzhgorod",
-		"Europe/Vilnius",
-		"Europe/Zaporozhye"
+	"Europe/Helsinki",
+	"Europe/Kiev",
+	"Europe/Mariehamn",
+	"Europe/Riga",
+	"Europe/Sofia",
+	"Europe/Tallinn",
+	"Europe/Uzhgorod",
+	"Europe/Vilnius",
+	"Europe/Zaporozhye"
 	]
 }, {
 	"name": "Turkey Standard Time",
@@ -4092,7 +4095,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+02:00) Istanbul",
 	"utc": [
-		"Europe/Istanbul"
+	"Europe/Istanbul"
 	]
 }, {
 	"name": "Israel Standard Time",
@@ -4101,7 +4104,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+02:00) Jerusalem",
 	"utc": [
-		"Asia/Jerusalem"
+	"Asia/Jerusalem"
 	]
 }, {
 	"name": "Libya Standard Time",
@@ -4110,7 +4113,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+02:00) Tripoli",
 	"utc": [
-		"Africa/Tripoli"
+	"Africa/Tripoli"
 	]
 }, {
 	"name": "Jordan Standard Time",
@@ -4119,7 +4122,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+03:00) Amman",
 	"utc": [
-		"Asia/Amman"
+	"Asia/Amman"
 	]
 }, {
 	"name": "Arabic Standard Time",
@@ -4128,7 +4131,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+03:00) Baghdad",
 	"utc": [
-		"Asia/Baghdad"
+	"Asia/Baghdad"
 	]
 }, {
 	"name": "Kaliningrad Standard Time",
@@ -4137,8 +4140,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+03:00) Kaliningrad, Minsk",
 	"utc": [
-		"Europe/Kaliningrad",
-		"Europe/Minsk"
+	"Europe/Kaliningrad",
+	"Europe/Minsk"
 	]
 }, {
 	"name": "Arab Standard Time",
@@ -4147,11 +4150,11 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+03:00) Kuwait, Riyadh",
 	"utc": [
-		"Asia/Aden",
-		"Asia/Bahrain",
-		"Asia/Kuwait",
-		"Asia/Qatar",
-		"Asia/Riyadh"
+	"Asia/Aden",
+	"Asia/Bahrain",
+	"Asia/Kuwait",
+	"Asia/Qatar",
+	"Asia/Riyadh"
 	]
 }, {
 	"name": "E. Africa Standard Time",
@@ -4160,20 +4163,20 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+03:00) Nairobi",
 	"utc": [
-		"Africa/Addis_Ababa",
-		"Africa/Asmera",
-		"Africa/Dar_es_Salaam",
-		"Africa/Djibouti",
-		"Africa/Juba",
-		"Africa/Kampala",
-		"Africa/Khartoum",
-		"Africa/Mogadishu",
-		"Africa/Nairobi",
-		"Antarctica/Syowa",
-		"Etc/GMT-3",
-		"Indian/Antananarivo",
-		"Indian/Comoro",
-		"Indian/Mayotte"
+	"Africa/Addis_Ababa",
+	"Africa/Asmera",
+	"Africa/Dar_es_Salaam",
+	"Africa/Djibouti",
+	"Africa/Juba",
+	"Africa/Kampala",
+	"Africa/Khartoum",
+	"Africa/Mogadishu",
+	"Africa/Nairobi",
+	"Antarctica/Syowa",
+	"Etc/GMT-3",
+	"Indian/Antananarivo",
+	"Indian/Comoro",
+	"Indian/Mayotte"
 	]
 }, {
 	"name": "Iran Standard Time",
@@ -4182,7 +4185,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+03:30) Tehran",
 	"utc": [
-		"Asia/Tehran"
+	"Asia/Tehran"
 	]
 }, {
 	"name": "Arabian Standard Time",
@@ -4191,9 +4194,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+04:00) Abu Dhabi, Muscat",
 	"utc": [
-		"Asia/Dubai",
-		"Asia/Muscat",
-		"Etc/GMT-4"
+	"Asia/Dubai",
+	"Asia/Muscat",
+	"Etc/GMT-4"
 	]
 }, {
 	"name": "Azerbaijan Standard Time",
@@ -4202,7 +4205,7 @@ module.exports.timezones = [{
 	"isdst": true,
 	"text": "(UTC+04:00) Baku",
 	"utc": [
-		"Asia/Baku"
+	"Asia/Baku"
 	]
 }, {
 	"name": "Russian Standard Time",
@@ -4211,10 +4214,10 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+04:00) Moscow, St. Petersburg, Volgograd",
 	"utc": [
-		"Europe/Moscow",
-		"Europe/Samara",
-		"Europe/Simferopol",
-		"Europe/Volgograd"
+	"Europe/Moscow",
+	"Europe/Samara",
+	"Europe/Simferopol",
+	"Europe/Volgograd"
 	]
 }, {
 	"name": "Mauritius Standard Time",
@@ -4223,9 +4226,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+04:00) Port Louis",
 	"utc": [
-		"Indian/Mahe",
-		"Indian/Mauritius",
-		"Indian/Reunion"
+	"Indian/Mahe",
+	"Indian/Mauritius",
+	"Indian/Reunion"
 	]
 }, {
 	"name": "Georgian Standard Time",
@@ -4234,7 +4237,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+04:00) Tbilisi",
 	"utc": [
-		"Asia/Tbilisi"
+	"Asia/Tbilisi"
 	]
 }, {
 	"name": "Caucasus Standard Time",
@@ -4243,7 +4246,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+04:00) Yerevan",
 	"utc": [
-		"Asia/Yerevan"
+	"Asia/Yerevan"
 	]
 }, {
 	"name": "Afghanistan Standard Time",
@@ -4252,7 +4255,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+04:30) Kabul",
 	"utc": [
-		"Asia/Kabul"
+	"Asia/Kabul"
 	]
 }, {
 	"name": "West Asia Standard Time",
@@ -4261,17 +4264,17 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+05:00) Ashgabat, Tashkent",
 	"utc": [
-		"Antarctica/Mawson",
-		"Asia/Aqtau",
-		"Asia/Aqtobe",
-		"Asia/Ashgabat",
-		"Asia/Dushanbe",
-		"Asia/Oral",
-		"Asia/Samarkand",
-		"Asia/Tashkent",
-		"Etc/GMT-5",
-		"Indian/Kerguelen",
-		"Indian/Maldives"
+	"Antarctica/Mawson",
+	"Asia/Aqtau",
+	"Asia/Aqtobe",
+	"Asia/Ashgabat",
+	"Asia/Dushanbe",
+	"Asia/Oral",
+	"Asia/Samarkand",
+	"Asia/Tashkent",
+	"Etc/GMT-5",
+	"Indian/Kerguelen",
+	"Indian/Maldives"
 	]
 }, {
 	"name": "Pakistan Standard Time",
@@ -4280,7 +4283,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+05:00) Islamabad, Karachi",
 	"utc": [
-		"Asia/Karachi"
+	"Asia/Karachi"
 	]
 }, {
 	"name": "India Standard Time",
@@ -4289,7 +4292,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi",
 	"utc": [
-		"Asia/Calcutta"
+	"Asia/Calcutta"
 	]
 }, {
 	"name": "Sri Lanka Standard Time",
@@ -4298,7 +4301,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+05:30) Sri Jayawardenepura",
 	"utc": [
-		"Asia/Colombo"
+	"Asia/Colombo"
 	]
 }, {
 	"name": "Nepal Standard Time",
@@ -4307,7 +4310,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+05:45) Kathmandu",
 	"utc": [
-		"Asia/Katmandu"
+	"Asia/Katmandu"
 	]
 }, {
 	"name": "Central Asia Standard Time",
@@ -4316,13 +4319,13 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+06:00) Astana",
 	"utc": [
-		"Antarctica/Vostok",
-		"Asia/Almaty",
-		"Asia/Bishkek",
-		"Asia/Qyzylorda",
-		"Asia/Urumqi",
-		"Etc/GMT-6",
-		"Indian/Chagos"
+	"Antarctica/Vostok",
+	"Asia/Almaty",
+	"Asia/Bishkek",
+	"Asia/Qyzylorda",
+	"Asia/Urumqi",
+	"Etc/GMT-6",
+	"Indian/Chagos"
 	]
 }, {
 	"name": "Bangladesh Standard Time",
@@ -4331,8 +4334,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+06:00) Dhaka",
 	"utc": [
-		"Asia/Dhaka",
-		"Asia/Thimphu"
+	"Asia/Dhaka",
+	"Asia/Thimphu"
 	]
 }, {
 	"name": "Ekaterinburg Standard Time",
@@ -4341,7 +4344,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+06:00) Ekaterinburg",
 	"utc": [
-		"Asia/Yekaterinburg"
+	"Asia/Yekaterinburg"
 	]
 }, {
 	"name": "Myanmar Standard Time",
@@ -4350,8 +4353,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+06:30) Yangon (Rangoon)",
 	"utc": [
-		"Asia/Rangoon",
-		"Indian/Cocos"
+	"Asia/Rangoon",
+	"Indian/Cocos"
 	]
 }, {
 	"name": "SE Asia Standard Time",
@@ -4360,16 +4363,16 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+07:00) Bangkok, Hanoi, Jakarta",
 	"utc": [
-		"Antarctica/Davis",
-		"Asia/Bangkok",
-		"Asia/Hovd",
-		"Asia/Jakarta",
-		"Asia/Phnom_Penh",
-		"Asia/Pontianak",
-		"Asia/Saigon",
-		"Asia/Vientiane",
-		"Etc/GMT-7",
-		"Indian/Christmas"
+	"Antarctica/Davis",
+	"Asia/Bangkok",
+	"Asia/Hovd",
+	"Asia/Jakarta",
+	"Asia/Phnom_Penh",
+	"Asia/Pontianak",
+	"Asia/Saigon",
+	"Asia/Vientiane",
+	"Etc/GMT-7",
+	"Indian/Christmas"
 	]
 }, {
 	"name": "N. Central Asia Standard Time",
@@ -4378,9 +4381,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+07:00) Novosibirsk",
 	"utc": [
-		"Asia/Novokuznetsk",
-		"Asia/Novosibirsk",
-		"Asia/Omsk"
+	"Asia/Novokuznetsk",
+	"Asia/Novosibirsk",
+	"Asia/Omsk"
 	]
 }, {
 	"name": "China Standard Time",
@@ -4389,9 +4392,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi",
 	"utc": [
-		"Asia/Hong_Kong",
-		"Asia/Macau",
-		"Asia/Shanghai"
+	"Asia/Hong_Kong",
+	"Asia/Macau",
+	"Asia/Shanghai"
 	]
 }, {
 	"name": "North Asia Standard Time",
@@ -4400,7 +4403,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+08:00) Krasnoyarsk",
 	"utc": [
-		"Asia/Krasnoyarsk"
+	"Asia/Krasnoyarsk"
 	]
 }, {
 	"name": "Singapore Standard Time",
@@ -4409,13 +4412,13 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+08:00) Kuala Lumpur, Singapore",
 	"utc": [
-		"Asia/Brunei",
-		"Asia/Kuala_Lumpur",
-		"Asia/Kuching",
-		"Asia/Makassar",
-		"Asia/Manila",
-		"Asia/Singapore",
-		"Etc/GMT-8"
+	"Asia/Brunei",
+	"Asia/Kuala_Lumpur",
+	"Asia/Kuching",
+	"Asia/Makassar",
+	"Asia/Manila",
+	"Asia/Singapore",
+	"Etc/GMT-8"
 	]
 }, {
 	"name": "W. Australia Standard Time",
@@ -4424,8 +4427,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+08:00) Perth",
 	"utc": [
-		"Antarctica/Casey",
-		"Australia/Perth"
+	"Antarctica/Casey",
+	"Australia/Perth"
 	]
 }, {
 	"name": "Taipei Standard Time",
@@ -4434,7 +4437,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+08:00) Taipei",
 	"utc": [
-		"Asia/Taipei"
+	"Asia/Taipei"
 	]
 }, {
 	"name": "Ulaanbaatar Standard Time",
@@ -4443,8 +4446,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+08:00) Ulaanbaatar",
 	"utc": [
-		"Asia/Choibalsan",
-		"Asia/Ulaanbaatar"
+	"Asia/Choibalsan",
+	"Asia/Ulaanbaatar"
 	]
 }, {
 	"name": "North Asia East Standard Time",
@@ -4453,7 +4456,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+09:00) Irkutsk",
 	"utc": [
-		"Asia/Irkutsk"
+	"Asia/Irkutsk"
 	]
 }, {
 	"name": "Tokyo Standard Time",
@@ -4462,11 +4465,11 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+09:00) Osaka, Sapporo, Tokyo",
 	"utc": [
-		"Asia/Dili",
-		"Asia/Jayapura",
-		"Asia/Tokyo",
-		"Etc/GMT-9",
-		"Pacific/Palau"
+	"Asia/Dili",
+	"Asia/Jayapura",
+	"Asia/Tokyo",
+	"Etc/GMT-9",
+	"Pacific/Palau"
 	]
 }, {
 	"name": "Korea Standard Time",
@@ -4475,8 +4478,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+09:00) Seoul",
 	"utc": [
-		"Asia/Pyongyang",
-		"Asia/Seoul"
+	"Asia/Pyongyang",
+	"Asia/Seoul"
 	]
 }, {
 	"name": "Cen. Australia Standard Time",
@@ -4485,8 +4488,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+09:30) Adelaide",
 	"utc": [
-		"Australia/Adelaide",
-		"Australia/Broken_Hill"
+	"Australia/Adelaide",
+	"Australia/Broken_Hill"
 	]
 }, {
 	"name": "AUS Central Standard Time",
@@ -4495,7 +4498,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+09:30) Darwin",
 	"utc": [
-		"Australia/Darwin"
+	"Australia/Darwin"
 	]
 }, {
 	"name": "E. Australia Standard Time",
@@ -4504,8 +4507,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+10:00) Brisbane",
 	"utc": [
-		"Australia/Brisbane",
-		"Australia/Lindeman"
+	"Australia/Brisbane",
+	"Australia/Lindeman"
 	]
 }, {
 	"name": "AUS Eastern Standard Time",
@@ -4514,8 +4517,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+10:00) Canberra, Melbourne, Sydney",
 	"utc": [
-		"Australia/Melbourne",
-		"Australia/Sydney"
+	"Australia/Melbourne",
+	"Australia/Sydney"
 	]
 }, {
 	"name": "West Pacific Standard Time",
@@ -4524,12 +4527,12 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+10:00) Guam, Port Moresby",
 	"utc": [
-		"Antarctica/DumontDUrville",
-		"Etc/GMT-10",
-		"Pacific/Guam",
-		"Pacific/Port_Moresby",
-		"Pacific/Saipan",
-		"Pacific/Truk"
+	"Antarctica/DumontDUrville",
+	"Etc/GMT-10",
+	"Pacific/Guam",
+	"Pacific/Port_Moresby",
+	"Pacific/Saipan",
+	"Pacific/Truk"
 	]
 }, {
 	"name": "Tasmania Standard Time",
@@ -4538,8 +4541,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+10:00) Hobart",
 	"utc": [
-		"Australia/Currie",
-		"Australia/Hobart"
+	"Australia/Currie",
+	"Australia/Hobart"
 	]
 }, {
 	"name": "Yakutsk Standard Time",
@@ -4548,9 +4551,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+10:00) Yakutsk",
 	"utc": [
-		"Asia/Chita",
-		"Asia/Khandyga",
-		"Asia/Yakutsk"
+	"Asia/Chita",
+	"Asia/Khandyga",
+	"Asia/Yakutsk"
 	]
 }, {
 	"name": "Central Pacific Standard Time",
@@ -4559,13 +4562,13 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+11:00) Solomon Is., New Caledonia",
 	"utc": [
-		"Antarctica/Macquarie",
-		"Etc/GMT-11",
-		"Pacific/Efate",
-		"Pacific/Guadalcanal",
-		"Pacific/Kosrae",
-		"Pacific/Noumea",
-		"Pacific/Ponape"
+	"Antarctica/Macquarie",
+	"Etc/GMT-11",
+	"Pacific/Efate",
+	"Pacific/Guadalcanal",
+	"Pacific/Kosrae",
+	"Pacific/Noumea",
+	"Pacific/Ponape"
 	]
 }, {
 	"name": "Vladivostok Standard Time",
@@ -4574,9 +4577,9 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+11:00) Vladivostok",
 	"utc": [
-		"Asia/Sakhalin",
-		"Asia/Ust-Nera",
-		"Asia/Vladivostok"
+	"Asia/Sakhalin",
+	"Asia/Ust-Nera",
+	"Asia/Vladivostok"
 	]
 }, {
 	"name": "New Zealand Standard Time",
@@ -4585,8 +4588,8 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+12:00) Auckland, Wellington",
 	"utc": [
-		"Antarctica/McMurdo",
-		"Pacific/Auckland"
+	"Antarctica/McMurdo",
+	"Pacific/Auckland"
 	]
 }, {
 	"name": "UTC+12",
@@ -4595,14 +4598,14 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+12:00) Coordinated Universal Time+12",
 	"utc": [
-		"Etc/GMT-12",
-		"Pacific/Funafuti",
-		"Pacific/Kwajalein",
-		"Pacific/Majuro",
-		"Pacific/Nauru",
-		"Pacific/Tarawa",
-		"Pacific/Wake",
-		"Pacific/Wallis"
+	"Etc/GMT-12",
+	"Pacific/Funafuti",
+	"Pacific/Kwajalein",
+	"Pacific/Majuro",
+	"Pacific/Nauru",
+	"Pacific/Tarawa",
+	"Pacific/Wake",
+	"Pacific/Wallis"
 	]
 }, {
 	"name": "Fiji Standard Time",
@@ -4611,7 +4614,7 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+12:00) Fiji",
 	"utc": [
-		"Pacific/Fiji"
+	"Pacific/Fiji"
 	]
 }, {
 	"name": "Magadan Standard Time",
@@ -4620,10 +4623,10 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+12:00) Magadan",
 	"utc": [
-		"Asia/Anadyr",
-		"Asia/Kamchatka",
-		"Asia/Magadan",
-		"Asia/Srednekolymsk"
+	"Asia/Anadyr",
+	"Asia/Kamchatka",
+	"Asia/Magadan",
+	"Asia/Srednekolymsk"
 	]
 }, {
 	"name": "Kamchatka Standard Time",
@@ -4638,10 +4641,10 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+13:00) Nuku'alofa",
 	"utc": [
-		"Etc/GMT-13",
-		"Pacific/Enderbury",
-		"Pacific/Fakaofo",
-		"Pacific/Tongatapu"
+	"Etc/GMT-13",
+	"Pacific/Enderbury",
+	"Pacific/Fakaofo",
+	"Pacific/Tongatapu"
 	]
 }, {
 	"name": "Samoa Standard Time",
@@ -4650,6 +4653,6 @@ module.exports.timezones = [{
 	"isdst": false,
 	"text": "(UTC+13:00) Samoa",
 	"utc": [
-		"Pacific/Apia"
+	"Pacific/Apia"
 	]
 }];
