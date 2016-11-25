@@ -2576,6 +2576,28 @@ Helprs.prototype.get = function(name) {
 	return _rdm.copyObject(_data[name]);
 };
 
+Helprs.prototype.getPhoneCodes = function(options) {
+	return _data.phoneCodes;
+};
+
+/**
+ * Get the Country's Capital Name.
+ * @param  {String} country Country Code such "US", "NI", "NP", etc....
+ *                          The country code must be in ISO2 Standard.
+ * @param  {Object} options Options which have not yet been defined.
+ * @return {String}         The country's Capital Name.
+ *                          If the Country's Code is not found, 
+ *                          the returning string will be "Not Found".
+ */
+ Helprs.prototype.getCountryCapital = function(country, options) {
+ 	country = country.toUpperCase();
+ 	return _data.countryCapitals[country] || "Not Found";
+ };
+
+ Helprs.prototype.getCurrencyCodes = function(options) {
+ 	return _data.currencyCodes;
+ };
+
 // Mac Address
 Helprs.prototype.mac_address = function(options) {
 	// typically mac addresses are separated by ":"

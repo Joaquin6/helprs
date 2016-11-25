@@ -24,9 +24,9 @@ npm install helprs
 And it can be used in Node.js.
 
 ```js
-var Helprs = require('helprs'),
-    helprs = new Helprs();
+var Helprs = require('helprs');
 
 // Get a random zip code
-helprs.zip();
+Helprs.validateEmail("user.name@email.com");
+=> true
 ```
