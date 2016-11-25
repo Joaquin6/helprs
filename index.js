@@ -45,6 +45,16 @@ function Helprs(seed) {
 	return this;
 };
 
+// -- Basics --
+
+/**
+ *  Return a random bool, either true or false
+ *
+ *  @param {Object} [options={ likelihood: 50 }] alter the likelihood of
+ *    receiving a true or false value back.
+ *  @throws {RangeError} if the likelihood is out of bounds
+ *  @returns {Bool} either true or false
+ */
 Helprs.prototype.bool = function(options) {
 	// likelihood of success (true)
 	options = _rdm.initOptions(options, {
@@ -1696,6 +1706,12 @@ Helprs.prototype.states = function(options) {
 		case 'uk':
 			states = this.get("counties")[options.country.toLowerCase()];
 			break;
+		case 'ca':
+			states = this.get("provinces")[options.country.toLowerCase()];
+			break;
+		case 'can':
+			states = this.get("canadianProvinces");
+			break;
 	}
 
 	return states;
@@ -3173,6 +3189,56 @@ Helprs.prototype.getContentType = function(filename) {
 	}
 
 	return ContentType;
+};
+/**
+ * Returns the Abbriviated State from the provided state's full name.
+ * @param   {String}  state    Specify the State name.
+ * @param   {Object}  options  Options can specify the country of the state.
+ *                             By Default, we assume US States, unless stated otherwise.
+ * @return  {String}           By Default, returns only the 2 letter (Standard ISO2) abbreviation for state.
+ */
+Helprs.prototype.getAbbrStateName = function(fullname, options) {
+	if (fullname && typeof fullname === 'string')
+		fullname = this.capitalizeFirstLetter(fullname.toLowerCase());
+
+	var States = this.get.("usStates");
+	if (options && options.country) {
+		switch (options.country.toLowerCase()) {
+			case "ca":
+				States = this.get("provinces")[options.country.toLowerCase()];
+				break;
+			case "can":
+				States = this.get("canadianProvinces");
+				break;
+		}
+	}
+
+	if (options && options.byPostal) {
+		return _data.zipcodes.getStateByPostal(options.postal);
+	}
+
+	// Check the datatype. Whether array or object
+	var isArray = Array.isArray(States);
+	if (isArray) {
+		for (var i = 0; i < States.length; i++) {
+			var state = States[i];
+			var abbreviation = state.abbreviation || null;
+			var name = state.name || null;
+			if (name && name === fullname) {
+				if (abbreviation)
+					return abbreviation.toUpperCase();
+			}
+		}
+	} else {
+		for (state in States) {
+			if (States.hasOwnProperty(state)) {
+				var key = state;
+				var value = States[state];
+				if (value === fullname)
+					return key.toUpperCase();
+			}
+		}
+	}
 };
 
 // Start of private methods
