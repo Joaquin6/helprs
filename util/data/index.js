@@ -16,6 +16,7 @@ var _basics = require("./src/basics"),
 	_canadianProvinces = require("./src/canadianProvinces"),
 	_armedForces = require("./src/armedForces"),
 	_streetSuffixes = require("./src/streetSuffixes"),
+	_zipcodes = require("./src/zipcodes"),
 	_lastNames = require("./src/person/lastNames"),
 	_firstNames = require("./src/person/firstNames"),
 	_countries = require("./src/countries/country"),
@@ -58,5 +59,6 @@ module.exports = {
 	timezones: _timezones,
 	toISO3Countries: _toISO3Countries,
 	usStates: _usStates,
-	usStatesAndDC: _usStatesAndDC
+	usStatesAndDC: _usStatesAndDC,
+	zipcodes: _zipcodes
 };
