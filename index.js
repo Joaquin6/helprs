@@ -3190,6 +3190,53 @@ Helprs.prototype.getContentType = function(filename) {
 
 	return ContentType;
 };
+Helprs.prototype.getContentType = function(filename) {
+	var ContentType = "application/octet-stream";
+	var splFile = filename.split(".");
+	var extType = splFile[splFile.length - 1];
+	var extension = "." + extType.toLowerCase();
+
+	switch (extension) {
+		case ".css":
+			ContentType = "text/css";
+			break;
+		case ".gif":
+			ContentType = "image/gif";
+			break;
+		case ".html":
+			ContentType = "text/html";
+			break;
+		case ".jpg":
+		case ".jpeg":
+			ContentType = "image/jpeg";
+			break;
+		case ".js":
+			ContentType = "application/javascript";
+			break;
+		case ".mp3":
+			ContentType = "audio/mpeg";
+			break;
+		case ".mp4":
+			ContentType = "video/mp4";
+			break;
+		case ".pdf":
+			ContentType = "application/pdf";
+			break;
+		case ".png":
+			ContentType = "image/png";
+			break;
+		case ".svg":
+			ContentType = "image/svg+xml";
+			break;
+		case ".webm":
+			ContentType = "video/webm";
+			break;
+		default:
+			console.log("UTILITY ERROR: Unhandled Extension " + extension);
+	}
+
+	return ContentType;
+};
 /**
  * Returns the Abbriviated State from the provided state's full name.
  * @param   {String}  state    Specify the State name.
@@ -3197,48 +3244,50 @@ Helprs.prototype.getContentType = function(filename) {
  *                             By Default, we assume US States, unless stated otherwise.
  * @return  {String}           By Default, returns only the 2 letter (Standard ISO2) abbreviation for state.
  */
-Helprs.prototype.getAbbrStateName = function(fullname, options) {
-	if (fullname && typeof fullname === 'string')
-		fullname = this.capitalizeFirstLetter(fullname.toLowerCase());
+Helprs.prototype.getStateByPostal = function(postal) {
+	if (typeof postal !== 'string')
+		postal = postal.toString();
 
-	var States = this.get("usStates");
+	var zips = this.get("usZipCodes");
+	for (zipcode in zips) {
+		if (zipcode === postal && zips.hasOwnProperty(zipcode))
+			return zips[zipcode].state;
+	}
+
+	return null;
+};
+Helprs.prototype.validatePostalCode = function(postal, options) {
+
+	var PostalCodes = this.get("usZipCodes");
 	if (options && options.country) {
 		switch (options.country.toLowerCase()) {
 			case "ca":
-				States = this.get("provinces")[options.country.toLowerCase()];
-				break;
 			case "can":
-				States = this.get("canadianProvinces");
+				PostalCodes = this.get("canadianPostalCodes");
 				break;
 		}
 	}
 
-	if (options && options.byPostal) {
-		return _data.zipcodes.getStateByPostal(options.postal);
-	}
-
-	// Check the datatype. Whether array or object
-	var isArray = Array.isArray(States);
+	var isArray = Array.isArray(PostalCodes);
 	if (isArray) {
-		for (var i = 0; i < States.length; i++) {
-			var state = States[i];
-			var abbreviation = state.abbreviation || null;
-			var name = state.name || null;
-			if (name && name === fullname) {
-				if (abbreviation)
-					return abbreviation.toUpperCase();
+		for (var f = 0; f < PostalCodes.length; f++) {
+			var postalCode = PostalCodes[f];
+			for (key in postalCode) {
+				if (postalCode.hasOwnProperty(key)) {
+					var value = postalCode[key];
+					if (value === postal)
+						return value;
+				}
 			}
 		}
 	} else {
-		for (state in States) {
-			if (States.hasOwnProperty(state)) {
-				var key = state;
-				var value = States[state];
-				if (value === fullname)
-					return key.toUpperCase();
-			}
+		for (postalCode in PostalCodes) {
+			if (postalCode === postal && PostalCodes.hasOwnProperty(postalCode))
+				return postalCode;
 		}
 	}
+
+	return null;
 };
 
 // Start of private methods
