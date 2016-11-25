@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"BD": "AS",
 	"BE": "EU",
 	"BF": "AF",
@@ -249,4 +249,4 @@
 	"UA": "EU",
 	"QA": "AS",
 	"MZ": "AF"
-}
+};

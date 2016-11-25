@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"BD": "Dhaka",
 	"BE": "Brussels",
 	"BF": "Ouagadougou",
@@ -249,4 +249,4 @@
 	"UA": "Kiev",
 	"QA": "Doha",
 	"MZ": "Maputo"
-}
+};
