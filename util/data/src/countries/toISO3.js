@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"BD": "BGD",
 	"BE": "BEL",
 	"BF": "BFA",
@@ -249,4 +249,4 @@
 	"UA": "UKR",
 	"QA": "QAT",
 	"MZ": "MOZ"
-}
+};

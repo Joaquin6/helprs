@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"BD": "BDT",
 	"BE": "EUR",
 	"BF": "XOF",
@@ -249,4 +249,4 @@
 	"UA": "UAH",
 	"QA": "QAR",
 	"MZ": "MZN"
-}
+};
