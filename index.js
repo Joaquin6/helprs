@@ -1396,7 +1396,9 @@ Helprs.prototype.coordinates = function(options) {
 	return this.latitude(options) + ', ' + this.longitude(options);
 };
 
-Helprs.prototype.countries = function() {
+Helprs.prototype.countries = function(options) {
+	if (options && options.arrayOfISO3)
+		return this.get("countriesISO3");
 	return this.get("countries");
 };
 
