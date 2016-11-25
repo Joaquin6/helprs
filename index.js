@@ -3201,7 +3201,7 @@ Helprs.prototype.getAbbrStateName = function(fullname, options) {
 	if (fullname && typeof fullname === 'string')
 		fullname = this.capitalizeFirstLetter(fullname.toLowerCase());
 
-	var States = this.get.("usStates");
+	var States = this.get("usStates");
 	if (options && options.country) {
 		switch (options.country.toLowerCase()) {
 			case "ca":

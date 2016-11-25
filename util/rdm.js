@@ -1,3 +1,14 @@
+var o_keys = (Object.keys || function(obj) {
+	var result = [];
+	for (var key in obj) {
+		if (o_hasOwnProperty.call(obj, key)) {
+			result.push(key);
+		}
+	}
+
+	return result;
+});
+
 // Random helper functions
 module.exports.initOptions = function(options, defaults) {
 	options || (options = {});
@@ -37,7 +48,13 @@ module.exports.base64 = function base64() {
 	}
 })();
 
-module.exports._copyObject = function(source, target) {
+function _copyArray(source, target) {
+	for (var i = 0, l = source.length; i < l; i++) {
+		target[i] = source[i];
+	}
+}
+
+function _copyObject(source, target) {
 	var keys = o_keys(source);
 	var key;
 
@@ -45,13 +62,9 @@ module.exports._copyObject = function(source, target) {
 		key = keys[i];
 		target[key] = source[key] || target[key];
 	}
-};
-
-function _copyArray(source, target) {
-	for (var i = 0, l = source.length; i < l; i++) {
-		target[i] = source[i];
-	}
 }
+
+module.exports._copyObject = _copyObject;
 
 module.exports._copyArray = _copyArray;
 
