@@ -47,11 +47,13 @@ module.exports._copyObject = function(source, target) {
 	}
 };
 
-module.exports._copyArray = function _copyArray(source, target) {
+function _copyArray(source, target) {
 	for (var i = 0, l = source.length; i < l; i++) {
 		target[i] = source[i];
 	}
-};
+}
+
+module.exports._copyArray = _copyArray;
 
 module.exports.copyObject = function(source, _target) {
 	var isArray = Array.isArray(source);
