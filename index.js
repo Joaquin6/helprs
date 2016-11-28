@@ -3269,14 +3269,24 @@ Helprs.prototype.getAbbrStateName = function(fullname, options) {
  *                             By Default, we assume US States, unless stated otherwise.
  * @return  {String}           By Default, returns only the 2 letter (Standard ISO2) abbreviation for state.
  */
-Helprs.prototype.getStateByPostal = function(postal) {
+Helprs.prototype.getStateByPostal = function(postal, options) {
+	var abbr = true;
 	if (typeof postal !== 'string')
 		postal = postal.toString();
 
+	if (options && options.full)
+		abbr = false;
+
 	var zips = this.get("usZipCodes");
 	for (zipcode in zips) {
-		if (zipcode === postal && zips.hasOwnProperty(zipcode))
-			return zips[zipcode].state;
+		if (zipcode === postal && zips.hasOwnProperty(zipcode)) {
+			if (abbr)
+				return zips[zipcode].state;
+			else {
+				var states = this.get("usStates");
+				return states[zips[zipcode].state];
+			}
+		}
 	}
 
 	return null;
