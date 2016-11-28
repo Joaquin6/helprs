@@ -2160,6 +2160,28 @@ Helprs.prototype.vat = function(options) {
 	}
 };
 
+/**
+ * Return a random tax amount.
+ * By default returns tax amount no larger than 9 and no smaller than 1.
+ * Optionally specify the min and max to make it larger (or smaller).
+ * @param   {Object}  options  Object containing Options properties.
+ * @return  {Number}           Return a number decimal tax amount value.
+ */
+Helprs.prototype.tax = function(options) {
+	options = _rdm.initOptions(options, {
+		max: 9,
+		min: 1
+	});
+
+	var tax = this.floating({
+			min: options.min,
+			max: options.max,
+			fixed: 2
+		});
+
+	return tax;
+};
+
 // -- End Finance
 
 // -- Regional
