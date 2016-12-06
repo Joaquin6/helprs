@@ -2209,28 +2209,32 @@ Helprs.prototype.tax = function(options) {
 	return tax;
 };
 /**
+ * Return a random shorthand dollar value
  * Used to convert your currency value to shorthand.
  * @param   {[type]}  val        [description]
  * @param   {[type]}  precision  [description]
  * @return  {[type]}             [description]
  */
 Helprs.prototype.nFormatter = function(val, precision) {
-	var val = (options.val !== undefined) ? options.val : 0;
-	var precision = (options.precision !== undefined) ? options.precision : 0;
+	options = _rdm.initOptions(options, {
+		min: _data.MIN_INT,
+		max: _data.MAX_INT,
+		fixed: 2
+	});
 
-	if (typeof val !== 'number')
-		val = parseInt(val);
-	if (typeof precision !== 'number')
-		precision = parseInt(precision);
+	_rdm.testRange(options.min > options.max, "Helprs: Min cannot be greater than Max.");
+
+	if (!options.val)
+		options.val = Math.floor(this.random() * (options.max - options.min + 1) + options.min);
 
 	if (val >= 1000000000) {
-		return (val / 1000000000).toFixed(precision).replace(/\.0$/, '') + 'G';
+		return (val / 1000000000).toFixed(fixed).replace(/\.0$/, '') + 'G';
 	}
 	if (val >= 1000000) {
-		return (val / 1000000).toFixed(precision).replace(/\.0$/, '') + 'M';
+		return (val / 1000000).toFixed(fixed).replace(/\.0$/, '') + 'M';
 	}
 	if (val >= 1000) {
-		return (val / 1000).toFixed(precision).replace(/\.0$/, '') + 'K';
+		return (val / 1000).toFixed(fixed).replace(/\.0$/, '') + 'K';
 	}
 	return val;
 };
