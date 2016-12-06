@@ -236,6 +236,33 @@ Helprs.prototype.string = function(options) {
 	return text.join("");
 };
 
+/**
+ * Return a random decimal value
+ *  Return the rounded decimal value
+ *
+ *  NOTE the max and min are INCLUDED in the range. So:
+ *  helprs.round({min: 1, max: 3});
+ *  would return either 1, 2, or 3.
+ *
+ *  @param {Object} [options={}] can specify a min, max, fixed and/or val
+ *  @returns {Number} a single random decimal
+ *  @throws {RangeError} min cannot be greater than max
+ */
+Helprs.prototype.round = function(options) {
+	options = _rdm.initOptions(options, {
+		min: _data.MIN_INT,
+		max: _data.MAX_INT,
+		fixed: 2
+	});
+
+	_rdm.testRange(options.min > options.max, "Helprs: Min cannot be greater than Max.");
+
+	if (!options.val)
+		options.val = Math.floor(this.random() * (options.max - options.min + 1) + options.min);
+
+	return parseFloat(Math.round(options.val * 100) / 100).toFixed(options.fixed);
+};
+
 // -- End Basics --
 
 // -- Helpers --
@@ -2180,6 +2207,32 @@ Helprs.prototype.tax = function(options) {
 		});
 
 	return tax;
+};
+/**
+ * Used to convert your currency value to shorthand.
+ * @param   {[type]}  val        [description]
+ * @param   {[type]}  precision  [description]
+ * @return  {[type]}             [description]
+ */
+Helprs.prototype.nFormatter = function(val, precision) {
+	var val = (options.val !== undefined) ? options.val : 0;
+	var precision = (options.precision !== undefined) ? options.precision : 0;
+
+	if (typeof val !== 'number')
+		val = parseInt(val);
+	if (typeof precision !== 'number')
+		precision = parseInt(precision);
+
+	if (val >= 1000000000) {
+		return (val / 1000000000).toFixed(precision).replace(/\.0$/, '') + 'G';
+	}
+	if (val >= 1000000) {
+		return (val / 1000000).toFixed(precision).replace(/\.0$/, '') + 'M';
+	}
+	if (val >= 1000) {
+		return (val / 1000).toFixed(precision).replace(/\.0$/, '') + 'K';
+	}
+	return val;
 };
 
 // -- End Finance
