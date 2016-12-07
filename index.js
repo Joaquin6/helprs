@@ -1704,21 +1704,21 @@ Helprs.prototype.state = function(options) {
 Helprs.prototype.states = function(options) {
 	options = _rdm.initOptions(options, {
 		country: 'us',
-		us_states_and_dc: true
+		usStatesAndDC: true
 	});
 
 	var states;
 
 	switch (options.country.toLowerCase()) {
 		case 'us':
-			var us_states_and_dc = this.get("us_states_and_dc"),
+			var usStatesAndDC = this.get("usStatesAndDC"),
 				territories = this.get("territories"),
 				armed_forces = this.get("armed_forces");
 
 			states = [];
 
-			if (options.us_states_and_dc) {
-				states = states.concat(us_states_and_dc);
+			if (options.usStatesAndDC) {
+				states = states.concat(usStatesAndDC);
 			}
 			if (options.territories) {
 				states = states.concat(territories);
