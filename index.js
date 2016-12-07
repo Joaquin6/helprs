@@ -2177,6 +2177,13 @@ Helprs.prototype.exp_year = function() {
 	});
 };
 
+Helprs.prototype.cvc = function(options) {
+	return this.natural({
+		min: 100,
+		max: 999
+	});
+};
+
 Helprs.prototype.vat = function(options) {
 	options = _rdm.initOptions(options, {
 		country: 'it'
