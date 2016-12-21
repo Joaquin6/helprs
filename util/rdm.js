@@ -9,6 +9,34 @@ var o_keys = (Object.keys || function(obj) {
 	return result;
 });
 
+function _each(collection, iterator) {
+	if (collection.constructor === Array) {
+		for (var i = 0; i < collection.length; i++) {
+			var index = i;
+			iterator(collection[i], index, collection);
+		}
+	}
+	if (collection.constructor === Object) {
+		for (var key in collection) {
+			iterator(collection[key], key, collection);
+		}
+	}
+}
+function _copyArray(source, target) {
+	for (var i = 0, l = source.length; i < l; i++) {
+		target[i] = source[i];
+	}
+}
+function _copyObject(source, target) {
+	var keys = o_keys(source);
+	var key;
+
+	for (var i = 0, l = keys.length; i < l; i++) {
+		key = keys[i];
+		target[key] = source[key] || target[key];
+	}
+}
+
 // Random helper functions
 module.exports.initOptions = function(options, defaults) {
 	options || (options = {});
@@ -30,14 +58,12 @@ module.exports.testRange = function(test, errorMessage) {
 	}
 };
 
-/**
- * Encode the input string with Base64.
- */
+/** Encode the input string with Base64. */
 module.exports.base64 = function base64() {
 	throw new Error('No Base64 encoder available.');
 };
 
-// Select proper Base64 encoder.
+/** Select proper Base64 encoder. */
 (function determineBase64Encoder() {
 	if (typeof btoa === 'function') {
 		base64 = btoa;
@@ -47,22 +73,6 @@ module.exports.base64 = function base64() {
 		};
 	}
 })();
-
-function _copyArray(source, target) {
-	for (var i = 0, l = source.length; i < l; i++) {
-		target[i] = source[i];
-	}
-}
-
-function _copyObject(source, target) {
-	var keys = o_keys(source);
-	var key;
-
-	for (var i = 0, l = keys.length; i < l; i++) {
-		key = keys[i];
-		target[key] = source[key] || target[key];
-	}
-}
 
 module.exports._copyObject = _copyObject;
 
@@ -79,4 +89,15 @@ module.exports.copyObject = function(source, _target) {
 	}
 
 	return target;
+};
+
+module.exports.each = _each;
+
+module.exports.extend = function(obj) {
+	_each(arguments, function(argObject) {
+		_each(argObject, function(value, key) {
+			obj[key] = value;
+		});
+	});
+	return obj;
 };
