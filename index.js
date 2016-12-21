@@ -3389,6 +3389,49 @@ Helprs.prototype.validatePostalCode = function(postal, options) {
 	return null;
 };
 
+/**
+ * ===========
+ * COLLECTIONS
+ * ===========
+ * In this section, we'll have a look at functions that operate on collections
+ * of values; in JavaScript, a 'collection' is something that can contain a
+ * number of values--either an array or an object.
+ */
+
+/**
+ * @param   {Array|Object}  collection  Accepts both arrays and objects.
+ * @param   {Function}  	iterator    Call iterator(value, key, collection) for each element of collection.
+ *
+ * Note: _.each does not have a return value, but rather simply runs the
+ * iterator function over each item in the input collection.
+ */
+Helprs.prototype.each = function(collection, iterator) {
+	_rdm.each(collection, iterator);
+};
+
+/**
+ * =======
+ * OBJECTS
+ * =======
+ * In this section, we'll look at a couple of helpers for merging objects.
+ */
+
+/**
+ * Extend a given object with all the properties of the passed in object(s).
+ *
+ * @example <caption>Example:</caption>
+ * var obj1 = {key1: "something"};
+ * 	_.extend(obj1, {
+ *     	key2: "something new",
+ *      key3: "something else new"
+ *  }, {
+ * 		bla: "even more stuff"
+ * 	}); // obj1 now contains key1, key2, key3 and bla
+ */
+Helprs.prototype.extend = function(obj) {
+	return _rdm.extend(obj);
+};
+
 // Start of private methods
 Helprs.prototype._isISO2Country = function(country) {
 	var iso2Country = _data.iso2Country;
