@@ -2750,13 +2750,34 @@ Helprs.prototype.pl_regon = function() {
 
 // Guid
 Helprs.prototype.guid = function(options) {
+	var rounds = 8, maxRounds = 10, minRounds = 2;
+
+	if (options && options.rounds)
+		rounds = options.rounds;
+
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000)
 			.toString(16)
 			.substring(1);
 	}
-	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-		s4() + '-' + s4() + s4() + s4();
+
+	var guid = s4() + s4();
+
+	if (rounds === 8) {
+		guid += '-' + s4() + '-' + s4() + '-' +
+			s4() + '-' + s4() + s4() + s4();
+	} else if (rounds < 8) {
+		var i = 0;
+		do {
+			if (i % 3 === 0 || i % 5 === 0)
+				guid += '-' + s4();
+			else
+				guid += s4();
+			i++;
+		}
+		while (i < rounds);
+	}
+	return guid;
 };
 
 // Hash
@@ -2794,6 +2815,34 @@ Helprs.prototype.luhn_calculate = function(num) {
 		sum += digit;
 	}
 	return (sum * 9) % 10;
+};
+
+Helprs.prototype.webOrderNumber = function(options) {
+	options = _rdm.initOptions(options, {
+		rounds: 3,
+		min: 3,
+		max: 10
+	});
+
+	var won = "";
+	var i = 0;
+	while (i < options.rounds) {
+		if (i === 0) {
+			won = this.integer({
+				min: 3,
+				max: 3
+			});
+		} else {
+			won += "-" + this.integer({
+				min: 4,
+				max: 4
+			});
+		}
+
+		i++;
+	}
+
+	return guid;
 };
 
 // MD5 Hash
