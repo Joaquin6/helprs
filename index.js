@@ -26,6 +26,18 @@ var _rdm = require("./util/rdm"),
 	_blueImpMD5 = require("./util/blueimp"),
 	_mersenneTwister = require("./util/mtwist");
 
+/**
+ * ===========
+ * GLOBAL VARS
+ * ===========
+ */
+
+var uuid = {
+	3: /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
+	4: /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
+	5: /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
+	all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
+};
 /* eslint-disable max-len */
 /* eslint-disable no-control-regex */
 var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
@@ -48,11 +60,132 @@ var default_fqdn_options = {
 	allow_underscores: false,
 	allow_trailing_dot: false
 };
+var default_currency_options = {
+	symbol: '$',
+	require_symbol: false,
+	allow_space_after_symbol: false,
+	symbol_after_digits: false,
+	allow_negatives: true,
+	parens_for_negatives: false,
+	negative_sign_before_digits: false,
+	negative_sign_after_digits: false,
+	allow_negative_sign_placeholder: false,
+	thousands_separator: ',',
+	decimal_separator: '.',
+	allow_space_after_digits: false
+};
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
 	return typeof obj;
 } : function(obj) {
 	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
+/* eslint-disable max-len */
+// from http://goo.gl/0ejHHW
+var iso8601 = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
+/* eslint-enable max-len */
+/* eslint-disable max-len */
+var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})|62[0-9]{14}$/;
+/* eslint-enable max-len */
+var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
+var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/;
+var isbn13Maybe = /^(?:[0-9]{13})$/;
+var factor = [1, 3];
+var issn = '^\\d{4}-?\\d{3}[\\dX]$';
+/* eslint-disable max-len */
+var phones = {
+	'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
+	'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
+	'ar-SA': /^(!?(\+?966)|0)?5\d{8}$/,
+	'en-US': /^(\+?1)?[2-9]\d{2}[2-9](?!11)\d{6}$/,
+	'cs-CZ': /^(\+?420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/,
+	'de-DE': /^(\+?49[ \.\-])?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
+	'da-DK': /^(\+?45)?(\d{8})$/,
+	'el-GR': /^(\+?30)?(69\d{8})$/,
+	'en-AU': /^(\+?61|0)4\d{8}$/,
+	'en-GB': /^(\+?44|0)7\d{9}$/,
+	'en-HK': /^(\+?852\-?)?[569]\d{3}\-?\d{4}$/,
+	'en-IN': /^(\+?91|0)?[789]\d{9}$/,
+	'en-NZ': /^(\+?64|0)2\d{7,9}$/,
+	'en-ZA': /^(\+?27|0)\d{9}$/,
+	'en-ZM': /^(\+?26)?09[567]\d{7}$/,
+	'es-ES': /^(\+?34)?(6\d{1}|7[1234])\d{7}$/,
+	'fi-FI': /^(\+?358|0)\s?(4(0|1|2|4|5)?|50)\s?(\d\s?){4,8}\d$/,
+	'fr-FR': /^(\+?33|0)[67]\d{8}$/,
+	'he-IL': /^(\+972|0)([23489]|5[0248]|77)[1-9]\d{6}/,
+	'hu-HU': /^(\+?36)(20|30|70)\d{7}$/,
+	'it-IT': /^(\+?39)?\s?3\d{2} ?\d{6,7}$/,
+	'ja-JP': /^(\+?81|0)\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/,
+	'ms-MY': /^(\+?6?01){1}(([145]{1}(\-|\s)?\d{7,8})|([236789]{1}(\s|\-)?\d{7}))$/,
+	'nb-NO': /^(\+?47)?[49]\d{7}$/,
+	'nl-BE': /^(\+?32|0)4?\d{8}$/,
+	'nn-NO': /^(\+?47)?[49]\d{7}$/,
+	'pl-PL': /^(\+?48)? ?[5-8]\d ?\d{3} ?\d{2} ?\d{2}$/,
+	'pt-BR': /^(\+?55|0)\-?[1-9]{2}\-?[2-9]{1}\d{3,4}\-?\d{4}$/,
+	'pt-PT': /^(\+?351)?9[1236]\d{7}$/,
+	'ru-RU': /^(\+?7|8)?9\d{9}$/,
+	'sr-RS': /^(\+3816|06)[- \d]{5,9}$/,
+	'tr-TR': /^(\+?90|0)?5\d{9}$/,
+	'vi-VN': /^(\+?84|0)?((1(2([0-9])|6([2-9])|88|99))|(9((?!5)[0-9])))([0-9]{7})$/,
+	'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
+	'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
+};
+/* eslint-enable max-len */
+// aliases
+phones['en-CA'] = phones['en-US'];
+phones['fr-BE'] = phones['nl-BE'];
+var notBase64 = /[^A-Z0-9+\/=]/i;
+var dataURI = /^\s*data:([a-z]+\/[a-z0-9\-\+]+(;[a-z\-]+=[a-z0-9\-]+)?)?(;base64)?,[a-z0-9!\$&',\(\)\*\+,;=\-\._~:@\/\?%\s]*\s*$/i; // eslint-disable-line max-len
+var default_normalize_email_options = {
+	// The following options apply to all email addresses
+	// Lowercases the local part of the email address.
+	// Please note this may violate RFC 5321 as per http://stackoverflow.com/a/9808332/192024).
+	// The domain is always lowercased, as per RFC 1035
+	all_lowercase: true,
+
+	// The following conversions are specific to GMail
+	// Lowercases the local part of the GMail address (known to be case-insensitive)
+	gmail_lowercase: true,
+	// Removes dots from the local part of the email address, as that's ignored by GMail
+	gmail_remove_dots: true,
+	// Removes the subaddress (e.g. "+foo") from the email address
+	gmail_remove_subaddress: true,
+	// Conversts the googlemail.com domain to gmail.com
+	gmail_convert_googlemaildotcom: true,
+
+	// The following conversions are specific to Outlook.com / Windows Live / Hotmail
+	// Lowercases the local part of the Outlook.com address (known to be case-insensitive)
+	outlookdotcom_lowercase: true,
+	// Removes the subaddress (e.g. "+foo") from the email address
+	outlookdotcom_remove_subaddress: true,
+
+	// The following conversions are specific to Yahoo
+	// Lowercases the local part of the Yahoo address (known to be case-insensitive)
+	yahoo_lowercase: true,
+	// Removes the subaddress (e.g. "-foo") from the email address
+	yahoo_remove_subaddress: true,
+
+	// The following conversions are specific to iCloud
+	// Lowercases the local part of the iCloud address (known to be case-insensitive)
+	icloud_lowercase: true,
+	// Removes the subaddress (e.g. "+foo") from the email address
+	icloud_remove_subaddress: true
+};
+// List of domains used by iCloud
+var icloud_domains = ['icloud.com', 'me.com'];
+// List of domains used by Outlook.com and its predecessors
+// This list is likely incomplete.
+// Partial reference:
+// https://blogs.office.com/2013/04/17/outlook-com-gets-two-step-verification-sign-in-by-alias-and-new-international-domains/
+var outlookdotcom_domains = ['hotmail.at', 'hotmail.be', 'hotmail.ca', 'hotmail.cl', 'hotmail.co.il', 'hotmail.co.nz', 'hotmail.co.th', 'hotmail.co.uk', 'hotmail.com', 'hotmail.com.ar', 'hotmail.com.au', 'hotmail.com.br', 'hotmail.com.gr', 'hotmail.com.mx', 'hotmail.com.pe', 'hotmail.com.tr', 'hotmail.com.vn', 'hotmail.cz', 'hotmail.de', 'hotmail.dk', 'hotmail.es', 'hotmail.fr', 'hotmail.hu', 'hotmail.id', 'hotmail.ie', 'hotmail.in', 'hotmail.it', 'hotmail.jp', 'hotmail.kr', 'hotmail.lv', 'hotmail.my', 'hotmail.ph', 'hotmail.pt', 'hotmail.sa', 'hotmail.sg', 'hotmail.sk', 'live.be', 'live.co.uk', 'live.com', 'live.com.ar', 'live.com.mx', 'live.de', 'live.es', 'live.eu', 'live.fr', 'live.it', 'live.nl', 'msn.com', 'outlook.at', 'outlook.be', 'outlook.cl', 'outlook.co.il', 'outlook.co.nz', 'outlook.co.th', 'outlook.com', 'outlook.com.ar', 'outlook.com.au', 'outlook.com.br', 'outlook.com.gr', 'outlook.com.pe', 'outlook.com.tr', 'outlook.com.vn', 'outlook.cz', 'outlook.de', 'outlook.dk', 'outlook.es', 'outlook.fr', 'outlook.hu', 'outlook.id', 'outlook.ie', 'outlook.in', 'outlook.it', 'outlook.jp', 'outlook.kr', 'outlook.lv', 'outlook.my', 'outlook.ph', 'outlook.pt', 'outlook.sa', 'outlook.sg', 'outlook.sk', 'passport.com'];
+// List of domains used by Yahoo Mail
+// This list is likely incomplete
+var yahoo_domains = ['rocketmail.com', 'yahoo.ca', 'yahoo.co.uk', 'yahoo.com', 'yahoo.de', 'yahoo.fr', 'yahoo.in', 'yahoo.it', 'ymail.com'];
+
+/**
+ * ================
+ * GLOBAL FUNCTIONS
+ * ================
+ */
 
 /**
  * Represents the Helprs Class.
@@ -165,6 +298,47 @@ function isFDQN(str, options) {
 		}
 	}
 	return true;
+}
+
+function toString(input) {
+	if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' && input !== null) {
+		if (typeof input.toString === 'function') {
+			input = input.toString();
+		} else {
+			input = '[object Object]';
+		}
+	} else if (input === null || typeof input === 'undefined' || isNaN(input) && !input.length) {
+		input = '';
+	}
+	return String(input);
+}
+
+function isCreditCard(str) {
+	assertString(str);
+	var sanitized = str.replace(/[^0-9]+/g, '');
+	if (!creditCard.test(sanitized)) {
+		return false;
+	}
+	var sum = 0;
+	var digit = void 0;
+	var tmpNum = void 0;
+	var shouldDouble = void 0;
+	for (var i = sanitized.length - 1; i >= 0; i--) {
+		digit = sanitized.substring(i, i + 1);
+		tmpNum = parseInt(digit, 10);
+		if (shouldDouble) {
+			tmpNum *= 2;
+			if (tmpNum >= 10) {
+				sum += tmpNum % 10 + 1;
+			} else {
+				sum += tmpNum;
+			}
+		} else {
+			sum += tmpNum;
+		}
+		shouldDouble = !shouldDouble;
+	}
+	return !!(sum % 10 === 0 ? sanitized : false);
 }
 
 /**
@@ -487,19 +661,6 @@ Helprs.prototype.pad = function(number, width, pad) {
 	number = number + '';
 	return number.length >= width ? number : new Array(width - number.length + 1).join(pad) + number;
 };
-// DEPRECATED on 2015-10-01
-Helprs.prototype.pick = function(arr, count) {
-	if (arr.length === 0) {
-		throw new RangeError("Helprs: Cannot pick() from an empty array");
-	}
-	if (!count || count === 1) {
-		return arr[this.natural({
-			max: arr.length - 1
-		})];
-	} else {
-		return this.shuffle(arr).slice(0, count);
-	}
-};
 // Given an array, returns a single random element
 Helprs.prototype.pickone = function(arr) {
 	if (arr.length === 0) {
@@ -747,6 +908,11 @@ Helprs.prototype.word = function(options) {
 	}
 
 	return text;
+};
+
+Helprs.prototype.contains = function(str, elem) {
+	assertString(str);
+	return str.indexOf(toString(elem)) >= 0;
 };
 
 /**
@@ -3295,6 +3461,95 @@ Helprs.prototype.isEmail = function(email, options) {
 	}
 
 	return true;
+};
+/**
+ * Canonicalizes an email address.
+ * options is an object with the following keys and default values:
+ * 		all_lowercase: true - Transforms the local part (before the @ symbol) of all email addresses to lowercase. Please note that this may violate RFC 5321, which gives providers the possibility to treat the local part of email addresses in a case sensitive way (although in practice most - yet not all - providers don't). The domain part of the email address is always lowercased, as it's case insensitive per RFC 1035.
+ * 		gmail_lowercase: true - GMail addresses are known to be case-insensitive, so this switch allows lowercasing them even when all_lowercase is set to false. Please note that when all_lowercase is true, GMail addresses are lowercased regardless of the value of this setting.
+ * 		gmail_remove_dots: true: Removes dots from the local part of the email address, as GMail ignores them (e.g. "john.doe" and "johndoe" are considered equal).
+ * 		gmail_remove_subaddress: true: Normalizes addresses by removing "sub-addresses", which is the part following a "+" sign (e.g. "foo+bar@gmail.com" becomes "foo@gmail.com").
+ * 		gmail_convert_googlemaildotcom: true: Converts addresses with domain @googlemail.com to @gmail.com, as they're equivalent.
+ * 		outlookdotcom_lowercase: true - Outlook.com addresses (including Windows Live and Hotmail) are known to be case-insensitive, so this switch allows lowercasing them even when all_lowercase is set to false. Please note that when all_lowercase is true, Outlook.com addresses are lowercased regardless of the value of this setting.
+ * 		outlookdotcom_remove_subaddress: true: Normalizes addresses by removing "sub-addresses", which is the part following a "+" sign (e.g. "foo+bar@outlook.com" becomes "foo@outlook.com").
+ * 		yahoo_lowercase: true - Yahoo Mail addresses are known to be case-insensitive, so this switch allows lowercasing them even when all_lowercase is set to false. Please note that when all_lowercase is true, Yahoo Mail addresses are lowercased regardless of the value of this setting.
+ * 		yahoo_remove_subaddress: true: Normalizes addresses by removing "sub-addresses", which is the part following a "-" sign (e.g. "foo-bar@yahoo.com" becomes "foo@yahoo.com").
+ * 		icloud_lowercase: true - iCloud addresses (including MobileMe) are known to be case-insensitive, so this switch allows lowercasing them even when all_lowercase is set to false. Please note that when all_lowercase is true, iCloud addresses are lowercased regardless of the value of this setting.
+ * 		icloud_remove_subaddress: true: Normalizes addresses by removing "sub-addresses", which is the part following a "+" sign (e.g. "foo+bar@icloud.com" becomes "foo@icloud.com").
+ *
+ * @param   {[type]}  email    [description]
+ * @param   {[type]}  options  [description]
+ * @return  {[type]}           [description]
+ */
+Helprs.prototype.normalizeEmail = function(email, options) {
+	options = merge(options, default_normalize_email_options);
+
+	if (!this.isEmail(email)) {
+		return false;
+	}
+
+	var raw_parts = email.split('@');
+	var domain = raw_parts.pop();
+	var user = raw_parts.join('@');
+	var parts = [user, domain];
+
+	// The domain is always lowercased, as it's case-insensitive per RFC 1035
+	parts[1] = parts[1].toLowerCase();
+
+	if (parts[1] === 'gmail.com' || parts[1] === 'googlemail.com') {
+		// Address is GMail
+		if (options.gmail_remove_subaddress) {
+			parts[0] = parts[0].split('+')[0];
+		}
+		if (options.gmail_remove_dots) {
+			parts[0] = parts[0].replace(/\./g, '');
+		}
+		if (!parts[0].length) {
+			return false;
+		}
+		if (options.all_lowercase || options.gmail_lowercase) {
+			parts[0] = parts[0].toLowerCase();
+		}
+		parts[1] = options.gmail_convert_googlemaildotcom ? 'gmail.com' : parts[1];
+	} else if (~icloud_domains.indexOf(parts[1])) {
+		// Address is iCloud
+		if (options.icloud_remove_subaddress) {
+			parts[0] = parts[0].split('+')[0];
+		}
+		if (!parts[0].length) {
+			return false;
+		}
+		if (options.all_lowercase || options.icloud_lowercase) {
+			parts[0] = parts[0].toLowerCase();
+		}
+	} else if (~outlookdotcom_domains.indexOf(parts[1])) {
+		// Address is Outlook.com
+		if (options.outlookdotcom_remove_subaddress) {
+			parts[0] = parts[0].split('+')[0];
+		}
+		if (!parts[0].length) {
+			return false;
+		}
+		if (options.all_lowercase || options.outlookdotcom_lowercase) {
+			parts[0] = parts[0].toLowerCase();
+		}
+	} else if (~yahoo_domains.indexOf(parts[1])) {
+		// Address is Yahoo
+		if (options.yahoo_remove_subaddress) {
+			var components = parts[0].split('-');
+			parts[0] = components.length > 1 ? components.slice(0, -1).join('-') : components[0];
+		}
+		if (!parts[0].length) {
+			return false;
+		}
+		if (options.all_lowercase || options.yahoo_lowercase) {
+			parts[0] = parts[0].toLowerCase();
+		}
+	} else if (options.all_lowercase) {
+		// Any other address
+		parts[0] = parts[0].toLowerCase();
+	}
+	return parts.join('@');
 };
 Helprs.prototype.validateStateAbbr = function(stateAbbr) {
 	if (_data.usStates[stateAbbr] !== undefined)
