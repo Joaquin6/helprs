@@ -26,10 +26,39 @@ var _rdm = require("./util/rdm"),
 	_blueImpMD5 = require("./util/blueimp"),
 	_mersenneTwister = require("./util/mtwist");
 
-// Cached array helpers
+/* eslint-disable max-len */
+/* eslint-disable no-control-regex */
+var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
+var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
+var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
+var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
+var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
+/* eslint-enable max-len */
+/* eslint-enable no-control-regex */
+/** @type {Array} Cached array helpers */
 var slice = Array.prototype.slice;
+var default_email_options = {
+	allow_display_name: false,
+	require_display_name: false,
+	allow_utf8_local_part: true,
+	require_tld: true
+};
+var default_fqdn_options = {
+	require_tld: true,
+	allow_underscores: false,
+	allow_trailing_dot: false
+};
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+	return typeof obj;
+} : function(obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
-// Constructor
+/**
+ * Represents the Helprs Class.
+ * @constructor
+ * @param {Function} seed - Initial settings.
+ */
 function Helprs(seed) {
 	if (!(this instanceof Helprs)) {
 		return seed == null ? new Helprs() : new Helprs(seed);
@@ -67,6 +96,75 @@ function Helprs(seed) {
 		return this.mt.random(this.seed);
 	};
 	return this;
+}
+
+function assertString(input) {
+	if (typeof input !== 'string') {
+		throw new TypeError('This input must be a string!');
+	}
+}
+
+function merge() {
+	var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	var defaults = arguments[1];
+
+	for (var key in defaults) {
+		if (typeof obj[key] === 'undefined') {
+			obj[key] = defaults[key];
+		}
+	}
+	return obj;
+}
+
+/* eslint-disable prefer-rest-params */
+function isByteLength(str, options) {
+	assertString(str);
+	var min = void 0;
+	var max = void 0;
+	if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+		min = options.min || 0;
+		max = options.max;
+	} else {
+		// backwards compatibility: isByteLength(str, min [, max])
+		min = arguments[1];
+		max = arguments[2];
+	}
+	var len = encodeURI(str).split(/%..|./).length - 1;
+	return len >= min && (typeof max === 'undefined' || len <= max);
+}
+
+function isFDQN(str, options) {
+	assertString(str);
+	options = merge(options, default_fqdn_options);
+
+	/* Remove the optional trailing dot before checking validity */
+	if (options.allow_trailing_dot && str[str.length - 1] === '.') {
+		str = str.substring(0, str.length - 1);
+	}
+	var parts = str.split('.');
+	if (options.require_tld) {
+		var tld = parts.pop();
+		if (!parts.length || !/^([a-z\u00a1-\uffff]{2,}|xn[a-z0-9-]{2,})$/i.test(tld)) {
+			return false;
+		}
+	}
+	for (var part, i = 0; i < parts.length; i++) {
+		part = parts[i];
+		if (options.allow_underscores) {
+			part = part.replace(/_/g, '');
+		}
+		if (!/^[a-z\u00a1-\uffff0-9-]+$/i.test(part)) {
+			return false;
+		}
+		if (/[\uff01-\uff5e]/.test(part)) {
+			// disallow full-width chars
+			return false;
+		}
+		if (part[0] === '-' || part[part.length - 1] === '-') {
+			return false;
+		}
+	}
+	return true;
 }
 
 /**
@@ -145,19 +243,18 @@ Helprs.prototype.character = function(options) {
 	}));
 };
 
-// Note, wanted to use "float" or "double" but those are both JS reserved words.
-
-// Note, fixed means N OR LESS digits after the decimal. This because
-// It could be 14.9000 but in JavaScript, when this is cast as a number,
-// the trailing zeroes are dropped. Left to the consumer if trailing zeroes are
-// needed
 /**
- *  Return a random floating point number
+ * Return a random floating point number
  *
- *  @param {Object} [options={}] can specify a fixed precision, min, max
- *  @returns {Number} a single floating point number
- *  @throws {RangeError} Can only specify fixed or precision, not both. Also
- *    min cannot be greater than max
+ * NOTE: fixed means N OR LESS digits after the decimal. This because
+ * It could be 14.9000 but in JavaScript, when this is cast as a number,
+ * the trailing zeroes are dropped. Left to the consumer if trailing zeroes are
+ * needed
+ *
+ * @param 	{Object} 		[options={}] can specify a fixed precision, min, max
+ * @returns {Number} 		a single floating point number
+ * @throws 	{RangeError} 	Can only specify fixed or precision, not both. Also
+ *          				min cannot be greater than max
  */
 Helprs.prototype.floating = function(options) {
 	options = _rdm.initOptions(options, {
@@ -203,8 +300,8 @@ Helprs.prototype.floating = function(options) {
 /**
  *  Return a random integer
  *
- *  NOTE the max and min are INCLUDED in the range. So:
- *  helprs.integer({min: 1, max: 3});
+ *  NOTE: the max and min are INCLUDED in the range. So:
+ *  Helprs.integer({min: 1, max: 3});
  *  would return either 1, 2, or 3.
  *
  *  @param {Object} [options={}] can specify a min and/or max
@@ -226,7 +323,7 @@ Helprs.prototype.integer = function(options) {
 /**
  *  Return a random natural
  *
- *  NOTE the max and min are INCLUDED in the range. So:
+ *  NOTE: the max and min are INCLUDED in the range. So:
  *  helprs.natural({min: 1, max: 3});
  *  would return either 1, 2, or 3.
  *
@@ -268,7 +365,7 @@ Helprs.prototype.string = function(options) {
  * Return a random decimal value
  *  Return the rounded decimal value
  *
- *  NOTE the max and min are INCLUDED in the range. So:
+ *  NOTE: the max and min are INCLUDED in the range. So:
  *  helprs.round({min: 1, max: 3});
  *  would return either 1, 2, or 3.
  *
@@ -2474,68 +2571,6 @@ Helprs.prototype.pl_regon = function() {
  * =============
  */
 
-// Dice - For all the board game geeks out there, myself included ;)
-function diceFn(range) {
-	return function() {
-		return this.natural(range);
-	};
-}
-Helprs.prototype.d4 = diceFn({
-	min: 1,
-	max: 4
-});
-Helprs.prototype.d6 = diceFn({
-	min: 1,
-	max: 6
-});
-Helprs.prototype.d8 = diceFn({
-	min: 1,
-	max: 8
-});
-Helprs.prototype.d10 = diceFn({
-	min: 1,
-	max: 10
-});
-Helprs.prototype.d12 = diceFn({
-	min: 1,
-	max: 12
-});
-Helprs.prototype.d20 = diceFn({
-	min: 1,
-	max: 20
-});
-Helprs.prototype.d30 = diceFn({
-	min: 1,
-	max: 30
-});
-Helprs.prototype.d100 = diceFn({
-	min: 1,
-	max: 100
-});
-
-Helprs.prototype.rpg = function(thrown, options) {
-	options = _rdm.initOptions(options);
-	if (!thrown) {
-		throw new RangeError("A type of die roll must be included");
-	} else {
-		var bits = thrown.toLowerCase().split("d"),
-			rolls = [];
-
-		if (bits.length !== 2 || !parseInt(bits[0], 10) || !parseInt(bits[1], 10)) {
-			throw new Error("Invalid format provided. Please provide #d# where the first # is the number of dice to roll, the second # is the max of each die");
-		}
-		for (var i = bits[0]; i > 0; i--) {
-			rolls[i - 1] = this.natural({
-				min: 1,
-				max: bits[1]
-			});
-		}
-		return (typeof options.sum !== 'undefined' && options.sum) ? rolls.reduce(function(p, c) {
-			return p + c;
-		}) : rolls;
-	}
-};
-
 // Guid
 Helprs.prototype.guid = function(options) {
 	function s4() {
@@ -2853,42 +2888,6 @@ Helprs.prototype.normal_pool = function(options) {
 	throw new RangeError("Helprs: Your pool is too small for the given mean and standard deviation. Please adjust.");
 };
 
-Helprs.prototype.radio = function(options) {
-	// Initial Letter (Typically Designated by Side of Mississippi River)
-	options = _rdm.initOptions(options, {
-		side: "?"
-	});
-	var fl = "";
-	switch (options.side.toLowerCase()) {
-		case "east":
-		case "e":
-			fl = "W";
-			break;
-		case "west":
-		case "w":
-			fl = "K";
-			break;
-		default:
-			fl = this.character({
-				pool: "KW"
-			});
-			break;
-	}
-
-	return fl + this.character({
-			alpha: true,
-			casing: "upper"
-		}) +
-		this.character({
-			alpha: true,
-			casing: "upper"
-		}) +
-		this.character({
-			alpha: true,
-			casing: "upper"
-		});
-};
-
 // Set the _data as key and _data or the _data map
 Helprs.prototype.set = function(name, values) {
 	if (typeof name === "string") {
@@ -2896,10 +2895,6 @@ Helprs.prototype.set = function(name, values) {
 	} else {
 		_data = _rdm.copyObject(name, _data);
 	}
-};
-
-Helprs.prototype.tv = function(options) {
-	return this.radio(options);
 };
 
 // ID number for Brazil companies
@@ -2965,7 +2960,7 @@ Helprs.prototype.spaceUppercases = function(strings) {
 Helprs.prototype.spliceString = function(string, start, delCount, newSubStr) {
 	return string.slice(0, start) + newSubStr + string.slice(start + Math.abs(delCount));
 };
-Helprs.prototype.sortData = function(series, options) {
+Helprs.prototype.sort = function(series, options) {
 	var ascending = true;
 	if (options.ascending === false)
 		ascending = false;
@@ -2987,9 +2982,6 @@ Helprs.prototype.sortData = function(series, options) {
 			return seriesB - seriesA;
 	});
 	return series;
-};
-Helprs.prototype.capitalizeFirstLetter = function(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1);
 };
 Helprs.prototype.daysHoursMinsFormat = function(t) {
 	var cd = 24 * 60 * 60 * 1000,
@@ -3253,11 +3245,56 @@ Helprs.prototype.removeFromString = function(string, toRemove, replaceWith) {
 		string = string.replace(toRemove, replaceWith);
 	return string;
 };
-Helprs.prototype.validateEmail = function(email) {
-	if (email.length == 0)
+Helprs.prototype.isEmail = function(email, options) {
+	assertString(email);
+	options = merge(options, default_email_options);
+	if (options.require_display_name || options.allow_display_name) {
+		var display_email = str.match(displayName);
+		if (display_email) {
+			str = display_email[1];
+		} else if (options.require_display_name) {
+			return false;
+		}
+	}
+
+	var parts = str.split('@');
+	var domain = parts.pop();
+	var user = parts.join('@');
+
+	var lower_domain = domain.toLowerCase();
+	if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
+		user = user.replace(/\./g, '').toLowerCase();
+	}
+
+	if (!isByteLength(user, {
+			max: 64
+		}) || !isByteLength(domain, {
+			max: 256
+		})) {
 		return false;
-	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-	return re.test(email);
+	}
+
+	if (!isFDQN(domain, {
+			require_tld: options.require_tld
+		})) {
+		return false;
+	}
+
+	if (user[0] === '"') {
+		user = user.slice(1, user.length - 1);
+		return options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user);
+	}
+
+	var pattern = options.allow_utf8_local_part ? emailUserUtf8Part : emailUserPart;
+
+	var user_parts = user.split('.');
+	for (var i = 0; i < user_parts.length; i++) {
+		if (!pattern.test(user_parts[i])) {
+			return false;
+		}
+	}
+
+	return true;
 };
 Helprs.prototype.validateStateAbbr = function(stateAbbr) {
 	if (_data.usStates[stateAbbr] !== undefined)
