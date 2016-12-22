@@ -1,3 +1,26 @@
+/*!
+ * Copyright (c) 2017 Joaquin Briceno <joaquinbriceno1@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 var _rdm = require("./util/rdm"),
 	_data = require("./util/data"),
 	_blueImpMD5 = require("./util/blueimp"),
@@ -5,6 +28,7 @@ var _rdm = require("./util/rdm"),
 
 // Cached array helpers
 var slice = Array.prototype.slice;
+
 // Constructor
 function Helprs(seed) {
 	if (!(this instanceof Helprs)) {
@@ -43,9 +67,13 @@ function Helprs(seed) {
 		return this.mt.random(this.seed);
 	};
 	return this;
-};
+}
 
-// -- Basics --
+/**
+ * ======
+ * BASICS
+ * ======
+ */
 
 /**
  *  Return a random bool, either true or false
@@ -263,21 +291,21 @@ Helprs.prototype.round = function(options) {
 	return parseFloat(Math.round(options.val * 100) / 100).toFixed(options.fixed);
 };
 
-// -- End Basics --
-
-// -- Helpers --
+/**
+ * =======
+ * HELPERS
+ * =======
+ */
 
 Helprs.prototype.capitalize = function(word) {
 	return word.charAt(0).toUpperCase() + word.substr(1);
 };
-
 Helprs.prototype.mixin = function(obj) {
 	for (var func_name in obj) {
 		Helprs.prototype[func_name] = obj[func_name];
 	}
 	return this;
 };
-
 /**
  *  Given a function that generates something random and a number of items to generate,
  *    return an array of items where none repeat.
@@ -323,7 +351,6 @@ Helprs.prototype.unique = function(fn, num, options) {
 	}
 	return arr;
 };
-
 /**
  *  Gives an array of n random terms
  *
@@ -355,7 +382,6 @@ Helprs.prototype.n = function(fn, n) {
 
 	return arr;
 };
-
 // H/T to SO for this one: http://vq.io/OtUrZ5
 Helprs.prototype.pad = function(number, width, pad) {
 	// Default pad to 0 if none provided
@@ -364,7 +390,6 @@ Helprs.prototype.pad = function(number, width, pad) {
 	number = number + '';
 	return number.length >= width ? number : new Array(width - number.length + 1).join(pad) + number;
 };
-
 // DEPRECATED on 2015-10-01
 Helprs.prototype.pick = function(arr, count) {
 	if (arr.length === 0) {
@@ -378,7 +403,6 @@ Helprs.prototype.pick = function(arr, count) {
 		return this.shuffle(arr).slice(0, count);
 	}
 };
-
 // Given an array, returns a single random element
 Helprs.prototype.pickone = function(arr) {
 	if (arr.length === 0) {
@@ -388,7 +412,6 @@ Helprs.prototype.pickone = function(arr) {
 		max: arr.length - 1
 	})];
 };
-
 // Given an array, returns a random set with 'count' elements
 Helprs.prototype.pickset = function(arr, count) {
 	if (count === 0) {
@@ -406,7 +429,6 @@ Helprs.prototype.pickset = function(arr, count) {
 		return this.shuffle(arr).slice(0, count);
 	}
 };
-
 Helprs.prototype.shuffle = function(arr) {
 	var old_array = arr.slice(0),
 		new_array = [],
@@ -426,7 +448,6 @@ Helprs.prototype.shuffle = function(arr) {
 
 	return new_array;
 };
-
 // Returns a single item from an array with relative weighting of odds
 Helprs.prototype.weighted = function(arr, weights, trim) {
 	if (arr.length !== weights.length) {
@@ -480,10 +501,37 @@ Helprs.prototype.weighted = function(arr, weights, trim) {
 
 	return chosen;
 };
+/**
+ * @param   {Array|Object}  collection  Accepts both arrays and objects.
+ * @param   {Function}  	iterator    Call iterator(value, key, collection) for each element of collection.
+ *
+ * Note: _.each does not have a return value, but rather simply runs the
+ * iterator function over each item in the input collection.
+ */
+Helprs.prototype.each = function(collection, iterator) {
+	_rdm.each(collection, iterator);
+};
+/**
+ * Extend a given object with all the properties of the passed in object(s).
+ *
+ * @example <caption>Example:</caption>
+ * var obj1 = {key1: "something"};
+ * 	_.extend(obj1, {
+ *     	key2: "something new",
+ *      key3: "something else new"
+ *  }, {
+ * 		bla: "even more stuff"
+ * 	}); // obj1 now contains key1, key2, key3 and bla
+ */
+Helprs.prototype.extend = function(obj) {
+	return _rdm.extend(obj);
+};
 
-// -- End Helpers --
-
-// -- Text --
+/**
+ * ====
+ * TEXT
+ * ====
+ */
 
 Helprs.prototype.paragraph = function(options) {
 	options = _rdm.initOptions(options);
@@ -604,9 +652,11 @@ Helprs.prototype.word = function(options) {
 	return text;
 };
 
-// -- End Text --
-
-// -- Person --
+/**
+ * ======
+ * PERSON
+ * ======
+ */
 
 Helprs.prototype.age = function(options) {
 	options = _rdm.initOptions(options);
@@ -1038,9 +1088,12 @@ Helprs.prototype.nationality = function() {
 	return nationality.name;
 };
 
-// -- End Person --
+/**
+ * ======
+ * MOBILE
+ * ======
+ */
 
-// -- Mobile --
 // Android GCM Registration ID
 Helprs.prototype.android_id = function() {
 	return "APA91" + this.string({
@@ -1081,9 +1134,12 @@ Helprs.prototype.bb_pin = function() {
 	});
 };
 
-// -- End Mobile --
+/**
+ * ===
+ * WEB
+ * ===
+ */
 
-// -- Web --
 Helprs.prototype.avatar = function(options) {
 	var url = null;
 	var URL_BASE = '//www.gravatar.com/avatar/';
@@ -1377,9 +1433,11 @@ Helprs.prototype.url = function(options) {
 	return options.protocol + "://" + domain + "/" + options.path + extension;
 };
 
-// -- End Web --
-
-// -- Location --
+/**
+ * ========
+ * LOCATION
+ * ========
+ */
 
 Helprs.prototype.address = function(options) {
 	options = _rdm.initOptions(options);
@@ -1828,9 +1886,11 @@ Helprs.prototype.zip = function(options) {
 	return zip.join("");
 };
 
-// -- End Location --
-
-// -- Time
+/**
+ * ====
+ * TIME
+ * ====
+ */
 
 Helprs.prototype.ampm = function() {
 	return this.bool() ? 'am' : 'pm';
@@ -1995,9 +2055,11 @@ Helprs.prototype.year = function(options) {
 	return this.natural(options).toString();
 };
 
-// -- End Time
-
-// -- Finance --
+/**
+ * =======
+ * FINANCE
+ * =======
+ */
 
 Helprs.prototype.cc = function(options) {
 	options = _rdm.initOptions(options);
@@ -2246,9 +2308,11 @@ Helprs.prototype.nFormatter = function(val, precision) {
 	return val;
 };
 
-// -- End Finance
-
-// -- Regional
+/**
+ * ========
+ * REGIONAL
+ * ========
+ */
 
 Helprs.prototype.it_vat = function() {
 	var it_vat = this.natural({
@@ -2404,9 +2468,11 @@ Helprs.prototype.pl_regon = function() {
 	return arr.join('') + controlNumber;
 };
 
-// -- End Regional
-
-// -- Miscellaneous --
+/**
+ * =============
+ * MISCELLANEOUS
+ * =============
+ */
 
 // Dice - For all the board game geeks out there, myself included ;)
 function diceFn(range) {
@@ -2853,8 +2919,6 @@ Helprs.prototype.cnpj = function() {
 	}
 	return '' + n[0] + n[1] + '.' + n[2] + n[3] + n[4] + '.' + n[5] + n[6] + n[7] + '/0001-' + d1 + d2;
 };
-
-// -- End Miscellaneous --
 
 Helprs.prototype.mersenne_twister = function(seed) {
 	return new _mersenneTwister(seed);
@@ -3387,49 +3451,6 @@ Helprs.prototype.validatePostalCode = function(postal, options) {
 	}
 
 	return null;
-};
-
-/**
- * ===========
- * COLLECTIONS
- * ===========
- * In this section, we'll have a look at functions that operate on collections
- * of values; in JavaScript, a 'collection' is something that can contain a
- * number of values--either an array or an object.
- */
-
-/**
- * @param   {Array|Object}  collection  Accepts both arrays and objects.
- * @param   {Function}  	iterator    Call iterator(value, key, collection) for each element of collection.
- *
- * Note: _.each does not have a return value, but rather simply runs the
- * iterator function over each item in the input collection.
- */
-Helprs.prototype.each = function(collection, iterator) {
-	_rdm.each(collection, iterator);
-};
-
-/**
- * =======
- * OBJECTS
- * =======
- * In this section, we'll look at a couple of helpers for merging objects.
- */
-
-/**
- * Extend a given object with all the properties of the passed in object(s).
- *
- * @example <caption>Example:</caption>
- * var obj1 = {key1: "something"};
- * 	_.extend(obj1, {
- *     	key2: "something new",
- *      key3: "something else new"
- *  }, {
- * 		bla: "even more stuff"
- * 	}); // obj1 now contains key1, key2, key3 and bla
- */
-Helprs.prototype.extend = function(obj) {
-	return _rdm.extend(obj);
 };
 
 // Start of private methods
