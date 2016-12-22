@@ -38,15 +38,11 @@ var uuid = {
 	5: /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
 	all: /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
 };
-/* eslint-disable max-len */
-/* eslint-disable no-control-regex */
 var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
 var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
 var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
 var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
 var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
-/* eslint-enable max-len */
-/* eslint-enable no-control-regex */
 /** @type {Array} Cached array helpers */
 var slice = Array.prototype.slice;
 var default_email_options = {
@@ -79,19 +75,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 } : function(obj) {
 	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
-/* eslint-disable max-len */
-// from http://goo.gl/0ejHHW
 var iso8601 = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
-/* eslint-enable max-len */
-/* eslint-disable max-len */
 var creditCard = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})|62[0-9]{14}$/;
-/* eslint-enable max-len */
 var isin = /^[A-Z]{2}[0-9A-Z]{9}[0-9]$/;
 var isbn10Maybe = /^(?:[0-9]{9}X|[0-9]{10})$/;
 var isbn13Maybe = /^(?:[0-9]{13})$/;
 var factor = [1, 3];
 var issn = '^\\d{4}-?\\d{3}[\\dX]$';
-/* eslint-disable max-len */
 var phones = {
 	'ar-DZ': /^(\+?213|0)(5|6|7)\d{8}$/,
 	'ar-SY': /^(!?(\+?963)|0)?9\d{8}$/,
@@ -129,7 +119,6 @@ var phones = {
 	'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/,
 	'zh-TW': /^(\+?886\-?|0)?9\d{8}$/
 };
-/* eslint-enable max-len */
 // aliases
 phones['en-CA'] = phones['en-US'];
 phones['fr-BE'] = phones['nl-BE'];
