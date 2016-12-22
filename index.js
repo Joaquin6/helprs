@@ -773,6 +773,28 @@ Helprs.prototype.each = function(collection, iterator) {
 Helprs.prototype.extend = function(obj) {
 	return _rdm.extend(obj);
 };
+/**
+ * Creates a error object extended with custom properties
+ * @param {String} message - the error message
+ * @param {Object} properties - custom properties to assign to the error
+ * @returns {Object} err
+ */
+Helprs.prototype.err = function(message, properties) {
+	var err;
+
+	if (!message) {
+		throw new Error('message argument missing');
+	}
+
+	err = new Error(message);
+	properties = properties || {};
+
+	Object.keys(properties).forEach(function(name) {
+		err[name] = properties[name];
+	});
+
+	return err;
+};
 
 /**
  * ====
