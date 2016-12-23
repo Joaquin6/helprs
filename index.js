@@ -2820,8 +2820,8 @@ Helprs.prototype.luhn_calculate = function(num) {
 Helprs.prototype.webOrderNumber = function(options) {
 	options = _rdm.initOptions(options, {
 		rounds: 3,
-		min: 3,
-		max: 10
+		min: 100,
+		max: 9999
 	});
 
 	var won = "";
@@ -2829,13 +2829,13 @@ Helprs.prototype.webOrderNumber = function(options) {
 	while (i < options.rounds) {
 		if (i === 0) {
 			won = this.integer({
-				min: 3,
-				max: 3
+				min: 100,
+				max: 999
 			});
 		} else {
 			won += "-" + this.integer({
-				min: 4,
-				max: 4
+				min: 1000,
+				max: 9999
 			});
 		}
 
