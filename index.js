@@ -1062,7 +1062,10 @@ Helprs.prototype.first = function(options) {
 		gender: this.gender(),
 		nationality: 'en'
 	});
-	return this.pick(this.get("firstNames")[options.gender.toLowerCase()][options.nationality.toLowerCase()]);
+	var firstnames = this.get("firstNames");
+	if (!firstnames)
+		firstnames = _data.firstNames;
+	return this.pick(firstnames[options.gender.toLowerCase()][options.nationality.toLowerCase()]);
 };
 
 Helprs.prototype.gender = function(options) {
@@ -1076,7 +1079,10 @@ Helprs.prototype.last = function(options) {
 	options = _rdm.initOptions(options, {
 		nationality: 'en'
 	});
-	return this.pick(this.get("lastNames")[options.nationality.toLowerCase()]);
+	var lastnames = this.get("lastNames");
+	if (!lastnames)
+		lastnames = _data.lastNames;
+	return this.pick(lastnames[options.nationality.toLowerCase()]);
 };
 
 Helprs.prototype.israelId = function() {
