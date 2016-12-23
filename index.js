@@ -650,6 +650,16 @@ Helprs.prototype.pad = function(number, width, pad) {
 	number = number + '';
 	return number.length >= width ? number : new Array(width - number.length + 1).join(pad) + number;
 };
+Helprs.prototype.pick = function (arr, count) {
+	if (arr.length === 0) {
+		throw new RangeError("Helprs: Cannot pick() from an empty array");
+	}
+	if (!count || count === 1) {
+		return arr[this.natural({max: arr.length - 1})];
+	} else {
+		return this.shuffle(arr).slice(0, count);
+	}
+};
 // Given an array, returns a single random element
 Helprs.prototype.pickone = function(arr) {
 	if (arr.length === 0) {
