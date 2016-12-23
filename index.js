@@ -2842,7 +2842,7 @@ Helprs.prototype.webOrderNumber = function(options) {
 		i++;
 	}
 
-	return guid;
+	return won;
 };
 
 // MD5 Hash
