@@ -3621,7 +3621,7 @@ Helprs.prototype.validateStateAbbr = function(stateAbbr) {
 Helprs.prototype.validateCountry = function(value) {
 	if (_data.iso2Country[value] !== undefined)
 		return true;
-	value = this.capitalizeFirstLetter(value.toString());
+	value = this.capitalize(value.toString());
 	for (var country in _data.iso2Country) {
 		if (_data.iso2Country.hasOwnProperty(country)) {
 			if (_data.iso2Country[country] === value)
@@ -3701,7 +3701,7 @@ Helprs.prototype.getContentType = function(filename) {
  */
 Helprs.prototype.getAbbrStateName = function(fullname, options) {
 	if (fullname && typeof fullname === 'string')
-		fullname = this.capitalizeFirstLetter(fullname.toLowerCase());
+		fullname = this.capitalize(fullname.toLowerCase());
 
 	var States = this.get("usStates");
 	if (options && options.country) {
