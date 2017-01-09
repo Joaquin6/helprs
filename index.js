@@ -552,6 +552,25 @@ Helprs.prototype.round = function(options) {
 };
 
 /**
+ * Method to achieve this in Javascript or should I compute
+ * the decimal point position and compute the difference with the string length.
+ *
+ * @param   {Number|String}  num  	a single floating point number
+ * @return  {Number}       			a single number indicating the number of decimals
+ */
+Helprs.prototype.decimalPlaces = function(num) {
+	if (typeof num !== "string")
+		num = num.toString();
+	var match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+	if (!match) return 0;
+	return Math.max(0,
+		// Number of digits right of decimal point.
+		(match[1] ? match[1].length : 0)
+		// Adjust for scientific notation.
+		(match[2] ? +match[2] : 0));
+};
+
+/**
  * =======
  * HELPERS
  * =======
